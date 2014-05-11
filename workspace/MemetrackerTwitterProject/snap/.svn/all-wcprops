@@ -1,0 +1,515 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/networks/!svn/ver/1870/code/information-capacity/snap
+END
+mag.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/networks/!svn/ver/1870/code/information-capacity/snap/mag.h
+END
+statplot.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/networks/!svn/ver/1870/code/information-capacity/snap/statplot.cpp
+END
+memes.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/networks/!svn/ver/1870/code/information-capacity/snap/memes.h
+END
+cmty.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/networks/!svn/ver/1870/code/information-capacity/snap/cmty.cpp
+END
+bignet.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/networks/!svn/ver/1870/code/information-capacity/snap/bignet.h
+END
+subgraph.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/networks/!svn/ver/1870/code/information-capacity/snap/subgraph.h
+END
+ggen.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/networks/!svn/ver/1870/code/information-capacity/snap/ggen.cpp
+END
+dblp.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/networks/!svn/ver/1870/code/information-capacity/snap/dblp.cpp
+END
+gio.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/networks/!svn/ver/1870/code/information-capacity/snap/gio.h
+END
+gviz.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/networks/!svn/ver/1870/code/information-capacity/snap/gviz.h
+END
+ncp.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/networks/!svn/ver/1870/code/information-capacity/snap/ncp.h
+END
+imdbnet.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/networks/!svn/ver/1870/code/information-capacity/snap/imdbnet.h
+END
+gstat.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/networks/!svn/ver/1870/code/information-capacity/snap/gstat.h
+END
+trawling.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/networks/!svn/ver/1870/code/information-capacity/snap/trawling.h
+END
+subgraphenum.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/networks/!svn/ver/1870/code/information-capacity/snap/subgraphenum.cpp
+END
+spinn3r.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/networks/!svn/ver/1870/code/information-capacity/snap/spinn3r.h
+END
+testSnap.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/networks/!svn/ver/1870/code/information-capacity/snap/testSnap.cpp
+END
+mag.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/networks/!svn/ver/1870/code/information-capacity/snap/mag.cpp
+END
+timenet.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/networks/!svn/ver/1870/code/information-capacity/snap/timenet.cpp
+END
+memes.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/networks/!svn/ver/1870/code/information-capacity/snap/memes.cpp
+END
+alg.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/networks/!svn/ver/1870/code/information-capacity/snap/alg.h
+END
+kcore.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/networks/!svn/ver/1870/code/information-capacity/snap/kcore.h
+END
+triad.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/networks/!svn/ver/1870/code/information-capacity/snap/triad.h
+END
+anf.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/networks/!svn/ver/1870/code/information-capacity/snap/anf.h
+END
+cliques.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/networks/!svn/ver/1870/code/information-capacity/snap/cliques.h
+END
+util.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/networks/!svn/ver/1870/code/information-capacity/snap/util.cpp
+END
+wgtnet.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/networks/!svn/ver/1870/code/information-capacity/snap/wgtnet.h
+END
+gio.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/networks/!svn/ver/1870/code/information-capacity/snap/gio.cpp
+END
+ncp.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/networks/!svn/ver/1870/code/information-capacity/snap/ncp.cpp
+END
+gbase.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/networks/!svn/ver/1870/code/information-capacity/snap/gbase.cpp
+END
+gstat.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/networks/!svn/ver/1870/code/information-capacity/snap/gstat.cpp
+END
+imdbnet.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/networks/!svn/ver/1870/code/information-capacity/snap/imdbnet.cpp
+END
+dblp.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/networks/!svn/ver/1870/code/information-capacity/snap/dblp.h
+END
+ff.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/networks/!svn/ver/1870/code/information-capacity/snap/ff.cpp
+END
+spinn3r.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/networks/!svn/ver/1870/code/information-capacity/snap/spinn3r.cpp
+END
+sir.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/networks/!svn/ver/1870/code/information-capacity/snap/sir.cpp
+END
+stdafx.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/networks/!svn/ver/1870/code/information-capacity/snap/stdafx.h
+END
+memenet.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/networks/!svn/ver/1870/code/information-capacity/snap/memenet.h
+END
+cncom.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/networks/!svn/ver/1870/code/information-capacity/snap/cncom.cpp
+END
+graphcounter.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/networks/!svn/ver/1870/code/information-capacity/snap/graphcounter.cpp
+END
+Snap.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/networks/!svn/ver/1870/code/information-capacity/snap/Snap.cpp
+END
+gsvd.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/networks/!svn/ver/1870/code/information-capacity/snap/gsvd.cpp
+END
+anf.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/networks/!svn/ver/1870/code/information-capacity/snap/anf.cpp
+END
+signnet.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/networks/!svn/ver/1870/code/information-capacity/snap/signnet.cpp
+END
+wgtnet.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/networks/!svn/ver/1870/code/information-capacity/snap/wgtnet.cpp
+END
+agm.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/networks/!svn/ver/1870/code/information-capacity/snap/agm.h
+END
+timenet.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/networks/!svn/ver/1870/code/information-capacity/snap/timenet.h
+END
+centr.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/networks/!svn/ver/1870/code/information-capacity/snap/centr.cpp
+END
+linkpred.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/networks/!svn/ver/1870/code/information-capacity/snap/linkpred.h
+END
+wikinet.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/networks/!svn/ver/1870/code/information-capacity/snap/wikinet.h
+END
+util.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/networks/!svn/ver/1870/code/information-capacity/snap/util.h
+END
+kronecker.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/networks/!svn/ver/1870/code/information-capacity/snap/kronecker.cpp
+END
+gbase.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/networks/!svn/ver/1870/code/information-capacity/snap/gbase.h
+END
+arxiv.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/networks/!svn/ver/1870/code/information-capacity/snap/arxiv.cpp
+END
+memenet.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/networks/!svn/ver/1870/code/information-capacity/snap/memenet.cpp
+END
+ghash.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/networks/!svn/ver/1870/code/information-capacity/snap/ghash.h
+END
+ff.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/networks/!svn/ver/1870/code/information-capacity/snap/ff.h
+END
+graph.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/networks/!svn/ver/1870/code/information-capacity/snap/graph.cpp
+END
+sir.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/networks/!svn/ver/1870/code/information-capacity/snap/sir.h
+END
+agm.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/networks/!svn/ver/1870/code/information-capacity/snap/agm.cpp
+END
+cncom.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/networks/!svn/ver/1870/code/information-capacity/snap/cncom.h
+END
+mxdag.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/networks/!svn/ver/1870/code/information-capacity/snap/mxdag.h
+END
+graphcounter.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/networks/!svn/ver/1870/code/information-capacity/snap/graphcounter.h
+END
+Snap.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/networks/!svn/ver/1870/code/information-capacity/snap/Snap.h
+END
+gsvd.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/networks/!svn/ver/1870/code/information-capacity/snap/gsvd.h
+END
+linkpred.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/networks/!svn/ver/1870/code/information-capacity/snap/linkpred.cpp
+END
+wikinet.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/networks/!svn/ver/1870/code/information-capacity/snap/wikinet.cpp
+END
+subgraph.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/networks/!svn/ver/1870/code/information-capacity/snap/subgraph.cpp
+END
+signnet.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/networks/!svn/ver/1870/code/information-capacity/snap/signnet.h
+END
+bfsdfs.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/networks/!svn/ver/1870/code/information-capacity/snap/bfsdfs.h
+END
+statplot.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/networks/!svn/ver/1870/code/information-capacity/snap/statplot.h
+END
+gviz.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/networks/!svn/ver/1870/code/information-capacity/snap/gviz.cpp
+END
+centr.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/networks/!svn/ver/1870/code/information-capacity/snap/centr.h
+END
+cmty.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/networks/!svn/ver/1870/code/information-capacity/snap/cmty.h
+END
+ggen.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/networks/!svn/ver/1870/code/information-capacity/snap/ggen.h
+END
+trawling.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/networks/!svn/ver/1870/code/information-capacity/snap/trawling.cpp
+END
+kronecker.h
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/networks/!svn/ver/1870/code/information-capacity/snap/kronecker.h
+END
+ghash.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/networks/!svn/ver/1870/code/information-capacity/snap/ghash.cpp
+END
+arxiv.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/networks/!svn/ver/1870/code/information-capacity/snap/arxiv.h
+END
+network.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/networks/!svn/ver/1870/code/information-capacity/snap/network.h
+END
+mxdag.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/networks/!svn/ver/1870/code/information-capacity/snap/mxdag.cpp
+END
+alg.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/networks/!svn/ver/1870/code/information-capacity/snap/alg.cpp
+END
+subgraphenum.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/networks/!svn/ver/1870/code/information-capacity/snap/subgraphenum.h
+END
+cliques.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/networks/!svn/ver/1870/code/information-capacity/snap/cliques.cpp
+END
+graph.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/networks/!svn/ver/1870/code/information-capacity/snap/graph.h
+END

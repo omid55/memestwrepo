@@ -1,0 +1,449 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/networks/!svn/ver/1870/code/information-capacity/glib
+END
+base.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/networks/!svn/ver/1870/code/information-capacity/glib/base.h
+END
+xmlser.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/networks/!svn/ver/1870/code/information-capacity/glib/xmlser.h
+END
+wch.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/networks/!svn/ver/1870/code/information-capacity/glib/wch.cpp
+END
+fds.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/networks/!svn/ver/1870/code/information-capacity/glib/fds.h
+END
+http.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/networks/!svn/ver/1870/code/information-capacity/glib/http.h
+END
+os.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/networks/!svn/ver/1870/code/information-capacity/glib/os.h
+END
+gnuplot.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/networks/!svn/ver/1870/code/information-capacity/glib/gnuplot.cpp
+END
+hash.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/networks/!svn/ver/1870/code/information-capacity/glib/hash.h
+END
+zipfl.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/networks/!svn/ver/1870/code/information-capacity/glib/zipfl.h
+END
+ss.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/networks/!svn/ver/1870/code/information-capacity/glib/ss.h
+END
+unicode.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/networks/!svn/ver/1870/code/information-capacity/glib/unicode.h
+END
+env.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/networks/!svn/ver/1870/code/information-capacity/glib/env.h
+END
+ut.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/networks/!svn/ver/1870/code/information-capacity/glib/ut.h
+END
+xfl.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/networks/!svn/ver/1870/code/information-capacity/glib/xfl.h
+END
+xml.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/networks/!svn/ver/1870/code/information-capacity/glib/xml.cpp
+END
+macro.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/networks/!svn/ver/1870/code/information-capacity/glib/macro.cpp
+END
+bits.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/networks/!svn/ver/1870/code/information-capacity/glib/bits.cpp
+END
+console.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/networks/!svn/ver/1870/code/information-capacity/glib/console.cpp
+END
+url.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/networks/!svn/ver/1870/code/information-capacity/glib/url.h
+END
+prolog.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/networks/!svn/ver/1870/code/information-capacity/glib/prolog.h
+END
+dt.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/networks/!svn/ver/1870/code/information-capacity/glib/dt.h
+END
+find_sets.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/networks/!svn/ver/1870/code/information-capacity/glib/find_sets.cpp
+END
+http.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/networks/!svn/ver/1870/code/information-capacity/glib/http.cpp
+END
+app.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/networks/!svn/ver/1870/code/information-capacity/glib/app.cpp
+END
+os.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/networks/!svn/ver/1870/code/information-capacity/glib/os.cpp
+END
+hash.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/networks/!svn/ver/1870/code/information-capacity/glib/hash.cpp
+END
+pp.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/networks/!svn/ver/1870/code/information-capacity/glib/pp.h
+END
+ss.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/networks/!svn/ver/1870/code/information-capacity/glib/ss.cpp
+END
+lx.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/networks/!svn/ver/1870/code/information-capacity/glib/lx.h
+END
+xfl.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/networks/!svn/ver/1870/code/information-capacity/glib/xfl.cpp
+END
+exp.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/networks/!svn/ver/1870/code/information-capacity/glib/exp.cpp
+END
+gnuplot.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/networks/!svn/ver/1870/code/information-capacity/glib/gnuplot.h
+END
+stdafx.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/networks/!svn/ver/1870/code/information-capacity/glib/stdafx.h
+END
+html.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/networks/!svn/ver/1870/code/information-capacity/glib/html.cpp
+END
+xml.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/networks/!svn/ver/1870/code/information-capacity/glib/xml.h
+END
+dt.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/networks/!svn/ver/1870/code/information-capacity/glib/dt.cpp
+END
+console.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/networks/!svn/ver/1870/code/information-capacity/glib/console.h
+END
+pp.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/networks/!svn/ver/1870/code/information-capacity/glib/pp.cpp
+END
+tm.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/networks/!svn/ver/1870/code/information-capacity/glib/tm.cpp
+END
+unicodestring.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/networks/!svn/ver/1870/code/information-capacity/glib/unicodestring.h
+END
+lx.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/networks/!svn/ver/1870/code/information-capacity/glib/lx.cpp
+END
+app.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/networks/!svn/ver/1870/code/information-capacity/glib/app.h
+END
+xmath.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/networks/!svn/ver/1870/code/information-capacity/glib/xmath.h
+END
+bd.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/networks/!svn/ver/1870/code/information-capacity/glib/bd.h
+END
+md5.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/networks/!svn/ver/1870/code/information-capacity/glib/md5.h
+END
+exp.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/networks/!svn/ver/1870/code/information-capacity/glib/exp.h
+END
+xdt.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/networks/!svn/ver/1870/code/information-capacity/glib/xdt.h
+END
+linalg.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/networks/!svn/ver/1870/code/information-capacity/glib/linalg.cpp
+END
+fl.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/networks/!svn/ver/1870/code/information-capacity/glib/fl.h
+END
+blobbs.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/networks/!svn/ver/1870/code/information-capacity/glib/blobbs.h
+END
+html.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/networks/!svn/ver/1870/code/information-capacity/glib/html.h
+END
+base.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/networks/!svn/ver/1870/code/information-capacity/glib/base.cpp
+END
+ds.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/networks/!svn/ver/1870/code/information-capacity/glib/ds.h
+END
+unicodestring.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/networks/!svn/ver/1870/code/information-capacity/glib/unicodestring.cpp
+END
+json.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/networks/!svn/ver/1870/code/information-capacity/glib/json.h
+END
+xmath.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/networks/!svn/ver/1870/code/information-capacity/glib/xmath.cpp
+END
+zipfl.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/networks/!svn/ver/1870/code/information-capacity/glib/zipfl.cpp
+END
+md5.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/networks/!svn/ver/1870/code/information-capacity/glib/md5.cpp
+END
+tm.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/networks/!svn/ver/1870/code/information-capacity/glib/tm.h
+END
+bd.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/networks/!svn/ver/1870/code/information-capacity/glib/bd.cpp
+END
+wch.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/networks/!svn/ver/1870/code/information-capacity/glib/wch.h
+END
+unicode.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/networks/!svn/ver/1870/code/information-capacity/glib/unicode.cpp
+END
+env.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/networks/!svn/ver/1870/code/information-capacity/glib/env.cpp
+END
+ut.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/networks/!svn/ver/1870/code/information-capacity/glib/ut.cpp
+END
+xdt.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/networks/!svn/ver/1870/code/information-capacity/glib/xdt.cpp
+END
+fl.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/networks/!svn/ver/1870/code/information-capacity/glib/fl.cpp
+END
+url.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/networks/!svn/ver/1870/code/information-capacity/glib/url.cpp
+END
+prolog.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/networks/!svn/ver/1870/code/information-capacity/glib/prolog.cpp
+END
+blobbs.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/networks/!svn/ver/1870/code/information-capacity/glib/blobbs.cpp
+END
+macro.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/networks/!svn/ver/1870/code/information-capacity/glib/macro.h
+END
+bits.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/networks/!svn/ver/1870/code/information-capacity/glib/bits.h
+END
+json.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/networks/!svn/ver/1870/code/information-capacity/glib/json.cpp
+END
+shash.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/networks/!svn/ver/1870/code/information-capacity/glib/shash.h
+END
+linalg.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/networks/!svn/ver/1870/code/information-capacity/glib/linalg.h
+END
