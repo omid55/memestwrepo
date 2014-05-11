@@ -6,6 +6,6 @@
 #$ -p 100
 #$ -l h_vmem=500G
 
-echo ./"$1"
+./"$1"
 #matlab -nodisplay nodesktop -nosplash -r "PackGeneration,exit"
 
