@@ -45,7 +45,7 @@ double* Tools::calculateHistOfCascade(TSecTmV& cascade,int rbegin, uint rperiod,
 	return volz;
 }
 
-void Tools::separateTimestepsOfQuotesInBlogsNews(THash< TStr,CascadeElementV >& quotes, THash<TStr,TUInt>& newsMedia, THash<TChA,TUInt>& posts, THash<TStr,CascadeElementV>& newsQuotesOutput, THash<TStr,CascadeElementV> blogsQuotesOutput)
+void Tools::separateTimestepsOfQuotesInBlogsNews(THash< TStr,CascadeElementV >& quotes, THash<TStr,TUInt>& newsMedia, THash<TChA,TUInt>& posts, THash<TStr,CascadeElementV>& newsQuotesOutput, THash<TStr,CascadeElementV>& blogsQuotesOutput)
 {
 	for(int i=0;i<quotes.Len();i++)
 	{

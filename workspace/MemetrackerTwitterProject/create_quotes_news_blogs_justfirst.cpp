@@ -98,50 +98,50 @@ int main(int argc, char* argv[])
 		printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTS saving done, it contains %d posts.\n",firstMentionsNiftyqu.Len());
 
 
-		while(true)
-		{
-			int index;
-			cout << "\n\n\nEnter index: ";
-			cin >> index;
-			if(index < 0) break;
-
-			cout << "Original:\n";
-			for(int i=0;i<niftyqu[index].Len();i++)
-			{
-				cout << posts.GetKey(niftyqu[index][i].post).CStr() << endl;
-			}
-			cout << "\n\nNews:\n";
-			for(int i=0;i<nifty_newsQuotes[index].Len();i++)
-			{
-				cout << posts.GetKey(nifty_newsQuotes[index][i].post).CStr() << endl;
-			}
-			cout << "\n\nBlogs:\n";
-			for(int i=0;i<nifty_blogsQuotes[index].Len();i++)
-			{
-				cout << posts.GetKey(nifty_blogsQuotes[index][i].post).CStr() << endl;
-			}
-		}
-
-		while(true)
-		{
-			int index;
-			cout << "\n\n\nEnter index: ";
-			cin >> index;
-			if(index < 0) break;
-
-			cout << "Original:\n";
-			for(int i=0;i<niftyqu[index].Len();i++)
-			{
-				cout << posts.GetKey(niftyqu[index][i].post).CStr() << endl;
-			}
-			cout << "\n\nFirstMentionsFqu:\n";
-			for(int i=0;i<firstMentionsNiftyqu[index].Len();i++)
-			{
-				cout << posts.GetKey(firstMentionsNiftyqu[index][i].post).CStr() << endl;
-			}
-		}
-
+//		while(true)
+//		{
+//			int index;
+//			cout << "\n\n\nEnter index: ";
+//			cin >> index;
+//			if(index < 0) break;
+//
+//			cout << "Original:\n";
+//			for(int i=0;i<niftyqu[index].Len();i++)
+//			{
+//				cout << posts.GetKey(niftyqu[index][i].post).CStr() << endl;
+//			}
+//			cout << "\n\nNews:\n";
+//			for(int i=0;i<nifty_newsQuotes[index].Len();i++)
+//			{
+//				cout << posts.GetKey(nifty_newsQuotes[index][i].post).CStr() << endl;
+//			}
+//			cout << "\n\nBlogs:\n";
+//			for(int i=0;i<nifty_blogsQuotes[index].Len();i++)
+//			{
+//				cout << posts.GetKey(nifty_blogsQuotes[index][i].post).CStr() << endl;
+//			}
+//		}
+//
+//		while(true)
+//		{
+//			int index;
+//			cout << "\n\n\nEnter index: ";
+//			cin >> index;
+//			if(index < 0) break;
+//
+//			cout << "Original:\n";
+//			for(int i=0;i<niftyqu[index].Len();i++)
+//			{
+//				cout << posts.GetKey(niftyqu[index][i].post).CStr() << endl;
+//			}
+//			cout << "\n\nFirstMentionsFqu:\n";
+//			for(int i=0;i<firstMentionsNiftyqu[index].Len();i++)
+//			{
+//				cout << posts.GetKey(firstMentionsNiftyqu[index][i].post).CStr() << endl;
+//			}
+//		}
 		posts.Clr();
+
 		printf("\n\nDONE\n\n");
 	}
 	catch(exception& ex)
