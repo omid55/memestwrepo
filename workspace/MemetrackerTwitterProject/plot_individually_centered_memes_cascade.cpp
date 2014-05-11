@@ -12,7 +12,7 @@ int main(int argc, char* argv[])
 {
 	TExeTm ExeTm;
 	int DesiredCascadesCount = 1000;
-	printf("START The Plot Memes Cascades CODE ...\n");
+	printf("START individually Plot Memes Cascades CODE ...\n");
 	try
 	{
 		THash< TStr , CascadeElementV > niftyqu;
