@@ -125,6 +125,7 @@ int main(int argc, char* argv[])
 		TZipOut zout1("QuotesPreprocessedData_NIFTY_FINALFILTERED_NEWS.rar");
 		nifty_newsQuotes.Save(zout1);
 		printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_NEWS saving done, it contains %d posts.\n",nifty_newsQuotes.Len());
+
 		TZipOut zout2("QuotesPreprocessedData_NIFTY_FINALFILTERED_BLOGS.rar");
 		nifty_blogsQuotes.Save(zout2);
 		printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_BLOGS saving done, it contains %d posts.\n",nifty_blogsQuotes.Len());
