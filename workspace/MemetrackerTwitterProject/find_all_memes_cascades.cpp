@@ -3,8 +3,6 @@
 #include "snap/memes.h"
 
 THash< TChA , TUInt > posts;  // for each quote what is the cascade times in memetracker dataset
-TUInt posts_cnt = 0;
-
 THash< TStr , CascadeElementV > quotes;  // for each quote what is the cascade times in memetracker dataset
 
 void SaveAll()
@@ -18,21 +16,6 @@ void SaveAll()
 	TZipOut Zposts("PostsData.rar");
 	posts.Save(Zposts);
 	printf("PostsData is saved and it has % items.",posts.Len());
-}
-
-inline TStr getWebsite(TStr fulladdress)
-{
-	TStr left,right,tmp,res;
-	if(fulladdress.SearchStr(TStr("http"),0)>=0)
-	{
-		fulladdress.SplitOnStr(left,TStr("//"),right);
-		right.SplitOnCh(res,'/',tmp);
-	}
-	else
-	{
-		fulladdress.SplitOnCh(res,'/',tmp);
-	}
-	return res;
 }
 
 
@@ -118,7 +101,7 @@ int main(int argc, char* argv[])
 					}
 					else
 					{
-						bool notAdded = false;     // this post before added for this quote or not
+//						bool notAdded = false;     // this post before added for this quote or not
 						CascadeElementV* v = &quotes.GetDat(quoteLC);
 						CascadeElement elem = CascadeElement(loader.PostUrlStr,loader.PubTm,posts);
 

@@ -42,7 +42,7 @@ int main(int argc, char* argv[])
 		Env = TEnv(argc, argv, TNotify::StdNotify);
 		Env.PrepArgs(TStr::Fmt("\nSet Range for quotes cascades. build: %s, %s. Time: %s", __TIME__, __DATE__, TExeTm::GetCurTm()));
 
-		TZipIn ZquotesIn("/agbs/cluster/oaskaris/Data_Preparing_Codes/RESULTS/QuotesPreprocessedData_NIFTY.rar");
+		TZipIn ZquotesIn("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY.rar");
 		//TZipIn ZquotesIn("QuotesPreprocessedData_NIFTY_SUBSETTED.rar");
 		quotes.Load(ZquotesIn);
 		printf("Loaded QuotesPreprocessedData_NIFTY has instances: %d\n\n\n",quotes.Len());
