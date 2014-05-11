@@ -3174,22 +3174,40 @@ void TQuoteLoader::ProcessPosts(const bool& IsXml, int LoadN) {
 
 /////////////////////////////////////////////////
 // Memes Dataset Loader
-bool TMemesDataLoader::GetNextFile() {
+bool TMemesDataLoader::GetNextFile()
+{
   TStr FNm;
-  if (! FFile.Empty()) {
-    if (! FFile->Next(FNm)) { return false; }
+  if (! FFile.Empty())
+  {
+    if (! FFile->Next(FNm))
+    {
+    	return false;
+    }
     printf("NEXT-FL:  %s :\t%s\n", FNm.GetFBase().CStr(), TExeTm::GetCurTm());
-  } else {
-    IAssert(! InFNmF.Empty());
-    if (InFNmF->Eof()) { return false; }
-  while (! InFNmF->Eof() && InFNmF->GetNextLn(FNm) && FNm.Empty()) { }
-    printf("NEXT-LN:  %s :\t%s\n", FNm.GetFBase().CStr(), TExeTm::GetCurTm());
   }
-  if (FNm.Empty()) { return false; }
-  if (TZipIn::IsZipExt(FNm.GetFExt())) {
-    SInPt = TZipIn::New(FNm); }
-  else {
-    SInPt = TFIn::New(FNm); }  LineCnt = 0;
+  else
+  {
+    IAssert(! InFNmF.Empty());
+    if (InFNmF->Eof())
+    {
+    	return false;
+    }
+	while (! InFNmF->Eof() && InFNmF->GetNextLn(FNm) && FNm.Empty()) { }
+	printf("NEXT-LN:  %s :\t%s\n", FNm.GetFBase().CStr(), TExeTm::GetCurTm());
+  }
+  if (FNm.Empty())
+  {
+	  return false;
+  }
+  if (TZipIn::IsZipExt(FNm.GetFExt()))
+  {
+    SInPt = TZipIn::New(FNm);
+  }
+  else
+  {
+    SInPt = TFIn::New(FNm);
+  }
+  LineCnt = 0;
   return true;
 }
 
@@ -3203,87 +3221,92 @@ void TMemesDataLoader::Clr() {
   LinkPosV.Clr(false);
 }
 
-// FORMAT:
-//U \t Post URL
-//D \t Post time
-//T \t Post title (optional!)
-//C \t Post content
-//L \t Index \t URL      (URL starts at Content[Index])
-//Q \t Index \t Length \t Quote (Quote starts at Content[Index])
-bool TMemesDataLoader::LoadNext() {
-  Clr();
-  if (SInPt.Empty() || SInPt->Eof()) {
-    if (! GetNextFile()) { return false; }
-  }
-  TSIn& SIn = *SInPt;
-  CurLn.Clr();
-  // keep reading until line starts with P\t
-  while (SIn.GetNextLn(CurLn) && (CurLn.Empty() || (CurLn[0]!='U' || CurLn[1]!='\t'))) { 
-    printf("L: %s\n", CurLn.CStr()); LineCnt++; }
-  LineCnt++;
-  if (CurLn.Empty()) { return LoadNext(); }
-  IAssertR((! CurLn.Empty()) && CurLn[0]=='U' && CurLn[1]=='\t', 
-    TStr::Fmt("ERROR1: %s [line %llu]: '%s'\n", SIn.GetSNm().CStr(), LineCnt, CurLn.CStr()).CStr());
-  PostUrlStr = CurLn.CStr()+2;
-  while (SIn.GetNextLn(CurLn) && (CurLn.Empty() || (CurLn[0]!='D' || CurLn[1]!='\t'))) { LineCnt++; }
-  IAssertR((! CurLn.Empty()) && CurLn[0]=='D', 
-    TStr::Fmt("ERROR2: %s [line %llu]: '%s'\n", SIn.GetSNm().CStr(), LineCnt, CurLn.CStr()).CStr());  LineCnt++;
-  try {
-    PubTm = TSecTm::GetDtTmFromStr(CurLn);
-  } catch (PExcept Except){ PubTm = 1; ErrNotify(Except->GetStr());
-    printf("ERROR3: %s [line %llu]: '%s'\n", SIn.GetSNm().CStr(), LineCnt, CurLn.CStr()); 
-  }
-  IAssertR(SIn.GetNextLn(CurLn) && (! CurLn.Empty()) && (CurLn[0]=='C' || CurLn[0]=='T'), 
-    TStr::Fmt("ERROR4: %s [line %llu]: '%s'\n", SIn.GetSNm().CStr(), LineCnt, CurLn.CStr()).CStr());  LineCnt++;
-  if (CurLn[0] == 'T') { // skip title
-    IAssertR(SIn.GetNextLn(CurLn) && (! CurLn.Empty()) && CurLn[0]=='C', 
-      TStr::Fmt("ERROR5: %s [line %llu]: '%s'\n", SIn.GetSNm().CStr(), LineCnt, CurLn.CStr()).CStr());  LineCnt++; }
-  ContentStr = CurLn.CStr()+2;
-  // links
-  while (SIn.GetNextLn(CurLn)) {  LineCnt++;
-    if (CurLn.Empty() || CurLn[0]!='L') { break; }
-    int linkb=2;
-    while (CurLn[linkb]!='\t') { linkb++; }
-    CurLn[linkb]=0;
-    LinkV.Add(CurLn.CStr()+linkb+1);
-    LinkPosV.Add(atoi(CurLn.CStr()+2));
-  }
-  // quotes
-  do {
-    if (CurLn.Empty() || CurLn[0]!='Q') { break; }
-    int qb1=2;      while (CurLn[qb1]!='\t') { qb1++; }
-    int qb2=qb1+1;  while (CurLn[qb2]!='\t') { qb2++; }
-    CurLn[qb1]=0;  CurLn[qb2]=0;
-    MemeV.Add(CurLn.CStr()+qb2+1);
-    MemePosV.Add(TIntPr(atoi(CurLn.CStr()+2), atoi(CurLn.CStr()+qb1+1)));
-    LineCnt++;
-  } while (SIn.GetNextLn(CurLn));
-  return true;
 
-  /*CurLn.Clr();
-  while (SIn.GetNextLn(CurLn) && (CurLn.Empty() || CurLn[0]!='P')) { LineCnt++; }
+// Omid55
+// FORMAT:
+//P \t Post URL
+//T \t Post time
+//Q \t Quotes (0 to ...)
+//L \t Links  (0 to ...)
+bool TMemesDataLoader::LoadNext()
+{
+  Clr();
+  if (SInPt.Empty() || SInPt->Eof())
+  {
+    if (!GetNextFile())
+    {
+    	return false;
+    }
+  }
+
+  TSIn& SIn = *SInPt;
+  // keep reading until line starts with P\t
+  while (CurLn.Empty() || !(CurLn[0]=='P' && CurLn[1]=='\t'))
+  {
+	  if(!CurLn.Empty())
+	  {
+		  printf("L: %s\n", CurLn.CStr());
+	  }
+	  LineCnt++;
+	  SIn.GetNextLn(CurLn);
+  }
+
   LineCnt++;
-  if (Line.Empty()) {
-    if (GetNextFile()) { return LoadNext(); }
-    else { return false; }
+  if (CurLn.Empty())
+  {
+	  return LoadNext();
   }
-  IAssert((! Line.Empty()) && Line[0]=='P');
-  PostUrlStr = Line.CStr()+2;
-  IAssert(SIn.GetNextLn(Line) && (! Line.Empty()) && Line[0]=='T');  LineCnt++;
-  PubTm = TSecTm::GetDtTmFromStr(Line);
-  while (SIn.GetNextLn(Line)) {
-    if (Line.Empty() || Line[0]!='Q') { break; }
+
+  IAssertR((!CurLn.Empty()) && CurLn[0]=='P' && CurLn[1]=='\t',TStr::Fmt("ERROR1: %s [line %llu]: '%s'\n", SIn.GetSNm().CStr(), LineCnt, CurLn.CStr()).CStr());
+  PostUrlStr = CurLn.CStr()+2;
+  SIn.GetNextLn(CurLn);
+  LineCnt++;
+
+  IAssertR((!CurLn.Empty()) && CurLn[0]=='T',TStr::Fmt("ERROR2: %s [line %llu]: '%s'\n", SIn.GetSNm().CStr(), LineCnt, CurLn.CStr()).CStr());
+
+  try
+  {
+    PubTm = TSecTm::GetDtTmFromStr(CurLn);
+    SIn.GetNextLn(CurLn);
     LineCnt++;
-    MemeV.Add(Line.CStr()+2);
   }
+  catch (PExcept Except)
+  {
+	PubTm = 1;
+	ErrNotify(Except->GetStr());
+    printf("ERROR3: %s [line %lu]: '%s'\n", SIn.GetSNm().CStr(), LineCnt, CurLn.CStr());
+  }
+
+  // quotes
+  do
+  {
+    if (CurLn.Empty() || CurLn[0]!='Q')
+    {
+    	break;
+    }
+
+    MemeV.Add(CurLn.CStr()+2);
+    LineCnt++;
+  }
+  while (SIn.GetNextLn(CurLn));
+
   // links
-  do {
+  do
+  {
+    if (CurLn.Empty() || CurLn[0]!='L')
+    {
+    	break;
+    }
+
+    LinkV.Add(CurLn.CStr()+2);
     LineCnt++;
-    if (Line.Empty() || Line[0]!='L') { break; }
-    LinkV.Add(Line.CStr()+2);
-  } while (SIn.GetNextLn(Line));
-  return true; */
+  }
+  while(SIn.GetNextLn(CurLn));
+
+  return true;
 }
+// Omid55
+
 
 void TMemesDataLoader::SaveTxt(TSOut& SOut) const {
   /*SOut.PutStr("P\t");

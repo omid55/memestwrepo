@@ -182,6 +182,7 @@ bool TStrUtil::GetXmlTagNmVal2(TXmlLx& XmlLx, TChA& TagNm, TChA& TagVal, const b
   //}
 }
 
+
 // http://www.ijs.si/fdfd/blah.html --> www.ijs.si
 TChA TStrUtil::GetDomNm(const TChA& UrlChA) {
   int EndSlash = UrlChA.SearchCh('/', 7)-1; // skip starting http://
@@ -196,7 +197,6 @@ TChA TStrUtil::GetDomNm(const TChA& UrlChA) {
     else { return TChA(UrlChA).ToLc(); }
   }
 }
-
 // get domain name and also strip starting www.
 TChA TStrUtil::GetDomNm2(const TChA& UrlChA) {
   TChA Dom = GetDomNm(UrlChA);

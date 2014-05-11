@@ -346,17 +346,18 @@ private:
   bool GetNextFile();
 public:
   uint64 LineCnt;
-  TChA PostUrlStr;
+  TChA PostUrlStr;  						 // Omid55 (we have)
   TChA ContentStr;
-  TSecTm PubTm;
-  TVec<TChA> MemeV;       // quote
+  TSecTm PubTm;     						 // Omid55 (we have)
+  TVec<TChA> MemeV;       // quote 			 // Omid55 (we have)
   TVec<TIntPr> MemePosV;  // (index, length), quote begins at ContentStr[MemePos[i]]
-  TVec<TChA> LinkV;       // link url
+  TVec<TChA> LinkV;       // link url 		 // Omid55 (we have)
   TVec<TInt> LinkPosV;    // url begins at ContentStr[LinkPosV[i]]
 public:
   TMemesDataLoader(const TStr& FNmWc, const bool& IsWc=true) {
     if (IsWc) { FFile = TFFile::New(FNmWc, false); } // wild-card expression for loading a list of files
     else { InFNmF = TFIn::New(FNmWc); } // file with one filename in each line
+    CurLn.Clr();
   }
   void Clr();
   bool LoadNext();
