@@ -461,6 +461,11 @@ void Tools::plotOne(THash<TStr,CascadeElementV>& quotes, char* name, int Desired
 			continue;
 		}
 
+		if(quotes[q].Len() == 0)
+		{
+			continue;
+		}
+
 		int medVal = (int)quotes[q][quotes[q].Len()/2].time.GetAbsSecs();
 		TIntV casc;
 		for(i=0;i<quotes[q].Len();i++)

@@ -10,73 +10,73 @@
 
 int main(int argc, char* argv[])
 {
-	THash< TStr , CascadeElementV > niftyqu;
-	TZipIn ZquotesIn2("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED.rar");
-	niftyqu.Load(ZquotesIn2);
-	printf("Loaded QuotesPreprocessedData_NIFTY_FINALFILTERED has instances: %d\n\n\n",niftyqu.Len());
-
-	THash< TStr , CascadeElementV > nifty_newsQuotes;
-	TZipIn zin2("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_NEWS.rar");
-	nifty_newsQuotes.Load(zin2);
-	printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_NEWS loading done, it contains %d posts.\n",nifty_newsQuotes.Len());
-
-	THash< TStr , CascadeElementV > nifty_blogsQuotes;
-	TZipIn zin3("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_BLOGS.rar");
-	nifty_blogsQuotes.Load(zin3);
-	printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_BLOGS loading done, it contains %d posts.\n",nifty_blogsQuotes.Len());
-
-	THash< TStr , CascadeElementV > firstMentionsNiftyqu;
-	TZipIn zin4("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTS.rar");
-	firstMentionsNiftyqu.Load(zin4);
-	printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTS saving done, it contains %d posts.\n",firstMentionsNiftyqu.Len());
-
-	THash<TChA,TUInt> posts;
-	TZipIn ZpostsIn("/agbs/cluster/oaskaris/DATA/PostsData.rar");
-	posts.Load(ZpostsIn);
-	printf("PostsData loading done, it contains %d posts.\n",posts.Len());
-
-	while(true)
-	{
-		int index;
-		cout << "\n\n\nEnter index: ";
-		cin >> index;
-		if(index < 0) break;
-
-		cout << "Original:\n";
-		for(int i=0;i<niftyqu[index].Len();i++)
-		{
-			cout << posts.GetKey(niftyqu[index][i].post).CStr() << endl;
-		}
-		cout << "\n\nNews:\n";
-		for(int i=0;i<nifty_newsQuotes[index].Len();i++)
-		{
-			cout << posts.GetKey(nifty_newsQuotes[index][i].post).CStr() << endl;
-		}
-		cout << "\n\nBlogs:\n";
-		for(int i=0;i<nifty_blogsQuotes[index].Len();i++)
-		{
-			cout << posts.GetKey(nifty_blogsQuotes[index][i].post).CStr() << endl;
-		}
-	}
-
-	while(true)
-	{
-		int index;
-		cout << "\n\n\nEnter index: ";
-		cin >> index;
-		if(index < 0) break;
-
-		cout << "Original:\n";
-		for(int i=0;i<niftyqu[index].Len();i++)
-		{
-			cout << posts.GetKey(niftyqu[index][i].post).CStr() << endl;
-		}
-		cout << "\n\nFirstMentionsFqu:\n";
-		for(int i=0;i<firstMentionsNiftyqu[index].Len();i++)
-		{
-			cout << posts.GetKey(firstMentionsNiftyqu[index][i].post).CStr() << endl;
-		}
-	}
+//	THash< TStr , CascadeElementV > niftyqu;
+//	TZipIn ZquotesIn2("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED.rar");
+//	niftyqu.Load(ZquotesIn2);
+//	printf("Loaded QuotesPreprocessedData_NIFTY_FINALFILTERED has instances: %d\n\n\n",niftyqu.Len());
+//
+//	THash< TStr , CascadeElementV > nifty_newsQuotes;
+//	TZipIn zin2("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_NEWS.rar");
+//	nifty_newsQuotes.Load(zin2);
+//	printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_NEWS loading done, it contains %d posts.\n",nifty_newsQuotes.Len());
+//
+//	THash< TStr , CascadeElementV > nifty_blogsQuotes;
+//	TZipIn zin3("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_BLOGS.rar");
+//	nifty_blogsQuotes.Load(zin3);
+//	printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_BLOGS loading done, it contains %d posts.\n",nifty_blogsQuotes.Len());
+//
+//	THash< TStr , CascadeElementV > firstMentionsNiftyqu;
+//	TZipIn zin4("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTS.rar");
+//	firstMentionsNiftyqu.Load(zin4);
+//	printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTS saving done, it contains %d posts.\n",firstMentionsNiftyqu.Len());
+//
+//	THash<TChA,TUInt> posts;
+//	TZipIn ZpostsIn("/agbs/cluster/oaskaris/DATA/PostsData.rar");
+//	posts.Load(ZpostsIn);
+//	printf("PostsData loading done, it contains %d posts.\n",posts.Len());
+//
+//	while(true)
+//	{
+//		int index;
+//		cout << "\n\n\nEnter index: ";
+//		cin >> index;
+//		if(index < 0) break;
+//
+//		cout << "Original:\n";
+//		for(int i=0;i<niftyqu[index].Len();i++)
+//		{
+//			cout << posts.GetKey(niftyqu[index][i].post).CStr() << endl;
+//		}
+//		cout << "\n\nNews:\n";
+//		for(int i=0;i<nifty_newsQuotes[index].Len();i++)
+//		{
+//			cout << posts.GetKey(nifty_newsQuotes[index][i].post).CStr() << endl;
+//		}
+//		cout << "\n\nBlogs:\n";
+//		for(int i=0;i<nifty_blogsQuotes[index].Len();i++)
+//		{
+//			cout << posts.GetKey(nifty_blogsQuotes[index][i].post).CStr() << endl;
+//		}
+//	}
+//
+//	while(true)
+//	{
+//		int index;
+//		cout << "\n\n\nEnter index: ";
+//		cin >> index;
+//		if(index < 0) break;
+//
+//		cout << "Original:\n";
+//		for(int i=0;i<niftyqu[index].Len();i++)
+//		{
+//			cout << posts.GetKey(niftyqu[index][i].post).CStr() << endl;
+//		}
+//		cout << "\n\nFirstMentionsFqu:\n";
+//		for(int i=0;i<firstMentionsNiftyqu[index].Len();i++)
+//		{
+//			cout << posts.GetKey(firstMentionsNiftyqu[index][i].post).CStr() << endl;
+//		}
+//	}
 
 
 	TExeTm ExeTm;
