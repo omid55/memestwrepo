@@ -36,6 +36,9 @@ inline TStr getWebsite(TStr fulladdress)
 
 int main(int argc, char* argv[])
 {
+	// FOR CHECKING POSTS
+//	posts.GetDat(posts.GetKey(id)) == id
+
 //	printf("Starting the Find All Memes Cascades code...\n\n");
 //
 //	TZipIn ZpostsIn("PostsData.rar");
@@ -64,6 +67,7 @@ int main(int argc, char* argv[])
 //	printf("\nSize is: %d\n",quotes.Len());
 
 	TExeTm ExeTm;
+	unsigned long long quotesTotalCount = 0;
 	try
 	{
 		Env = TEnv(argc, argv, TNotify::StdNotify);
@@ -104,6 +108,7 @@ int main(int argc, char* argv[])
 				for(int i=0;i<loader.MemeV.Len();i++)
 				{
 					TStr quoteLC = loader.MemeV[i].ToLc();
+					quotesTotalCount++;
 					TUInt iddd = quotes.GetKeyId(quoteLC);
 					if(iddd == -1)
 					{
@@ -115,19 +120,19 @@ int main(int argc, char* argv[])
 						CascadeElementV* v = &quotes.GetDat(quoteLC);
 						CascadeElement elem = CascadeElement(loader.PostUrlStr,loader.PubTm,posts);
 
-						// if you want to have all cascades even exactly equal ones, then comment this part
-						for(int j=0;j<(*v).Len();j++)
-						{
-							if((*v)[j].post == elem.post)
-							{
-								notAdded = true;
-								break;
-							}
-						}
-						if(notAdded)
-						{
-							continue;
-						}
+//						// if you want to have all cascades even exactly equal ones, then comment this part
+//						for(int j=0;j<(*v).Len();j++)
+//						{
+//							if((*v)[j].post == elem.post)
+//							{
+//								notAdded = true;
+//								break;
+//							}
+//						}
+//						if(notAdded)
+//						{
+//							continue;
+//						}
 
 						for(int j=0;j<loader.LinkV.Len();j++)
 						{
@@ -153,6 +158,9 @@ int main(int argc, char* argv[])
 ///				break;
 ///			}
 		}
+
+		printf("\n\nquotesTotalCount: %llu\n", quotesTotalCount);
+		cout << "QuotesTotalCount: " << quotesTotalCount << endl << endl;
 
 		SaveAll();
 	}
