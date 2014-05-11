@@ -12,10 +12,12 @@ void SaveAll()
 	// Saving Quotes
 	TZipOut Zquotes("QuotesData.rar");
 	quotes.Save(Zquotes);
+	printf("QuotesData is saved and it has % items.",quotes.Len());
 
 	// Saving Posts
 	TZipOut Zposts("PostsData.rar");
 	posts.Save(Zposts);
+	printf("PostsData is saved and it has % items.",posts.Len());
 }
 
 inline TStr getWebsite(TStr fulladdress)
