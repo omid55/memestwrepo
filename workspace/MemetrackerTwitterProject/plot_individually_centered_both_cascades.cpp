@@ -35,7 +35,7 @@ int main(int argc, char* argv[])
 		twitter1.Load(Zcascades1);
 		printf("Loaded CascadesFullUrlsOnTwitterData_FINALFILTERED has instances: %d\n\n\n",twitter1.Len());
 
-		Tools::plotTwo(quotes1,twitter1,period,periodstr,"IndividualUrls");
+		Tools::plotTwoIndividuallyShift(quotes1,twitter1,period,periodstr,"IndividualUrls");
 		quotes1.Clr();
 		twitter1.Clr();
 
@@ -55,7 +55,7 @@ int main(int argc, char* argv[])
 		twitter2.Load(Zcascades2);
 		printf("Loaded CascadesOnTwitterData_FINALFILTERED has instances: %d\n\n\n",twitter2.Len());
 
-		Tools::plotTwo(quotes2,twitter2,period,periodstr,"IndividualContents");
+		Tools::plotTwoIndividuallyShift(quotes2,twitter2,period,periodstr,"IndividualContents");
 		quotes2.Clr();
 		twitter2.Clr();
 

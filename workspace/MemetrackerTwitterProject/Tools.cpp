@@ -413,7 +413,8 @@ bool Tools::fileExists(TStr filepath)
 	return true;
 }
 
-void Tools::plotOne(THash<TStr,CascadeElementV>& quotes, char* name, uint period, char* periodstr, int DesiredCascadesCount)
+// Individually
+void Tools::plotOneIndividuallyShift(THash<TStr,CascadeElementV>& quotes, char* name, uint period, char* periodstr, int DesiredCascadesCount)
 {
 	int bins,i,q,index,center,Q,lengt,minLen;
 	double* vols;
@@ -499,7 +500,7 @@ void Tools::plotOne(THash<TStr,CascadeElementV>& quotes, char* name, uint period
 	printf("Plot %s is done.\n",name);
 }
 
-void Tools::plotTwo(THash<TStr,CascadeElementV>& quotes , THash<TUInt,TSecTmV>& twitter, uint period, char* periodstr, char* name)
+void Tools::plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& quotes , THash<TUInt,TSecTmV>& twitter, uint period, char* periodstr, char* name)
 {
 	int begin = TSecTm(2008,8,1,0,0,0).GetAbsSecs();
 	int end = TSecTm(2009,10,1,0,0,0).GetAbsSecs();
@@ -599,7 +600,7 @@ void Tools::plotTwo(THash<TStr,CascadeElementV>& quotes , THash<TUInt,TSecTmV>& 
 	printf("Plot %s is done.\n",name);
 }
 
-void Tools::plotTwo(THash<TStr,CascadeElementV>& q1, THash<TStr,CascadeElementV>& q2, uint period, char* periodstr, char* name, char* s1, char* s2)
+void Tools::plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& q1, THash<TStr,CascadeElementV>& q2, uint period, char* periodstr, char* name, char* s1, char* s2)
 {
 	int begin = TSecTm(2008,8,1,0,0,0).GetAbsSecs();
 	int end = TSecTm(2009,10,1,0,0,0).GetAbsSecs();
@@ -616,7 +617,7 @@ void Tools::plotTwo(THash<TStr,CascadeElementV>& q1, THash<TStr,CascadeElementV>
 
 	for(int q=0;q<q1.Len();q++)
 	{
-		int leng = q1[q].Len()+q2[q].Len();
+		int leng = q1[q].Len() + q2[q].Len();
 		int* integratedTimestamps = new int[leng];
 		for(int i=0;i<q1[q].Len();i++)
 		{
@@ -698,6 +699,189 @@ void Tools::plotTwo(THash<TStr,CascadeElementV>& q1, THash<TStr,CascadeElementV>
 
 
 	printf("Plot %s is done.\n",name);
+}
+
+
+// Hists
+void Tools::plotTwoHistShift(THash<TStr,CascadeElementV>& quotes, THash<TUInt,TSecTmV>& twitter, uint period, char* periodstr, char* name, Mode mode, char* s1, char* s2)
+{
+	int bins,i,c,index,center,dif,lengt,validCascadesCnt,minLen,myrange,quoteIndex,ind1,ind2;
+	double* vols_memes;
+	double* vols_twitter_contents;
+	double* vol_me;
+	double* vol_tu;
+	TFltPrV volumes_memes;
+	TFltPrV volumes_twitter_contents;
+	uint begin = TSecTm(2008,7,31,0,0,0).GetAbsSecs();
+	uint end = TSecTm(2009,10,1,0,0,0).GetAbsSecs();
+	TGnuPlot plot;
+	plot.SetXYLabel(TStr::Fmt("Time[%s]",periodstr), "Volume");
+	plot.SetTitle("Hourly Binned Quotes Cascade over Memetracker and its contents over Twitter");
+
+	// ---== Computation ==---
+	bins = (end - begin) / period;
+	printf("bins: %d\n\n",bins);
+	lengt = 2 * bins + 1;
+	center = (lengt-1) / 2;
+	vols_memes = new double[lengt];
+	vols_twitter_contents = new double[lengt];
+	for(i=0;i<lengt;i++)
+	{
+		vols_memes[i] = 0;
+		vols_twitter_contents[i] = 0;
+	}
+
+	validCascadesCnt = 0;
+	for(c=0;c<twitter.Len();c++)
+	{
+		quoteIndex = twitter.GetKey(c);
+		vol_me = Tools::calculateHistOfCascade(quotes[c],begin,period,bins,true);
+		vol_tu = Tools::calculateHistOfCascade(twitter.GetDat(quoteIndex),begin,period,bins,true);
+
+		if(mode == MEDIAN)
+		{
+			ind1 = Tools::getMedianIndex(vol_me,bins);
+			ind2 = Tools::getMedianIndex(vol_tu,bins);
+		}
+		if(mode == MAX)
+		{
+			ind1 = Tools::getMaxIndex(vol_me,bins);
+			ind2 = Tools::getMaxIndex(vol_tu,bins);
+		}
+		if(ind1 == -1 || ind2 == -1)
+		{
+			delete[] vol_me;
+			delete[] vol_tu;
+			continue;
+		}
+		index = (ind1 + ind2) / 2;
+		dif = center - index;
+		for(i=0;i<bins;i++)
+		{
+			vols_memes[dif + i] += vol_me[i];
+			vols_twitter_contents[dif + i] += vol_tu[i];
+		}
+		validCascadesCnt++;
+
+		delete[] vol_me;
+		delete[] vol_tu;
+	}
+
+	myrange = 48;
+	printf("\n--===((( Cascades Count is: %d )))===--\n",validCascadesCnt);
+	for(i=center-myrange;i<=center+myrange;i++)
+	{
+		vols_memes[i] /= validCascadesCnt;
+		volumes_memes.Add(TFltPr(-center+i,vols_memes[i]));
+
+		vols_twitter_contents[i] /= validCascadesCnt;
+		volumes_twitter_contents.Add(TFltPr(-center+i,vols_twitter_contents[i]));
+	}
+	plot.AddPlot(volumes_memes,gpwPoints,s1);
+	plot.AddPlot(volumes_twitter_contents,gpwPoints,s2);
+	if(mode == MEDIAN)
+	{
+		plot.SetDataPlotFNm(TStr::Fmt("MyResults/%s.tab",name), TStr::Fmt("MyResults/%s.plt",name));
+		plot.SaveEps(TStr::Fmt("MyResults/%s.eps",name),true);
+	}
+	if(mode == MAX)
+	{
+		plot.SetDataPlotFNm(TStr::Fmt("MyResults/%s.tab",name), TStr::Fmt("MyResults/%s.plt",name));
+		plot.SaveEps(TStr::Fmt("MyResults/%s.eps",name),true);
+	}
+
+	delete[] vols_memes;
+	delete[] vols_twitter_contents;
+}
+
+void Tools::plotTwoHistShift(THash<TStr,CascadeElementV>& q1, THash<TStr,CascadeElementV>& q2, uint period, char* periodstr, char* name, Mode mode, char* s1, char* s2)
+{
+	int bins,i,c,index,center,dif,lengt,validCascadesCnt,minLen,myrange,ind1,ind2;
+	double* vols_memes;
+	double* vols_twitter_contents;
+	double* vol_me;
+	double* vol_tu;
+	TFltPrV volumes_memes;
+	TFltPrV volumes_twitter_contents;
+	uint begin = TSecTm(2008,7,31,0,0,0).GetAbsSecs();
+	uint end = TSecTm(2009,10,1,0,0,0).GetAbsSecs();
+	TGnuPlot plot;
+	plot.SetXYLabel(TStr::Fmt("Time[%s]",periodstr), "Volume");
+	plot.SetTitle("Hourly Binned Quotes Cascade over Memetracker and its contents over Twitter");
+
+	// ---== Computation ==---
+	bins = (end - begin) / period;
+	printf("bins: %d\n\n",bins);
+	lengt = 2 * bins + 1;
+	center = (lengt-1) / 2;
+	vols_memes = new double[lengt];
+	vols_twitter_contents = new double[lengt];
+	for(i=0;i<lengt;i++)
+	{
+		vols_memes[i] = 0;
+		vols_twitter_contents[i] = 0;
+	}
+
+	validCascadesCnt = 0;
+	for(c=0;c<q2.Len();c++)
+	{
+		vol_me = Tools::calculateHistOfCascade(q1[c],begin,period,bins,true);
+		vol_tu = Tools::calculateHistOfCascade(q2[c],begin,period,bins,true);
+
+		if(mode == MEDIAN)
+		{
+			ind1 = Tools::getMedianIndex(vol_me,bins);
+			ind2 = Tools::getMedianIndex(vol_tu,bins);
+		}
+		if(mode == MAX)
+		{
+			ind1 = Tools::getMaxIndex(vol_me,bins);
+			ind2 = Tools::getMaxIndex(vol_tu,bins);
+		}
+		if(ind1 == -1 || ind2 == -1)
+		{
+			delete[] vol_me;
+			delete[] vol_tu;
+			continue;
+		}
+		index = (ind1 + ind2) / 2;
+		dif = center - index;
+		for(i=0;i<bins;i++)
+		{
+			vols_memes[dif + i] += vol_me[i];
+			vols_twitter_contents[dif + i] += vol_tu[i];
+		}
+		validCascadesCnt++;
+
+		delete[] vol_me;
+		delete[] vol_tu;
+	}
+
+	myrange = 48;
+	printf("\n--===((( Cascades Count is: %d )))===--\n",validCascadesCnt);
+	for(i=center-myrange;i<=center+myrange;i++)
+	{
+		vols_memes[i] /= validCascadesCnt;
+		volumes_memes.Add(TFltPr(-center+i,vols_memes[i]));
+
+		vols_twitter_contents[i] /= validCascadesCnt;
+		volumes_twitter_contents.Add(TFltPr(-center+i,vols_twitter_contents[i]));
+	}
+	plot.AddPlot(volumes_memes,gpwPoints,s1);
+	plot.AddPlot(volumes_twitter_contents,gpwPoints,s2);
+	if(mode == MEDIAN)
+	{
+		plot.SetDataPlotFNm(TStr::Fmt("MyResults/%s.tab",name), TStr::Fmt("MyResults/%s.plt",name));
+		plot.SaveEps(TStr::Fmt("MyResults/%s.eps",name),true);
+	}
+	if(mode == MAX)
+	{
+		plot.SetDataPlotFNm(TStr::Fmt("MyResults/%s.tab",name), TStr::Fmt("MyResults/%s.plt",name));
+		plot.SaveEps(TStr::Fmt("MyResults/%s.eps",name),true);
+	}
+
+	delete[] vols_memes;
+	delete[] vols_twitter_contents;
 }
 
 

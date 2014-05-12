@@ -35,7 +35,7 @@ int main(int argc, char* argv[])
 		THash< TStr , CascadeElementV > firstMentionsNiftyqu;
 		TZipIn zin4("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTS.rar");
 		firstMentionsNiftyqu.Load(zin4);
-		printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTS saving done, it contains %d posts.\n",firstMentionsNiftyqu.Len());
+		printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTS loading done, it contains %d posts.\n",firstMentionsNiftyqu.Len());
 
 		THash< TStr , CascadeElementV > firstMentionsNiftyqu_newsQuotes;
 		TZipIn zin5("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTSNEWS.rar");
@@ -45,33 +45,33 @@ int main(int argc, char* argv[])
 		THash< TStr , CascadeElementV > firstMentionsNiftyqu_blogsQuotes;
 		TZipIn zin6("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTSBLOGS.rar");
 		firstMentionsNiftyqu_blogsQuotes.Load(zin6);
-		printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTSBLOGS saving done, it contains %d posts.\n",firstMentionsNiftyqu_blogsQuotes.Len());
+		printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTSBLOGS loading done, it contains %d posts.\n",firstMentionsNiftyqu_blogsQuotes.Len());
 
 
-//		// Plotting
-//		// All
-//		Tools::plotOne(niftyqu,"NIFTY-Memes-Volume-ALL",period,periodstr);
-//		Tools::plotOne(niftyqu,"NIFTY-Memes-Volume-TopSelected-ALL",period,periodstr,DesiredCascadesCount);
-//
-//		// News and Blogs
-//		Tools::plotOne(nifty_newsQuotes,"NIFTY-Memes-Volume-News",period,periodstr);
-//		Tools::plotOne(nifty_newsQuotes,"NIFTY-Memes-Volume-TopSelected-News",period,periodstr,DesiredCascadesCount);
-//		Tools::plotOne(nifty_blogsQuotes,"NIFTY-Memes-Volume-Blogs",period,periodstr);
-//		Tools::plotOne(nifty_blogsQuotes,"NIFTY-Memes-Volume-TopSelected-Blogs",period,periodstr,DesiredCascadesCount);
-//
-//		// Plotting first mentions
-//		Tools::plotOne(firstMentionsNiftyqu,"NIFTY-FirstMentions-Memes-Volume-ALL",period,periodstr);
-//		Tools::plotOne(firstMentionsNiftyqu,"NIFTY-FirstMentions-Memes-Volume-TopSelected-ALL",period,periodstr,DesiredCascadesCount);
-//		Tools::plotOne(firstMentionsNiftyqu_newsQuotes,"NIFTY-FirstMentions-Memes-Volume-News",period,periodstr);
-//		Tools::plotOne(firstMentionsNiftyqu_newsQuotes,"NIFTY-FirstMentions-Memes-Volume-TopSelected-News",period,periodstr,DesiredCascadesCount);
-//		Tools::plotOne(firstMentionsNiftyqu_blogsQuotes,"NIFTY-FirstMentions-Memes-Volume-Blogs",period,periodstr);
-//		Tools::plotOne(firstMentionsNiftyqu_blogsQuotes,"NIFTY-FirstMentions-Memes-Volume-TopSelected-Blogs",period,periodstr,DesiredCascadesCount);
+		// Plotting
+		// All
+		Tools::plotOneIndividuallyShift(niftyqu,"NIFTY-Memes-Volume-ALL",period,periodstr);
+		Tools::plotOneIndividuallyShift(niftyqu,"NIFTY-Memes-Volume-TopSelected-ALL",period,periodstr,DesiredCascadesCount);
+
+		// News and Blogs
+		Tools::plotOneIndividuallyShift(nifty_newsQuotes,"NIFTY-Memes-Volume-News",period,periodstr);
+		Tools::plotOneIndividuallyShift(nifty_newsQuotes,"NIFTY-Memes-Volume-TopSelected-News",period,periodstr,DesiredCascadesCount);
+		Tools::plotOneIndividuallyShift(nifty_blogsQuotes,"NIFTY-Memes-Volume-Blogs",period,periodstr);
+		Tools::plotOneIndividuallyShift(nifty_blogsQuotes,"NIFTY-Memes-Volume-TopSelected-Blogs",period,periodstr,DesiredCascadesCount);
+
+		// Plotting first mentions
+		Tools::plotOneIndividuallyShift(firstMentionsNiftyqu,"NIFTY-FirstMentions-Memes-Volume-ALL",period,periodstr);
+		Tools::plotOneIndividuallyShift(firstMentionsNiftyqu,"NIFTY-FirstMentions-Memes-Volume-TopSelected-ALL",period,periodstr,DesiredCascadesCount);
+		Tools::plotOneIndividuallyShift(firstMentionsNiftyqu_newsQuotes,"NIFTY-FirstMentions-Memes-Volume-News",period,periodstr);
+		Tools::plotOneIndividuallyShift(firstMentionsNiftyqu_newsQuotes,"NIFTY-FirstMentions-Memes-Volume-TopSelected-News",period,periodstr,DesiredCascadesCount);
+		Tools::plotOneIndividuallyShift(firstMentionsNiftyqu_blogsQuotes,"NIFTY-FirstMentions-Memes-Volume-Blogs",period,periodstr);
+		Tools::plotOneIndividuallyShift(firstMentionsNiftyqu_blogsQuotes,"NIFTY-FirstMentions-Memes-Volume-TopSelected-Blogs",period,periodstr,DesiredCascadesCount);
 
 		// News and Blogs togehter
 		period = 3600;
 		periodstr = TStr("hours").GetCStr();
-		Tools::plotTwo(nifty_newsQuotes,nifty_blogsQuotes,period,periodstr,"IndividualNewsBlogs","News","Blogs");
-		Tools::plotTwo(firstMentionsNiftyqu_newsQuotes,firstMentionsNiftyqu_blogsQuotes,period,periodstr,"IndividualFirstsNewsBlogs","FirstsNews","FirstsBlogs");
+		Tools::plotTwoIndividuallyShift(nifty_newsQuotes,nifty_blogsQuotes,period,periodstr,"IndividualNewsBlogs","News","Blogs");
+		Tools::plotTwoIndividuallyShift(firstMentionsNiftyqu_newsQuotes,firstMentionsNiftyqu_blogsQuotes,period,periodstr,"IndividualFirstsNewsBlogs","FirstsNews","FirstsBlogs");
 
 
 		printf("Plots had been drawn successfully.");
