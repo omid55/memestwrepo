@@ -451,7 +451,7 @@ void Tools::plotOne(THash<TStr,CascadeElementV>& quotes, char* name, uint period
 		delete[] lengs;
 	}
 
-	cout << "\n\n\nstarts ..." << endl;
+//	cout << "\n\n\nstarts ..." << endl;
 	int c = 0;
 	int beginShifted = begin - end;
 	for(q=0;q<Q;q++)
@@ -465,22 +465,24 @@ void Tools::plotOne(THash<TStr,CascadeElementV>& quotes, char* name, uint period
 		{
 			continue;
 		}
-		cout << "median starts..." << endl;
+		cout << q << endl;
+
+//		cout << "median starts..." << endl;
 		int medVal = (int)quotes[q][quotes[q].Len()/2].time.GetAbsSecs();
-		cout << "median: " << medVal << endl;
+//		cout << "median: " << medVal << endl;
 		TIntV casc;
 		for(i=0;i<quotes[q].Len();i++)
 		{
 			casc.Add((int)quotes[q][i].time.GetAbsSecs() - medVal);
 		}
-		cout << "shift is ok..." << endl;
+//		cout << "shift is ok..." << endl;
 		vol = Tools::calculateHistOfCascade(casc, beginShifted, period, lengt, true);
-		cout << "hell yeah ..." << endl;
+//		cout << "hell yeah ..." << endl;
 		for(i=0;i<lengt;i++)
 		{
 			vols[i] += vol[i];
 		}
-		cout << "vol summation is done" << endl;
+//		cout << "vol summation is done" << endl;
 		c++;
 		delete[] vol;
 	}
