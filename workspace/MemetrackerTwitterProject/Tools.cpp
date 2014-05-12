@@ -319,7 +319,6 @@ TChA Tools::getBase(TChA& address)
 
 TChA Tools::getUrl(TChA& address,TChA& base)
 {
-//	cout << address.CStr() << "," << base.CStr() << endl;
 	int idx = address.SearchStr(base,0);
 	TChA res = address.GetSubStr(idx,address.Len()-1);
 	if(res.GetSubStr(res.Len()-10,res.Len()-1) == "/index.php")
@@ -450,7 +449,6 @@ void Tools::plotOne(THash<TStr,CascadeElementV>& quotes, char* name, uint period
 		delete[] lengs;
 	}
 
-//	cout << "\n\n\nstarts ..." << endl;
 	int c = 0;
 	int beginShifted = begin - end;
 	for(q=0;q<Q;q++)
@@ -464,27 +462,18 @@ void Tools::plotOne(THash<TStr,CascadeElementV>& quotes, char* name, uint period
 		{
 			continue;
 		}
-		if(q%1000 == 0)
-		{
-			cout << "q: " << q << endl;
-		}
 
-//		cout << "median starts..." << endl;
 		int medVal = (int)quotes[q][quotes[q].Len()/2].time.GetAbsSecs();
-//		cout << "median: " << medVal << endl;
 		TIntV casc;
 		for(i=0;i<quotes[q].Len();i++)
 		{
 			casc.Add((int)quotes[q][i].time.GetAbsSecs() - medVal);
 		}
-//		cout << "shift is ok..." << endl;
 		vol = Tools::calculateHistOfCascade(casc, beginShifted, period, lengt, true);
-//		cout << "hell yeah ..." << endl;
 		for(i=0;i<lengt;i++)
 		{
 			vols[i] += vol[i];
 		}
-//		cout << "vol summation is done" << endl;
 		c++;
 		delete[] vol;
 	}
