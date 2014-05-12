@@ -464,7 +464,7 @@ void Tools::plotOne(THash<TStr,CascadeElementV>& quotes, char* name, uint period
 		{
 			continue;
 		}
-		if(q%10000 == 0)
+		if(q%1000 == 0)
 		{
 			cout << "q: " << q << endl;
 		}
