@@ -88,8 +88,8 @@ create_quotes_news_blogs_justfirst: create_quotes_news_blogs_justfirst.cpp Twitt
 save_cascades_for_matlab: save_cascades_for_matlab.cpp TStrTrie.cpp TwitterUrl.cpp CascadeElement.cpp Snap.o 
 	g++ -o save_cascades_for_matlab save_cascades_for_matlab.cpp TStrTrie.cpp TwitterUrl.cpp CascadeElement.cpp Snap.o -I./glib -I./snap -L/usr/lib/x86_64-linux-gnu,-Bsymbolic-functions -Wl,-z,relro -Wno-write-strings $(LDFLAGS)
 
-find_cascades_of_quotes_with_trie: find_cascades_of_quotes_with_trie.cpp eventinf.cpp TStrTrie.cpp TwitterUrl.cpp CascadeElement.cpp Snap.o
-	g++ -o find_cascades_of_quotes_with_trie find_cascades_of_quotes_with_trie.cpp eventinf.cpp TStrTrie.cpp TwitterUrl.cpp CascadeElement.cpp Snap.o -I./glib -I./snap -I/usr/include/postgresql -lsqlite3 -lpq -Wno-write-strings $(LDFLAGS)
+find_cascades_of_quotes_with_trie: find_cascades_of_quotes_with_trie.cpp TStrTrie.cpp TwitterUrl.cpp CascadeElement.cpp Snap.o
+	g++ -o find_cascades_of_quotes_with_trie find_cascades_of_quotes_with_trie.cpp TStrTrie.cpp TwitterUrl.cpp CascadeElement.cpp Snap.o -I./glib -I./snap -I/usr/include/postgresql -lsqlite3 -lpq -Wno-write-strings $(LDFLAGS)
 
 mytrie_testing: mytrie_testing.cpp TStrTrie.cpp TwitterUrl.cpp CascadeElement.cpp Snap.o 
 	g++ -o mytrie_testing mytrie_testing.cpp TStrTrie.cpp TwitterUrl.cpp CascadeElement.cpp Snap.o -I./glib -I./snap -L/usr/lib/x86_64-linux-gnu,-Bsymbolic-functions -Wl,-z,relro -Wno-write-strings $(LDFLAGS)
@@ -118,20 +118,20 @@ find_cascades_of_quotes: find_cascades_of_quotes.cpp TwitterUrl.cpp CascadeEleme
 separate_quotes_contents: separate_quotes_contents.cpp TwitterUrl.cpp CascadeElement.cpp Snap.o 
 	g++ -o separate_quotes_contents separate_quotes_contents.cpp TwitterUrl.cpp CascadeElement.cpp Snap.o -I./glib -I./snap -Wno-write-strings $(LDFLAGS)
 
-find_cascades_of_quotes_separately: find_cascades_of_quotes_separately.cpp eventinf.cpp TwitterUrl.cpp CascadeElement.cpp Snap.o 
-	g++ -o find_cascades_of_quotes_separately find_cascades_of_quotes_separately.cpp eventinf.cpp TwitterUrl.cpp CascadeElement.cpp Snap.o -I./glib -I./snap -I/usr/include/postgresql -lsqlite3 -lpq -Wno-write-strings $(LDFLAGS)
+find_cascades_of_quotes_separately: find_cascades_of_quotes_separately.cpp TwitterUrl.cpp CascadeElement.cpp Snap.o 
+	g++ -o find_cascades_of_quotes_separately find_cascades_of_quotes_separately.cpp TwitterUrl.cpp CascadeElement.cpp Snap.o -I./glib -I./snap -I/usr/include/postgresql -lsqlite3 -lpq -Wno-write-strings $(LDFLAGS)
 
-find_tweet_raw_urls: find_tweet_raw_urls.cpp eventinf.cpp TwitterUrl.cpp CascadeElement.cpp Tools.cpp Snap.o 
-	g++ -o find_tweet_raw_urls find_tweet_raw_urls.cpp eventinf.cpp TwitterUrl.cpp CascadeElement.cpp Tools.cpp Snap.o -I./glib -I./snap -L/usr/lib/x86_64-linux-gnu -Wl,-Bsymbolic-functions -Wl,-z,relro -I/usr/include/postgresql -lsqlite3 -lpq -Wno-write-strings $(LDFLAGS)
+find_tweet_raw_urls: find_tweet_raw_urls.cpp TwitterUrl.cpp CascadeElement.cpp Tools.cpp Snap.o 
+	g++ -o find_tweet_raw_urls find_tweet_raw_urls.cpp TwitterUrl.cpp CascadeElement.cpp Tools.cpp Snap.o -I./glib -I./snap -L/usr/lib/x86_64-linux-gnu -Wl,-Bsymbolic-functions -Wl,-z,relro -I/usr/include/postgresql -lsqlite3 -lpq -Wno-write-strings $(LDFLAGS)
 
-create_network: create_network.cpp eventinf.cpp TwitterUrl.cpp CascadeElement.cpp Snap.o 
-	g++ -o create_network create_network.cpp snap/kronecker.cpp eventinf.cpp TwitterUrl.cpp CascadeElement.cpp Snap.o -I./glib -I./snap  -I/usr/include/postgresql -lsqlite3 -lpq -Wno-write-strings $(LDFLAGS)
+create_network: create_network.cpp snap/kronecker.cpp eventinf.cpp TwitterUrl.cpp CascadeElement.cpp Snap.o 
+	g++ -o create_network create_network.cpp eventinf.cpp snap/kronecker.cpp TwitterUrl.cpp CascadeElement.cpp Snap.o -I./glib -I./snap  -I/usr/include/postgresql -lsqlite3 -lpq -Wno-write-strings $(LDFLAGS)
 
 check_tweets_length: check_tweets_length.cpp TwitterUrl.cpp CascadeElement.cpp Snap.o 
 	g++ -o check_tweets_length check_tweets_length.cpp TwitterUrl.cpp CascadeElement.cpp Snap.o -I./glib -I./snap -I/usr/include/postgresql -lsqlite3 -lpq -Wno-write-strings $(LDFLAGS)
 
-find_posts_propagated_over_twitter: find_posts_propagated_over_twitter.cpp eventinf.cpp TwitterUrl.cpp CascadeElement.cpp Snap.o 
-	g++ -o find_posts_propagated_over_twitter find_posts_propagated_over_twitter.cpp eventinf.cpp TwitterUrl.cpp CascadeElement.cpp Snap.o -I./glib -I./snap -I/usr/include/postgresql -lsqlite3 -lpq -Wno-write-strings $(LDFLAGS)
+find_posts_propagated_over_twitter: find_posts_propagated_over_twitter.cpp TwitterUrl.cpp CascadeElement.cpp Snap.o 
+	g++ -o find_posts_propagated_over_twitter find_posts_propagated_over_twitter.cpp TwitterUrl.cpp CascadeElement.cpp Snap.o -I./glib -I./snap -I/usr/include/postgresql -lsqlite3 -lpq -Wno-write-strings $(LDFLAGS)
 
 find_cascades_of_quotes_in_urls: find_cascades_of_quotes_in_urls.cpp TwitterUrl.cpp CascadeElement.cpp Snap.o 
 	g++ -o find_cascades_of_quotes_in_urls find_cascades_of_quotes_in_urls.cpp TwitterUrl.cpp CascadeElement.cpp Snap.o -I./glib -I./snap -Wno-write-strings $(LDFLAGS)

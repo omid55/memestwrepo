@@ -420,7 +420,6 @@ void Tools::plotOne(THash<TStr,CascadeElementV>& quotes, char* name, uint period
 	double* vols;
 	double* vol;
 	TFltPrV volumes;
-//	uint period = 30 * 24 * 3600;   // Month
 	uint begin = TSecTm(2008,8,1,0,0,0).GetAbsSecs();
 	uint end = TSecTm(2009,10,1,0,0,0).GetAbsSecs();
 
@@ -465,7 +464,7 @@ void Tools::plotOne(THash<TStr,CascadeElementV>& quotes, char* name, uint period
 		{
 			continue;
 		}
-		cout << q << endl;
+		cout << "q: " << q << endl;
 
 //		cout << "median starts..." << endl;
 		int medVal = (int)quotes[q][quotes[q].Len()/2].time.GetAbsSecs();

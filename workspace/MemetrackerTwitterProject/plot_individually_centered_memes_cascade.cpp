@@ -54,6 +54,7 @@ int main(int argc, char* argv[])
 //		Tools::plotOne(niftyqu,"NIFTY-Memes-Volume-TopSelected-ALL",period,periodstr,DesiredCascadesCount);
 
 		// News and Blogs
+		cout << "plot one ;)" << endl;
 		Tools::plotOne(nifty_newsQuotes,"NIFTY-Memes-Volume-News",period,periodstr);
 		Tools::plotOne(nifty_newsQuotes,"NIFTY-Memes-Volume-TopSelected-News",period,periodstr,DesiredCascadesCount);
 		Tools::plotOne(nifty_blogsQuotes,"NIFTY-Memes-Volume-Blogs",period,periodstr);
