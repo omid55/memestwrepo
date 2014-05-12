@@ -50,8 +50,8 @@ int main(int argc, char* argv[])
 
 		// Plotting All
 		// All
-//		Tools::plotOne(niftyqu,"NIFTY-Memes-Volume-ALL",period,periodstr);
-//		Tools::plotOne(niftyqu,"NIFTY-Memes-Volume-TopSelected-ALL",period,periodstr,DesiredCascadesCount);
+		Tools::plotOne(niftyqu,"NIFTY-Memes-Volume-ALL",period,periodstr);
+		Tools::plotOne(niftyqu,"NIFTY-Memes-Volume-TopSelected-ALL",period,periodstr,DesiredCascadesCount);
 
 		// News and Blogs
 		cout << "plot one ;)" << endl;
