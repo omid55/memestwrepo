@@ -79,7 +79,7 @@ plot_centered_memes_twittercontents_cascades: plot_centered_memes_twittercontent
 plot_centered_memes_cascade: plot_centered_memes_cascade.cpp TwitterUrl.cpp CascadeElement.cpp Snap.o 
 	g++ -o plot_centered_memes_cascade plot_centered_memes_cascade.cpp TwitterUrl.cpp CascadeElement.cpp Tools.cpp Snap.o -I./glib -I./snap -L/usr/lib/x86_64-linux-gnu,-Bsymbolic-functions -Wl,-z,relro -Wno-write-strings $(LDFLAGS)
 
-plot_individually_centered_memes_cascade: plot_individually_centered_memes_cascade.cpp TwitterUrl.cpp CascadeElement.cpp Snap.o 
+plot_individually_centered_memes_cascade: plot_individually_centered_memes_cascade.cpp TwitterUrl.cpp CascadeElement.cpp Tools.cpp Snap.o 
 	g++ -o plot_individually_centered_memes_cascade plot_individually_centered_memes_cascade.cpp TwitterUrl.cpp CascadeElement.cpp Tools.cpp Snap.o -I./glib -I./snap -L/usr/lib/x86_64-linux-gnu,-Bsymbolic-functions -Wl,-z,relro -Wno-write-strings $(LDFLAGS)
 
 create_quotes_news_blogs_justfirst: create_quotes_news_blogs_justfirst.cpp TwitterUrl.cpp CascadeElement.cpp Snap.o 
