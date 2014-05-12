@@ -69,7 +69,7 @@ int main(int argc, char* argv[])
 
 		// News and Blogs togehter
 		Tools::plotTwo(nifty_newsQuotes,nifty_blogsQuotes,period,periodstr,"IndividualNewsBlogs","News","Blogs");
-		Tools::plotTwo(firstMentionsNiftyqu_newsQuotes,firstMentionsNiftyqu_blogsQuotes,period,periodstr,"IndividualFirstsNewsBlogs","News","Blogs");
+		Tools::plotTwo(firstMentionsNiftyqu_newsQuotes,firstMentionsNiftyqu_blogsQuotes,period,periodstr,"IndividualFirstsNewsBlogs","FirstsNews","FirstsBlogs");
 
 
 		printf("Plots had been drawn successfully.");
