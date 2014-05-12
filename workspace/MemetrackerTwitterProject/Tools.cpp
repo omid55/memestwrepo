@@ -499,7 +499,6 @@ void Tools::plotOne(THash<TStr,CascadeElementV>& quotes, char* name, uint period
 	printf("Plot %s is done.\n",name);
 }
 
-
 void Tools::plotTwo(THash<TStr,CascadeElementV>& quotes , THash<TUInt,TSecTmV>& twitter, uint period, char* periodstr, char* name)
 {
 	int begin = TSecTm(2008,8,1,0,0,0).GetAbsSecs();
@@ -600,6 +599,105 @@ void Tools::plotTwo(THash<TStr,CascadeElementV>& quotes , THash<TUInt,TSecTmV>& 
 	printf("Plot %s is done.\n",name);
 }
 
+void Tools::plotTwo(THash<TStr,CascadeElementV>& q1, THash<TStr,CascadeElementV>& q2, uint period, char* periodstr, char* name, char* s1, char* s2)
+{
+	int begin = TSecTm(2008,8,1,0,0,0).GetAbsSecs();
+	int end = TSecTm(2009,10,1,0,0,0).GetAbsSecs();
+	int bins = (end - begin) / period;
+	int lengt = 2 * bins + 1;
+	int center = (lengt-1) / 2;
+	double* q1Volumes = new double[lengt];
+	double* q2Volumes = new double[lengt];
+	for(int i=0;i<lengt;i++)
+	{
+		q1Volumes[i] = 0;
+		q2Volumes[i] = 0;
+	}
 
+	for(int q=0;q<q1.Len();q++)
+	{
+		int leng = q1[q].Len()+q2[q].Len();
+		int* integratedTimestamps = new int[leng];
+		for(int i=0;i<q1[q].Len();i++)
+		{
+			integratedTimestamps[i] = q1[q][i].time.GetAbsSecs();
+		}
+		for(int i=0;i<q2[q].Len();i++)
+		{
+			integratedTimestamps[q1[q].Len()+i] = q2[q][i].time.GetAbsSecs();
+		}
+		sort(integratedTimestamps,integratedTimestamps+leng);
+		int integratedMedianValue = integratedTimestamps[leng/2];
+		delete[] integratedTimestamps;
+
+		TIntV memeCascade;
+		for(int i=0;i<q1[q].Len();i++)
+		{
+			memeCascade.Add((int)q1[q][i].time.GetAbsSecs() - integratedMedianValue);
+		}
+		TIntV q2Cascade;
+		for(int i=0;i<q2[q].Len();i++)
+		{
+			q2Cascade.Add((int)q2[q][i].time.GetAbsSecs() - integratedMedianValue);
+		}
+		int beginShifted = begin - end;
+
+		double* memeVol = Tools::calculateHistOfCascade(memeCascade,beginShifted,period,lengt,true);
+		memeCascade.Clr();
+		for(int i=0;i<lengt;i++)
+		{
+			q1Volumes[i] += memeVol[i];
+		}
+		delete[] memeVol;
+
+		double* q2Vol = Tools::calculateHistOfCascade(q2Cascade,beginShifted,period,lengt,true);
+		q2Cascade.Clr();
+		for(int i=0;i<lengt;i++)
+		{
+			q2Volumes[i] += q2Vol[i];
+		}
+		delete[] q2Vol;
+	}
+
+	printf("Plotting ...\n");
+	TFltPrV q1Volumes4Plot;
+	TFltPrV q2Volumes4Plot;
+	int myleng = 10;
+	IAssert(center-myleng>0 && center+myleng<lengt);
+	for(int i=center-myleng;i<=center+myleng;i++)
+//	for(int i=0;i<lengt;i++)
+	{
+		q1Volumes[i] /= q1.Len();
+		q2Volumes[i] /= q1.Len();
+		TFltPr elem;
+		elem.Val1 = -center + i;
+
+		elem.Val2 = q1Volumes[i];
+		q1Volumes4Plot.Add(elem);
+
+		elem.Val2 = q2Volumes[i];
+		q2Volumes4Plot.Add(elem);
+	}
+	delete[] q1Volumes;
+	delete[] q2Volumes;
+
+	// Plotting
+//	TGnuPlot plot1;
+//	plot1.SetXYLabel("Time[hours]", "Volume");
+//	plot1.AddPlot(q1Volumes4Plot,gpwLinesPoints,s1);
+//	plot1.AddPlot(q2Volumes4Plot,gpwLinesPoints,s2);
+//	plot1.SetDataPlotFNm(TStr::Fmt("MyResults/%s-Original.tab",name), TStr::Fmt("MyResults/%s-Original.plt",name));
+//	plot1.SaveEps(TStr::Fmt("MyResults/%s-Original.eps",name));
+
+	TGnuPlot plot2;
+	plot2.SetXYLabel(TStr::Fmt("Time[%s]",periodstr), "Volume");
+	plot2.AddPlot(q1Volumes4Plot,gpwPoints,s1);
+	plot2.AddPlot(q2Volumes4Plot,gpwPoints,s2);
+	plot2.SetDataPlotFNm(TStr::Fmt("MyResults/%s.tab",name), TStr::Fmt("MyResults/%s.plt",name));
+	plot2.SaveEps(TStr::Fmt("MyResults/%s.eps",name),true);
+
+
+	printf("Plot %s is done.\n",name);
+}
 
 
