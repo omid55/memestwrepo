@@ -48,24 +48,24 @@ int main(int argc, char* argv[])
 		printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTSBLOGS saving done, it contains %d posts.\n",firstMentionsNiftyqu_blogsQuotes.Len());
 
 
-		// Plotting All
-		// All
-		Tools::plotOne(niftyqu,"NIFTY-Memes-Volume-ALL",period,periodstr);
-		Tools::plotOne(niftyqu,"NIFTY-Memes-Volume-TopSelected-ALL",period,periodstr,DesiredCascadesCount);
-
-		// News and Blogs
-		Tools::plotOne(nifty_newsQuotes,"NIFTY-Memes-Volume-News",period,periodstr);
-		Tools::plotOne(nifty_newsQuotes,"NIFTY-Memes-Volume-TopSelected-News",period,periodstr,DesiredCascadesCount);
-		Tools::plotOne(nifty_blogsQuotes,"NIFTY-Memes-Volume-Blogs",period,periodstr);
-		Tools::plotOne(nifty_blogsQuotes,"NIFTY-Memes-Volume-TopSelected-Blogs",period,periodstr,DesiredCascadesCount);
-
-		// Plotting first mentions
-		Tools::plotOne(firstMentionsNiftyqu,"NIFTY-FirstMentions-Memes-Volume-ALL",period,periodstr);
-		Tools::plotOne(firstMentionsNiftyqu,"NIFTY-FirstMentions-Memes-Volume-TopSelected-ALL",period,periodstr,DesiredCascadesCount);
-		Tools::plotOne(firstMentionsNiftyqu_newsQuotes,"NIFTY-FirstMentions-Memes-Volume-News",period,periodstr);
-		Tools::plotOne(firstMentionsNiftyqu_newsQuotes,"NIFTY-FirstMentions-Memes-Volume-TopSelected-News",period,periodstr,DesiredCascadesCount);
-		Tools::plotOne(firstMentionsNiftyqu_blogsQuotes,"NIFTY-FirstMentions-Memes-Volume-Blogs",period,periodstr);
-		Tools::plotOne(firstMentionsNiftyqu_blogsQuotes,"NIFTY-FirstMentions-Memes-Volume-TopSelected-Blogs",period,periodstr,DesiredCascadesCount);
+//		// Plotting
+//		// All
+//		Tools::plotOne(niftyqu,"NIFTY-Memes-Volume-ALL",period,periodstr);
+//		Tools::plotOne(niftyqu,"NIFTY-Memes-Volume-TopSelected-ALL",period,periodstr,DesiredCascadesCount);
+//
+//		// News and Blogs
+//		Tools::plotOne(nifty_newsQuotes,"NIFTY-Memes-Volume-News",period,periodstr);
+//		Tools::plotOne(nifty_newsQuotes,"NIFTY-Memes-Volume-TopSelected-News",period,periodstr,DesiredCascadesCount);
+//		Tools::plotOne(nifty_blogsQuotes,"NIFTY-Memes-Volume-Blogs",period,periodstr);
+//		Tools::plotOne(nifty_blogsQuotes,"NIFTY-Memes-Volume-TopSelected-Blogs",period,periodstr,DesiredCascadesCount);
+//
+//		// Plotting first mentions
+//		Tools::plotOne(firstMentionsNiftyqu,"NIFTY-FirstMentions-Memes-Volume-ALL",period,periodstr);
+//		Tools::plotOne(firstMentionsNiftyqu,"NIFTY-FirstMentions-Memes-Volume-TopSelected-ALL",period,periodstr,DesiredCascadesCount);
+//		Tools::plotOne(firstMentionsNiftyqu_newsQuotes,"NIFTY-FirstMentions-Memes-Volume-News",period,periodstr);
+//		Tools::plotOne(firstMentionsNiftyqu_newsQuotes,"NIFTY-FirstMentions-Memes-Volume-TopSelected-News",period,periodstr,DesiredCascadesCount);
+//		Tools::plotOne(firstMentionsNiftyqu_blogsQuotes,"NIFTY-FirstMentions-Memes-Volume-Blogs",period,periodstr);
+//		Tools::plotOne(firstMentionsNiftyqu_blogsQuotes,"NIFTY-FirstMentions-Memes-Volume-TopSelected-Blogs",period,periodstr,DesiredCascadesCount);
 
 		// News and Blogs togehter
 		Tools::plotTwo(nifty_newsQuotes,nifty_blogsQuotes,period,periodstr,"IndividualNewsBlogs","News","Blogs");
