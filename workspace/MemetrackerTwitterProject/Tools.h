@@ -34,8 +34,8 @@ public:
 
 	// Plotting methods
 
-	static void plotOne(THash<TStr,CascadeElementV>& quotes, char* name, int DesiredCascadesCount=0);
-	static void plotTwo(THash< TStr,CascadeElementV > quotes , THash<TUInt,TSecTmV> twitter , char* name);
+	static void plotOne(THash<TStr,CascadeElementV>& quotes, char* name, uint period, char* periodstr, int DesiredCascadesCount=0);
+	static void plotTwo(THash< TStr,CascadeElementV >& quotes, THash<TUInt,TSecTmV>& twitter, uint period, char* periodstr, char* name);
 };
 
 enum Mode

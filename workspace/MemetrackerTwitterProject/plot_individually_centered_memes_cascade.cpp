@@ -11,6 +11,8 @@
 int main(int argc, char* argv[])
 {
 	TExeTm ExeTm;
+	uint period = 6 * 3600;   // 6 Hours but, I think memetracker paper has 4 hours binning
+	char* periodstr = TStr("6 hours").GetCStr();
 	int DesiredCascadesCount = 1000;
 	printf("START individually Plot Memes Cascades CODE ...\n");
 	try
@@ -48,22 +50,22 @@ int main(int argc, char* argv[])
 
 		// Plotting All
 		// All
-		Tools::plotOne(niftyqu,"NIFTY-Memes-Volume-ALL");
-		Tools::plotOne(niftyqu,"NIFTY-Memes-Volume-TopSelected-ALL",DesiredCascadesCount);
+//		Tools::plotOne(niftyqu,"NIFTY-Memes-Volume-ALL",period,periodstr);
+//		Tools::plotOne(niftyqu,"NIFTY-Memes-Volume-TopSelected-ALL",period,periodstr,DesiredCascadesCount);
 
 		// News and Blogs
-		Tools::plotOne(nifty_newsQuotes,"NIFTY-Memes-Volume-News");
-		Tools::plotOne(nifty_newsQuotes,"NIFTY-Memes-Volume-TopSelected-News",DesiredCascadesCount);
-		Tools::plotOne(nifty_blogsQuotes,"NIFTY-Memes-Volume-Blogs");
-		Tools::plotOne(nifty_blogsQuotes,"NIFTY-Memes-Volume-TopSelected-Blogs",DesiredCascadesCount);
+		Tools::plotOne(nifty_newsQuotes,"NIFTY-Memes-Volume-News",period,periodstr);
+		Tools::plotOne(nifty_newsQuotes,"NIFTY-Memes-Volume-TopSelected-News",period,periodstr,DesiredCascadesCount);
+		Tools::plotOne(nifty_blogsQuotes,"NIFTY-Memes-Volume-Blogs",period,periodstr);
+		Tools::plotOne(nifty_blogsQuotes,"NIFTY-Memes-Volume-TopSelected-Blogs",period,periodstr,DesiredCascadesCount);
 
 		// Plotting first mentions
-		Tools::plotOne(firstMentionsNiftyqu,"NIFTY-FirstMentions-Memes-Volume-ALL");
-		Tools::plotOne(firstMentionsNiftyqu,"NIFTY-FirstMentions-Memes-Volume-TopSelected-ALL",DesiredCascadesCount);
-		Tools::plotOne(firstMentionsNiftyqu_newsQuotes,"NIFTY-FirstMentions-Memes-Volume-News");
-		Tools::plotOne(firstMentionsNiftyqu_newsQuotes,"NIFTY-FirstMentions-Memes-Volume-TopSelected-News",DesiredCascadesCount);
-		Tools::plotOne(firstMentionsNiftyqu_blogsQuotes,"NIFTY-FirstMentions-Memes-Volume-Blogs");
-		Tools::plotOne(firstMentionsNiftyqu_blogsQuotes,"NIFTY-FirstMentions-Memes-Volume-TopSelected-Blogs",DesiredCascadesCount);
+		Tools::plotOne(firstMentionsNiftyqu,"NIFTY-FirstMentions-Memes-Volume-ALL",period,periodstr);
+		Tools::plotOne(firstMentionsNiftyqu,"NIFTY-FirstMentions-Memes-Volume-TopSelected-ALL",period,periodstr,DesiredCascadesCount);
+		Tools::plotOne(firstMentionsNiftyqu_newsQuotes,"NIFTY-FirstMentions-Memes-Volume-News",period,periodstr);
+		Tools::plotOne(firstMentionsNiftyqu_newsQuotes,"NIFTY-FirstMentions-Memes-Volume-TopSelected-News",period,periodstr,DesiredCascadesCount);
+		Tools::plotOne(firstMentionsNiftyqu_blogsQuotes,"NIFTY-FirstMentions-Memes-Volume-Blogs",period,periodstr);
+		Tools::plotOne(firstMentionsNiftyqu_blogsQuotes,"NIFTY-FirstMentions-Memes-Volume-TopSelected-Blogs",period,periodstr,DesiredCascadesCount);
 
 
 		printf("Plots had been drawn successfully.");

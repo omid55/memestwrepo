@@ -414,19 +414,18 @@ bool Tools::fileExists(TStr filepath)
 	return true;
 }
 
-void Tools::plotOne(THash<TStr,CascadeElementV>& quotes, char* name, int DesiredCascadesCount)
+void Tools::plotOne(THash<TStr,CascadeElementV>& quotes, char* name, uint period, char* periodstr, int DesiredCascadesCount)
 {
 	int bins,i,q,index,center,Q,lengt,minLen;
 	double* vols;
 	double* vol;
 	TFltPrV volumes;
-	uint period = 4 * 3600;   // 6 Hours but, I think memetracker paper has 4 hours binning
 //	uint period = 30 * 24 * 3600;   // Month
 	uint begin = TSecTm(2008,8,1,0,0,0).GetAbsSecs();
 	uint end = TSecTm(2009,10,1,0,0,0).GetAbsSecs();
 
 	TGnuPlot plot;
-	plot.SetXYLabel("Time[4 Hours]", "Volume");
+	plot.SetXYLabel(TStr::Fmt("Time[%s]",periodstr), "Volume");
 
 	// ---== Computation ==---
 	Q = quotes.Len();
@@ -452,6 +451,7 @@ void Tools::plotOne(THash<TStr,CascadeElementV>& quotes, char* name, int Desired
 		delete[] lengs;
 	}
 
+	cout << "\n\n\nstarts ..." << endl;
 	int c = 0;
 	int beginShifted = begin - end;
 	for(q=0;q<Q;q++)
@@ -465,18 +465,22 @@ void Tools::plotOne(THash<TStr,CascadeElementV>& quotes, char* name, int Desired
 		{
 			continue;
 		}
-
+		cout << "median starts..." << endl;
 		int medVal = (int)quotes[q][quotes[q].Len()/2].time.GetAbsSecs();
+		cout << "median: " << medVal << endl;
 		TIntV casc;
 		for(i=0;i<quotes[q].Len();i++)
 		{
 			casc.Add((int)quotes[q][i].time.GetAbsSecs() - medVal);
 		}
+		cout << "shift is ok..." << endl;
 		vol = Tools::calculateHistOfCascade(casc, beginShifted, period, lengt, true);
+		cout << "hell yeah ..." << endl;
 		for(i=0;i<lengt;i++)
 		{
 			vols[i] += vol[i];
 		}
+		cout << "vol summation is done" << endl;
 		c++;
 		delete[] vol;
 	}
@@ -503,9 +507,8 @@ void Tools::plotOne(THash<TStr,CascadeElementV>& quotes, char* name, int Desired
 }
 
 
-void Tools::plotTwo(THash< TStr,CascadeElementV > quotes , THash<TUInt,TSecTmV> twitter , char* name)
+void Tools::plotTwo(THash<TStr,CascadeElementV>& quotes , THash<TUInt,TSecTmV>& twitter, uint period, char* periodstr, char* name)
 {
-	uint period = 3600;
 	int begin = TSecTm(2008,8,1,0,0,0).GetAbsSecs();
 	int end = TSecTm(2009,10,1,0,0,0).GetAbsSecs();
 	int bins = (end - begin) / period;
@@ -595,7 +598,7 @@ void Tools::plotTwo(THash< TStr,CascadeElementV > quotes , THash<TUInt,TSecTmV> 
 //	plot1.SaveEps(TStr::Fmt("MyResults/%s-Original.eps",name));
 
 	TGnuPlot plot2;
-	plot2.SetXYLabel("Time[hours]", "Volume");
+	plot2.SetXYLabel(TStr::Fmt("Time[%s]",periodstr), "Volume");
 	plot2.AddPlot(memeVolumes4Plot,gpwPoints,"Memes");
 	plot2.AddPlot(twitterVolumes4Plot,gpwPoints,"Twitter");
 	plot2.SetDataPlotFNm(TStr::Fmt("MyResults/%s.tab",name), TStr::Fmt("MyResults/%s.plt",name));
