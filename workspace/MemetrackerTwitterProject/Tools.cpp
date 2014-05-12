@@ -464,7 +464,10 @@ void Tools::plotOne(THash<TStr,CascadeElementV>& quotes, char* name, uint period
 		{
 			continue;
 		}
-		cout << "q: " << q << endl;
+		if(q%1000 == 0)
+		{
+			cout << "q: " << q << endl;
+		}
 
 //		cout << "median starts..." << endl;
 		int medVal = (int)quotes[q][quotes[q].Len()/2].time.GetAbsSecs();
