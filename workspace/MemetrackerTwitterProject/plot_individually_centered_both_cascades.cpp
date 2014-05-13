@@ -23,13 +23,11 @@ int main(int argc, char* argv[])
 		THash< TStr , CascadeElementV > quotes1;
 		THash< TUInt , TSecTmV > twitter1;
 		// ---== Loading Data ==---
-//		TZipIn ZquotesIn1("/agbs/cluster/oaskaris/Data_Preparing_Codes/RESULTS/QuotesPreprocessedData_NIFTY.rar");
 		TZipIn ZquotesIn1("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS.rar");
 //		TZipIn ZquotesIn1("QuotesPreprocessedData_NIFTY_SUBSETTED.rar");
 		quotes1.Load(ZquotesIn1);
 		printf("Loaded QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS has instances: %d\n\n\n",quotes1.Len());
 
-//		TZipIn ZcascadesOnTwitterIn("/agbs/cluster/oaskaris/Data_Preparing_Codes/RESULTS/CascadesFullUrlsOnTwitterData.rar");
 		TZipIn Zcascades1("/agbs/cluster/oaskaris/DATA/CascadesFullUrlsOnTwitterData_FINALFILTERED.rar");
 //		TZipIn ZcascadesOnTwitterIn("CascadesFullUrlsOnTwitterData.rar");
 		twitter1.Load(Zcascades1);
@@ -58,6 +56,7 @@ int main(int argc, char* argv[])
 		Tools::plotTwoIndividuallyShift(quotes2,twitter2,period,periodstr,"IndividualContents");
 		quotes2.Clr();
 		twitter2.Clr();
+
 
 		printf("\nPlots had been drawn successfully.");
 	}
