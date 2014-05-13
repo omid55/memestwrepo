@@ -704,7 +704,7 @@ void Tools::plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& q1, THash<TStr
 // Hists
 void Tools::plotTwoHistShift(THash<TStr,CascadeElementV>& quotes, THash<TUInt,TSecTmV>& twitter, uint period, char* periodstr, char* name, Mode mode, char* s1, char* s2)
 {
-	int bins,i,c,index,center,dif,lengt,validCascadesCnt,minLen,myrange,quoteIndex,ind1,ind2;
+	int bins,i,c,index,center,dif,lengt,validCascadesCnt,minLen,quoteIndex,ind1,ind2;
 	double* vols_memes;
 	double* vols_twitter_contents;
 	double* vol_me;
@@ -753,6 +753,7 @@ void Tools::plotTwoHistShift(THash<TStr,CascadeElementV>& quotes, THash<TUInt,TS
 			delete[] vol_tu;
 			continue;
 		}
+		cout << ind1 << "," << ind2 << endl;
 		index = (ind1 + ind2) / 2;
 		dif = center - index;
 		for(i=0;i<bins;i++)
@@ -794,7 +795,7 @@ void Tools::plotTwoHistShift(THash<TStr,CascadeElementV>& quotes, THash<TUInt,TS
 
 void Tools::plotTwoHistShift(THash<TStr,CascadeElementV>& q1, THash<TStr,CascadeElementV>& q2, uint period, char* periodstr, char* name, Mode mode, char* s1, char* s2)
 {
-	int bins,i,c,index,center,dif,lengt,validCascadesCnt,minLen,myrange,ind1,ind2;
+	int bins,i,c,index,center,dif,lengt,validCascadesCnt,minLen,ind1,ind2;
 	double* vols_memes;
 	double* vols_twitter_contents;
 	double* vol_me;
