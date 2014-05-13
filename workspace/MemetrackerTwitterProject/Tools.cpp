@@ -414,6 +414,8 @@ bool Tools::fileExists(TStr filepath)
 }
 
 // Individually
+static int myrange = 48;
+
 void Tools::plotOneIndividuallyShift(THash<TStr,CascadeElementV>& quotes, char* name, uint period, char* periodstr, int DesiredCascadesCount)
 {
 	int bins,i,q,index,center,Q,lengt,minLen;
@@ -480,9 +482,8 @@ void Tools::plotOneIndividuallyShift(THash<TStr,CascadeElementV>& quotes, char* 
 	}
 
 	printf("Quotes count: %d\n",c);
-	int myleng = 20;
-	IAssert(center-myleng>0 && center+myleng<lengt);
-	for(i=center-myleng;i<=center+myleng;i++)
+	IAssert(center-myrange>0 && center+myrange<lengt);
+	for(i=center-myrange;i<=center+myrange;i++)
 //	for(i=0;i<lengt;i++)
 	{
 		vols[i] /= c;
@@ -563,9 +564,8 @@ void Tools::plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& quotes , THash
 	printf("Plotting ...\n");
 	TFltPrV memeVolumes4Plot;
 	TFltPrV twitterVolumes4Plot;
-	int myleng = 10;
-	IAssert(center-myleng>0 && center+myleng<lengt);
-	for(int i=center-myleng;i<=center+myleng;i++)
+	IAssert(center-myrange>0 && center+myrange<lengt);
+	for(int i=center-myrange;i<=center+myrange;i++)
 //	for(int i=0;i<lengt;i++)
 	{
 		memeVolumes[i] /= quotes.Len();
@@ -663,9 +663,8 @@ void Tools::plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& q1, THash<TStr
 	printf("Plotting ...\n");
 	TFltPrV q1Volumes4Plot;
 	TFltPrV q2Volumes4Plot;
-	int myleng = 10;
-	IAssert(center-myleng>0 && center+myleng<lengt);
-	for(int i=center-myleng;i<=center+myleng;i++)
+	IAssert(center-myrange>0 && center+myrange<lengt);
+	for(int i=center-myrange;i<=center+myrange;i++)
 //	for(int i=0;i<lengt;i++)
 	{
 		q1Volumes[i] /= q1.Len();
@@ -767,7 +766,6 @@ void Tools::plotTwoHistShift(THash<TStr,CascadeElementV>& quotes, THash<TUInt,TS
 		delete[] vol_tu;
 	}
 
-	myrange = 48;
 	printf("\n--===((( Cascades Count is: %d )))===--\n",validCascadesCnt);
 	for(i=center-myrange;i<=center+myrange;i++)
 	{
@@ -857,7 +855,6 @@ void Tools::plotTwoHistShift(THash<TStr,CascadeElementV>& q1, THash<TStr,Cascade
 		delete[] vol_tu;
 	}
 
-	myrange = 48;
 	printf("\n--===((( Cascades Count is: %d )))===--\n",validCascadesCnt);
 	for(i=center-myrange;i<=center+myrange;i++)
 	{

@@ -185,7 +185,8 @@ int main(int argc, char* argv[])
 				if(Tools::fileExists(rawFname))
 				{
 					// removing the raw file
-					system(TStr::Fmt("rm %s",rawFname.CStr()).CStr());
+					int resp = system(TStr::Fmt("rm %s",rawFname.CStr()).CStr());
+					printf("responce: %d\n",resp);
 				}
 			}
 			else
@@ -263,7 +264,8 @@ int main(int argc, char* argv[])
 					allUrls.Save(outData);
 
 					// removing the raw file
-					system(TStr::Fmt("rm %s",rawFname.CStr()).CStr());
+					int resp = system(TStr::Fmt("rm %s",rawFname.CStr()).CStr());
+					printf("responce: %d\n",resp);
 				}
 			}
 
