@@ -24,13 +24,13 @@ int main(int argc, char* argv[])
 		THash< TUInt , TSecTmV > twitter1;
 		// ---== Loading Data ==---
 //		TZipIn ZquotesIn1("/agbs/cluster/oaskaris/Data_Preparing_Codes/RESULTS/QuotesPreprocessedData_NIFTY.rar");
-		TZipIn ZquotesIn1("QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS.rar");
+		TZipIn ZquotesIn1("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS.rar");
 //		TZipIn ZquotesIn1("QuotesPreprocessedData_NIFTY_SUBSETTED.rar");
 		quotes1.Load(ZquotesIn1);
 		printf("Loaded QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS has instances: %d\n\n\n",quotes1.Len());
 
 //		TZipIn ZcascadesOnTwitterIn("/agbs/cluster/oaskaris/Data_Preparing_Codes/RESULTS/CascadesFullUrlsOnTwitterData.rar");
-		TZipIn Zcascades1("CascadesFullUrlsOnTwitterData_FINALFILTERED.rar");
+		TZipIn Zcascades1("/agbs/cluster/oaskaris/DATA/CascadesFullUrlsOnTwitterData_FINALFILTERED.rar");
 //		TZipIn ZcascadesOnTwitterIn("CascadesFullUrlsOnTwitterData.rar");
 		twitter1.Load(Zcascades1);
 		printf("Loaded CascadesFullUrlsOnTwitterData_FINALFILTERED has instances: %d\n\n\n",twitter1.Len());
@@ -45,13 +45,13 @@ int main(int argc, char* argv[])
 		THash< TUInt , TSecTmV > twitter2;
 		// ---== Loading Data ==---
 //		TZipIn ZquotesIn2("/agbs/cluster/oaskaris/Data_Preparing_Codes/RESULTS/QuotesPreprocessedData_NIFTY.rar");
-		TZipIn ZquotesIn2("QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents.rar");
+		TZipIn ZquotesIn2("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents.rar");
 //		TZipIn ZquotesIn2("QuotesPreprocessedData_NIFTY_SUBSETTED.rar");
 		quotes2.Load(ZquotesIn2);
 		printf("Loaded QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents has instances: %d\n\n\n",quotes2.Len());
 
 		twitter2.Clr();
-		TZipIn Zcascades2("CascadesOnTwitterData_FINALFILTERED.rar");
+		TZipIn Zcascades2("/agbs/cluster/oaskaris/DATA/CascadesOnTwitterData_FINALFILTERED.rar");
 		twitter2.Load(Zcascades2);
 		printf("Loaded CascadesOnTwitterData_FINALFILTERED has instances: %d\n\n\n",twitter2.Len());
 
