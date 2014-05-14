@@ -753,7 +753,6 @@ void Tools::plotTwoHistShift(THash<TStr,CascadeElementV>& quotes, THash<TUInt,TS
 			delete[] vol_tu;
 			continue;
 		}
-		cout << ind1 << "," << ind2 << endl;
 		index = (ind1 + ind2) / 2;
 		dif = center - index;
 		for(i=0;i<bins;i++)

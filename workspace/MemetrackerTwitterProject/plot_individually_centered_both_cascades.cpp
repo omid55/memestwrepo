@@ -13,7 +13,7 @@ int main(int argc, char* argv[])
 	TExeTm ExeTm;
 	uint period = 3600;   // Hour
 	char* periodstr = TStr("hour").GetCStr();
-	printf("((( Individually Urls Cascades CODE )))\n");
+	printf("((( START individually Plot BOTH Cascades CODE )))\n");
 	try
 	{
 		Env = TEnv(argc, argv, TNotify::StdNotify);
