@@ -40,8 +40,8 @@ int main(int argc, char* argv[])
 
 
 		// Plotting News vs Blogs
-		uint period = 60;
-		char periodstr[] = "minutes";
+		uint period = 3600;
+		char periodstr[] = "hours";
 		Tools::plotTwoHistShift(nifty_newsQuotes,nifty_blogsQuotes,period,periodstr,"NewsBlogs-MEDIAN-Volumes", MEDIAN, "News", "Blogs");
 		Tools::plotTwoHistShift(firstMentionsNiftyqu_newsQuotes,firstMentionsNiftyqu_blogsQuotes,period,periodstr,"FirstsNewsBlogs-MEDIAN-Volumes", MEDIAN, "News", "Blogs");
 		Tools::plotTwoHistShift(nifty_newsQuotes,nifty_blogsQuotes,period,periodstr,"NewsBlogs-MAX-Volumes", MAX, "News", "Blogs");

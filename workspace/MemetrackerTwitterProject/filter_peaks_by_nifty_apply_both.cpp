@@ -98,7 +98,6 @@ void applyFilter(THash< TStr , CascadeElementV >& quotes,THash< TUInt , TSecTmV 
 int main(int argc, char* argv[])
 {
 	TExeTm ExeTm;
-
 	printf("((((( Starting The Filtering Cascades CODE )))))\n");
 	try
 	{
