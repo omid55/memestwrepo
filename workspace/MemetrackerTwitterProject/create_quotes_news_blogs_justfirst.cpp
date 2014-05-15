@@ -40,17 +40,17 @@ int main(int argc, char* argv[])
 		cout << "Original:\n";
 		for(int i=0;i<niftyqu[index].Len();i++)
 		{
-			cout << niftyqu[index][i].time.GetDtYmdStr().CStr() << endl;
+			cout << niftyqu[index][i].time.GetYmdTmStr().CStr() << endl;
 		}
 		cout << "\n\nNews:\n";
 		for(int i=0;i<nifty_newsQuotes[index].Len();i++)
 		{
-			cout << nifty_newsQuotes[index][i].time.GetDtYmdStr().CStr() << endl;
+			cout << nifty_newsQuotes[index][i].time.GetYmdTmStr().CStr() << endl;
 		}
 		cout << "\n\nBlogs:\n";
 		for(int i=0;i<nifty_blogsQuotes[index].Len();i++)
 		{
-			cout << nifty_blogsQuotes[index][i].time.GetDtYmdStr().CStr() << endl;
+			cout << nifty_blogsQuotes[index][i].time.GetYmdTmStr().CStr() << endl;
 		}
 	}
 	return 0;
