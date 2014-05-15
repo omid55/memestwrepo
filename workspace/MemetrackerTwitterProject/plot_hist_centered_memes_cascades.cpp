@@ -21,31 +21,31 @@ int main(int argc, char* argv[])
 		THash< TStr , CascadeElementV > nifty_newsQuotes;
 		TZipIn zin2("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_NEWS.rar");
 		nifty_newsQuotes.Load(zin2);
-		printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_NEWS loading done, it contains %d posts.\n",nifty_newsQuotes.Len());
+		printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_NEWS loading done, it contains %d items.\n",nifty_newsQuotes.Len());
 
 		THash< TStr , CascadeElementV > nifty_blogsQuotes;
 		TZipIn zin3("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_BLOGS.rar");
 		nifty_blogsQuotes.Load(zin3);
-		printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_BLOGS loading done, it contains %d posts.\n",nifty_blogsQuotes.Len());
+		printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_BLOGS loading done, it contains %d items.\n",nifty_blogsQuotes.Len());
 
 		THash< TStr , CascadeElementV > firstMentionsNiftyqu_newsQuotes;
 		TZipIn zin5("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTSNEWS.rar");
 		firstMentionsNiftyqu_newsQuotes.Load(zin5);
-		printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTSNEWS loading done, it contains %d posts.\n",firstMentionsNiftyqu_newsQuotes.Len());
+		printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTSNEWS loading done, it contains %d items.\n",firstMentionsNiftyqu_newsQuotes.Len());
 
 		THash< TStr , CascadeElementV > firstMentionsNiftyqu_blogsQuotes;
 		TZipIn zin6("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTSBLOGS.rar");
 		firstMentionsNiftyqu_blogsQuotes.Load(zin6);
-		printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTSBLOGS loading done, it contains %d posts.\n",firstMentionsNiftyqu_blogsQuotes.Len());
+		printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTSBLOGS loading done, it contains %d items.\n",firstMentionsNiftyqu_blogsQuotes.Len());
 
 
 		// Plotting News vs Blogs
-		uint period = 3600;
-		char periodstr[] = "hours";
-		Tools::plotTwoHistShift(nifty_newsQuotes,nifty_blogsQuotes,3600,"hours","NewsBlogs-MEDIAN-Volumes", MEDIAN, "News", "Blogs");
-		Tools::plotTwoHistShift(firstMentionsNiftyqu_newsQuotes,firstMentionsNiftyqu_blogsQuotes,3600,"hours","FirstsNewsBlogs-MEDIAN-Volumes", MEDIAN, "News", "Blogs");
-		Tools::plotTwoHistShift(nifty_newsQuotes,nifty_blogsQuotes,3600,"hours","NewsBlogs-MAX-Volumes", MAX, "News", "Blogs");
-		Tools::plotTwoHistShift(firstMentionsNiftyqu_newsQuotes,firstMentionsNiftyqu_blogsQuotes,3600,"hours","FirstsNewsBlogs-MAX-Volumes", MAX, "News", "Blogs");
+		uint period = 60;
+		char periodstr[] = "minutes";
+		Tools::plotTwoHistShift(nifty_newsQuotes,nifty_blogsQuotes,period,periodstr,"NewsBlogs-MEDIAN-Volumes", MEDIAN, "News", "Blogs");
+		Tools::plotTwoHistShift(firstMentionsNiftyqu_newsQuotes,firstMentionsNiftyqu_blogsQuotes,period,periodstr,"FirstsNewsBlogs-MEDIAN-Volumes", MEDIAN, "News", "Blogs");
+		Tools::plotTwoHistShift(nifty_newsQuotes,nifty_blogsQuotes,period,periodstr,"NewsBlogs-MAX-Volumes", MAX, "News", "Blogs");
+		Tools::plotTwoHistShift(firstMentionsNiftyqu_newsQuotes,firstMentionsNiftyqu_blogsQuotes,period,periodstr,"FirstsNewsBlogs-MAX-Volumes", MAX, "News", "Blogs");
 
 
 		printf("\nPlots had been drawn successfully.");
