@@ -414,7 +414,7 @@ bool Tools::fileExists(TStr filepath)
 }
 
 // Individually
-static int myrange = 48;
+static int myrange = 24;
 
 void Tools::plotOneIndividuallyShift(THash<TStr,CascadeElementV>& quotes, char* name, uint period, char* periodstr, int DesiredCascadesCount)
 {
