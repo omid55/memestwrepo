@@ -27,6 +27,7 @@ void SaveAll()
 int main(int argc, char* argv[])
 {
 	// For checking Memetracker loader file
+	printf("Check starts ...\n");
 	for(int year=2008;year<2010;year++)
 	{
 		int month = 8;
