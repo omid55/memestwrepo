@@ -54,6 +54,7 @@ int main(int argc, char* argv[])
 	{
 		getline(f,line);
 		printf("%s\n",line.c_str());
+		l++;
 	}
 	printf("Done2\n\n\n\n");
 
@@ -62,7 +63,7 @@ int main(int argc, char* argv[])
 	int it = 0;
 	while(loader.LoadNext())
 	{
-		if(it == max)
+		if(it >= max)
 		{
 			break;
 		}
