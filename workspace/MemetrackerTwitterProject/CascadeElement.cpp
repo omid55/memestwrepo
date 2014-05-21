@@ -23,7 +23,7 @@ CascadeElement::CascadeElement(TSIn& SIn)
 
 CascadeElement::CascadeElement(TChA& p,TSecTm &t,THash< TChA , TUInt >& posts)
 {
-	TUInt id = posts.GetKeyId(p);
+	int id = posts.GetKeyId(p);
 	if(id == -1)
 	{
 		id = posts.Len();
@@ -36,7 +36,7 @@ CascadeElement::CascadeElement(TChA& p,TSecTm &t,THash< TChA , TUInt >& posts)
 
 CascadeElement::CascadeElement(TChA& p,TSecTm &t, TVec<TUInt>& e,THash< TChA , TUInt >& posts)
 {
-	TUInt id = posts.GetKeyId(p);
+	int id = posts.GetKeyId(p);
 	if(id == -1)
 	{
 		id = posts.Len();

@@ -33,12 +33,12 @@ void applyFilter(THash< TStr , CascadeElementV >& quotes,THash< TUInt , TSecTmV 
 		}
 		*/
 
-		TIntV memesTimes;
-		for(int i=0;i<quotes[quoteIndex].Len();i++)
-		{
-			memesTimes.Add(quotes[quoteIndex][i].time.GetAbsSecs());
-		}
-		double* vol_me = Tools::calculateHistOfCascade(memesTimes,begin,period,bins,false);
+//		TIntV memesTimes;
+//		for(int i=0;i<quotes[quoteIndex].Len();i++)
+//		{
+//			memesTimes.Add(quotes[quoteIndex][i].time.GetAbsSecs());
+//		}
+		double* vol_me = Tools::calculateHistOfCascade(quotes[quoteIndex],begin,period,bins,false);
 		double* vol_tu = Tools::calculateHistOfCascade(twitter.GetDat(quoteIndex),begin,period,bins,false);
 
 		// calculating mean and standard deviation
@@ -121,9 +121,56 @@ int main(int argc, char* argv[])
 		cascadesOnTwitterContents.Load(ZIn);
 		printf("Loaded CascadesOnTwitterData has instances: %d\n\n\n",cascadesOnTwitterContents.Len());
 
+		// News vs Blogs
+		THash< TStr , CascadeElementV > nifty_newsQuotes;
+		TZipIn zin2("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_NEWS.rar");
+		nifty_newsQuotes.Load(zin2);
+		printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_NEWS loading done, it contains %d posts.\n",nifty_newsQuotes.Len());
 
+		THash< TStr , CascadeElementV > nifty_blogsQuotes;
+		TZipIn zin3("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_BLOGS.rar");
+		nifty_blogsQuotes.Load(zin3);
+		printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_BLOGS loading done, it contains %d posts.\n",nifty_blogsQuotes.Len());
+
+		// Firsts
+		THash< TStr , CascadeElementV > firstMentionsNiftyqu;
+		TZipIn zin20("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTS.rar");
+		firstMentionsNiftyqu.Load(zin20);
+		printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTS loading done, it contains %d posts.\n",firstMentionsNiftyqu.Len());
+
+		// Just firsts of News vs Blogs
+		THash< TStr , CascadeElementV > firstMentionsNiftyqu_newsQuotes;
+		TZipIn zin5("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTSNEWS.rar");
+		firstMentionsNiftyqu_newsQuotes.Load(zin5);
+		printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTSNEWS loading done, it contains %d posts.\n",firstMentionsNiftyqu_newsQuotes.Len());
+
+		THash< TStr , CascadeElementV > firstMentionsNiftyqu_blogsQuotes;
+		TZipIn zin6("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTSBLOGS.rar");
+		firstMentionsNiftyqu_blogsQuotes.Load(zin6);
+		printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTSBLOGS loading done, it contains %d posts.\n",firstMentionsNiftyqu_blogsQuotes.Len());
+
+
+		// Filtering
+		// all nifty quotes
 		applyFilter(quotes,cascadesOnTwitterUrls,"QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS.rar","CascadesFullUrlsOnTwitterData_FINALFILTERED.rar",true);
 		applyFilter(quotes,cascadesOnTwitterContents,"QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents.rar","CascadesOnTwitterData_FINALFILTERED.rar",false);
+
+		// News vs Blogs
+		applyFilter(nifty_newsQuotes,cascadesOnTwitterUrls,"QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS_News.rar","CascadesFullUrlsOnTwitterData_FINALFILTERED_News.rar",true);
+		applyFilter(nifty_newsQuotes,cascadesOnTwitterContents,"QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents_News.rar","CascadesOnTwitterData_FINALFILTERED_News.rar",false);
+		applyFilter(nifty_blogsQuotes,cascadesOnTwitterUrls,"QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS_Blogs.rar","CascadesFullUrlsOnTwitterData_FINALFILTERED_Blogs.rar",true);
+		applyFilter(nifty_blogsQuotes,cascadesOnTwitterContents,"QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents_Blogs.rar","CascadesOnTwitterData_FINALFILTERED_Blogs.rar",false);
+
+		// Firsts
+		applyFilter(firstMentionsNiftyqu,cascadesOnTwitterUrls,"QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS_Firsts.rar","CascadesFullUrlsOnTwitterData_FINALFILTERED_Firsts.rar",true);
+		applyFilter(firstMentionsNiftyqu,cascadesOnTwitterContents,"QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents_Firsts.rar","CascadesOnTwitterData_FINALFILTERED_Firsts.rar",true);
+
+		// Just firsts of News vs Blogs
+		applyFilter(firstMentionsNiftyqu_newsQuotes,cascadesOnTwitterUrls,"QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS_FirstNews.rar","CascadesFullUrlsOnTwitterData_FINALFILTERED_FirstNews.rar",true);
+		applyFilter(firstMentionsNiftyqu_newsQuotes,cascadesOnTwitterContents,"QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents_FirstNews.rar","CascadesOnTwitterData_FINALFILTERED_FirstNews.rar",false);
+		applyFilter(firstMentionsNiftyqu_blogsQuotes,cascadesOnTwitterUrls,"QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS_FirstBlogs.rar","CascadesFullUrlsOnTwitterData_FINALFILTERED_FirstBlogs.rar",true);
+		applyFilter(firstMentionsNiftyqu_blogsQuotes,cascadesOnTwitterContents,"QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents_FirstBlogs.rar","CascadesOnTwitterData_FINALFILTERED_FirstBlogs.rar",false);
+
 
 		printf("\nFilters had been done successfully.\n");
 	}

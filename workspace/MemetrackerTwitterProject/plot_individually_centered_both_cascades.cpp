@@ -8,6 +8,24 @@
 
 #include "stdafx.h"
 
+inline THash<TStr,CascadeElementV> loadQuotes(char* name)
+{
+	THash<TStr,CascadeElementV> qs;
+	TZipIn rarinput(name);
+	qs.Load(rarinput);
+	printf("Quotes: It has %d items.\n\n",qs.Len());
+	return qs;
+}
+
+inline THash<TUInt,TSecTmV> loadTwitter(char* name)
+{
+	THash<TUInt,TSecTmV> tw;
+	TZipIn rarinput(name);
+	tw.Load(rarinput);
+	printf("Twitter: It has %d items.\n\n",tw.Len());
+	return tw;
+}
+
 int main(int argc, char* argv[])
 {
 //	// test with toy example
@@ -48,31 +66,53 @@ int main(int argc, char* argv[])
 		Env.PrepArgs(TStr::Fmt("\nPlotting Individually Memes-Twitter Cascades. build: %s, %s. Time: %s", __TIME__, __DATE__, TExeTm::GetCurTm()));
 
 		// URLS
-		THash< TStr , CascadeElementV > quotes1;
-		THash< TUInt , TSecTmV > twitter1;
-		TZipIn ZquotesIn1("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS.rar");
-		quotes1.Load(ZquotesIn1);
-		printf("Loaded QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS has instances: %d\n\n\n",quotes1.Len());
-
-		TZipIn Zcascades1("/agbs/cluster/oaskaris/DATA/CascadesFullUrlsOnTwitterData_FINALFILTERED.rar");
-		twitter1.Load(Zcascades1);
-		printf("Loaded CascadesFullUrlsOnTwitterData_FINALFILTERED has instances: %d\n\n\n",twitter1.Len());
+		THash< TStr , CascadeElementV > quotes1 = loadQuotes("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS.rar");
+		THash< TUInt , TSecTmV > twitter1 = loadTwitter("/agbs/cluster/oaskaris/DATA/CascadesFullUrlsOnTwitterData_FINALFILTERED.rar");
 
 		// CONTENTS
-		THash< TStr , CascadeElementV > quotes2;
-		THash< TUInt , TSecTmV > twitter2;
-		TZipIn ZquotesIn2("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents.rar");
-		quotes2.Load(ZquotesIn2);
-		printf("Loaded QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents has instances: %d\n\n\n",quotes2.Len());
+		THash< TStr , CascadeElementV > quotes2 = loadQuotes("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents.rar");
+		THash< TUInt , TSecTmV > twitter2 = loadTwitter("/agbs/cluster/oaskaris/DATA/CascadesOnTwitterData_FINALFILTERED.rar");
 
-		TZipIn Zcascades2("/agbs/cluster/oaskaris/DATA/CascadesOnTwitterData_FINALFILTERED.rar");
-		twitter2.Load(Zcascades2);
-		printf("Loaded CascadesOnTwitterData_FINALFILTERED has instances: %d\n\n\n",twitter2.Len());
+		// News vs Blogs
+		THash< TStr , CascadeElementV > q1 = loadQuotes("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS_News.rar");
+		THash< TUInt , TSecTmV > t1 	   = loadTwitter("/agbs/cluster/oaskaris/DATA/CascadesFullUrlsOnTwitterData_FINALFILTERED_News.rar");
+		THash< TStr , CascadeElementV > q2 = loadQuotes("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents_News.rar");
+		THash< TUInt , TSecTmV > t2 	   = loadTwitter("/agbs/cluster/oaskaris/DATA/CascadesOnTwitterData_FINALFILTERED_News.rar");
+
+		THash< TStr , CascadeElementV > q3 = loadQuotes("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS_Blogs.rar");
+		THash< TUInt , TSecTmV > t3 	   = loadTwitter("/agbs/cluster/oaskaris/DATA/CascadesFullUrlsOnTwitterData_FINALFILTERED_Blogs.rar");
+		THash< TStr , CascadeElementV > q4 = loadQuotes("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents_Blogs.rar");
+		THash< TUInt , TSecTmV > t4 	   = loadTwitter("/agbs/cluster/oaskaris/DATA/CascadesOnTwitterData_FINALFILTERED_Blogs.rar");
+
+		THash< TStr , CascadeElementV > q5 = loadQuotes("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS_Firsts.rar");
+		THash< TUInt , TSecTmV > t5 	   = loadTwitter("/agbs/cluster/oaskaris/DATA/CascadesFullUrlsOnTwitterData_FINALFILTERED_Firsts.rar");
+		THash< TStr , CascadeElementV > q6 = loadQuotes("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents_Firsts.rar");
+		THash< TUInt , TSecTmV > t6 	   = loadTwitter("/agbs/cluster/oaskaris/DATA/CascadesOnTwitterData_FINALFILTERED_Firsts.rar");
+
+		THash< TStr , CascadeElementV > q7 = loadQuotes("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS_FirstNews.rar");
+		THash< TUInt , TSecTmV > t7 	   = loadTwitter("/agbs/cluster/oaskaris/DATA/CascadesFullUrlsOnTwitterData_FINALFILTERED_FirstNews.rar");
+		THash< TStr , CascadeElementV > q8 = loadQuotes("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents_FirstNews.rar");
+		THash< TUInt , TSecTmV > t8 	   = loadTwitter("/agbs/cluster/oaskaris/DATA/CascadesOnTwitterData_FINALFILTERED_FirstNews.rar");
+
+		THash< TStr , CascadeElementV > q9 = loadQuotes("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS_FirstBlogs.rar");
+		THash< TUInt , TSecTmV > t9 	   = loadTwitter("/agbs/cluster/oaskaris/DATA/CascadesFullUrlsOnTwitterData_FINALFILTERED_FirstBlogs.rar");
+		THash< TStr , CascadeElementV > q10 = loadQuotes("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents_FirstBlogs.rar");
+		THash< TUInt , TSecTmV > t10 	   = loadTwitter("/agbs/cluster/oaskaris/DATA/CascadesOnTwitterData_FINALFILTERED_FirstBlogs.rar");
 
 
 		// Plotting
 		Tools::plotTwoIndividuallyShift(quotes1,twitter1,period,periodstr,"IndividualUrls");
 		Tools::plotTwoIndividuallyShift(quotes2,twitter2,period,periodstr,"IndividualContents");
+		Tools::plotTwoIndividuallyShift(q1,t1,period,periodstr,"IndividualUrls_NEWS");
+		Tools::plotTwoIndividuallyShift(q2,t2,period,periodstr,"IndividualContents_NEWS");
+		Tools::plotTwoIndividuallyShift(q3,t3,period,periodstr,"IndividualUrls_BLOGS");
+		Tools::plotTwoIndividuallyShift(q4,t4,period,periodstr,"IndividualContents_BLOGS");
+		Tools::plotTwoIndividuallyShift(q5,t5,period,periodstr,"IndividualUrls_FIRSTS");
+		Tools::plotTwoIndividuallyShift(q6,t6,period,periodstr,"IndividualContents_FIRSTS");
+		Tools::plotTwoIndividuallyShift(q7,t7,period,periodstr,"IndividualUrls_FIRSTNEWS");
+		Tools::plotTwoIndividuallyShift(q8,t8,period,periodstr,"IndividualContents_FIRSTNEWS");
+		Tools::plotTwoIndividuallyShift(q9,t9,period,periodstr,"IndividualUrls_FIRSTBLOGS");
+		Tools::plotTwoIndividuallyShift(q10,t10,period,periodstr,"IndividualContents_FIRSTBLOGS");
 
 
 		printf("\nPlots had been drawn successfully.");
