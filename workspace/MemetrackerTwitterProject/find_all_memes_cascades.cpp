@@ -50,7 +50,7 @@ int main(int argc, char* argv[])
 	fstream f("/is/ei/oaskaris/Downloads/memetrackerdata/memes_2008-10.txt",ios::in);
 	int l = 0;
 	string line;
-	while(l<50)
+	while(l<30)
 	{
 		getline(f,line);
 		printf("%s\n",line.c_str());
@@ -58,7 +58,7 @@ int main(int argc, char* argv[])
 	printf("Done2\n\n\n\n");
 
 	TMemesDataLoader loader(filefullpath);
-	int max = 5;
+	int max = 3;
 	int it = 0;
 	while(loader.LoadNext())
 	{
