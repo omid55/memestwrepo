@@ -59,7 +59,7 @@ int main(int argc, char* argv[])
 	printf("Done2\n\n\n\n");
 
 	TMemesDataLoader loader(filefullpath);
-	int max = 3;
+	int max = 5;
 	int it = 0;
 	while(loader.LoadNext())
 	{
@@ -76,6 +76,7 @@ int main(int argc, char* argv[])
 		{
 			printf("Link: %s\n", loader.LinkV[i].CStr());
 		}
+		printf("\n\n");
 		it++;
 	}
 	printf("Done3\n\n\n\n");
