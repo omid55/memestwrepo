@@ -47,7 +47,7 @@ int main(int argc, char* argv[])
 
 	// For checking Memetracker loader file
 	TStr filefullpath = TStr::Fmt("/agbs/datasets/memetracker/memes2_%d-%02i.txt.rar",2008,10);
-	fstream f(filefullpath.CStr(),ios::in);
+	fstream f("/is/ei/oaskaris/Downloads/memetrackerdata/memes_2008-10.txt",ios::in);
 	int l = 0;
 	string line;
 	while(l<50)
