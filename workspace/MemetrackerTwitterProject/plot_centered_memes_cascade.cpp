@@ -19,7 +19,7 @@ int main(int argc, char* argv[])
 	double* vols;
 	double* vol;
 	TFltPrV volumes;
-	uint period = 6 * 3600;   // 6 Hours
+	uint period = 4 * 3600;   // 4 Hours
 //	uint period = 24 * 3600;   // Day
 	uint begin = TSecTm(2008,8,1,0,0,0).GetAbsSecs();
 	uint end = TSecTm(2009,10,1,0,0,0).GetAbsSecs();
@@ -27,7 +27,7 @@ int main(int argc, char* argv[])
 	int DesiredCascadesCount = 1000;
 	int* lengs;
 	TGnuPlot plot;
-	plot.SetXYLabel("Time(Day Bin)", "Volume");
+	plot.SetXYLabel("Time[4 hours]", "Volume");
 	plot.SetTitle("Dayly Binned Volumes On Memetracker");
 
 	printf("START The Plot Memes Cascades CODE ...\n");
@@ -41,49 +41,6 @@ int main(int argc, char* argv[])
 		TZipIn ZquotesIn("/agbs/cluster/oaskaris/Data_Preparing_Codes/RESULTS/QuotesPreprocessedData_NIFTY.rar");    // /agbs/cluster/oaskaris/Data_Preparing_Codes/RESULTS/QuotesPreprocessedData_NIFTY.rar
 		quotes.Load(ZquotesIn);
 		printf("Loaded QuotesPreprocessedData_NIFTY has instances: %d\n\n\n",quotes.Len());
-
-//		TZipIn ZcascadesOnTwitterIn("RESULTS/CascadesFullUrlsOnTwitterData.rar");
-//		cascadesOnTwitterUrls.Load(ZcascadesOnTwitterIn);
-//		printf("Loaded CascadesFullUrlsOnTwitterData has instances: %d\n\n\n",cascadesOnTwitterUrls.Len());
-//
-//		TZipIn ZIn("RESULTS/CascadesOnTwitterData.rar");
-//		cascadesOnTwitterContents.Load(ZIn);
-//		printf("Loaded CascadesOnTwitterData has instances: %d\n\n\n",cascadesOnTwitterContents.Len());
-
-//		// JUST FOR CHECK 		<< DELETE IT >>
-//		CascadeElementV v;
-//		TSecTm t1(2008,9,1,0,0,0);
-//		TSecTm t2(2008,10,1,0,0,0);
-//		TSecTm t22(2008,10,21,12,0,0);
-//		TSecTm t3(2008,11,28,12,0,0);
-//		v.Add(CascadeElement(t1));
-//		v.Add(CascadeElement(t2));
-//		v.Add(CascadeElement(t22));
-//		v.Add(CascadeElement(t3));
-//		quotes.AddDat("1",v);
-//
-//		v.Clr();
-//		TSecTm t4(2008,10,1,0,0,0);
-//		TSecTm t5(2008,11,1,0,0,0);
-//		TSecTm t55(2008,11,5,4,9,15);
-//		TSecTm t6(2008,12,28,12,0,0);
-//		v.Add(CascadeElement(t4));
-//		v.Add(CascadeElement(t5));
-//		v.Add(CascadeElement(t55));
-//		v.Add(CascadeElement(t6));
-//		quotes.AddDat("2",v);
-//
-////		v.Clr();
-////		TSecTm t7(2008,11,1,0,0,0);
-////		TSecTm t8(2009,04,2,2,0,0);
-////		v.Add(CascadeElement(t7));
-////		v.Add(CascadeElement(t8));
-////		quotes.AddDat("3",v);
-//		// JUST FOR CHECK 		<< DELETE IT >>
-
-
-		// DO REMOVING WITH MULTIPLE MAXS
-		// INJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 
 
 		// ---== Computation ==---
@@ -104,8 +61,6 @@ int main(int argc, char* argv[])
 		}
 		sort(lengs,lengs+Q,std::greater<int>());
 		minLen = lengs[DesiredCascadesCount-1];
-//		cout << "first: " << lengs[0] << " , last: " << lengs[Q-1] << endl;
-//		cout << "minLen: " << minLen << endl;
 		delete[] lengs;
 
 		smalls = 0;
@@ -118,7 +73,7 @@ int main(int argc, char* argv[])
 				continue;
 			}
 			vol = Tools::calculateHistOfCascade(quotes[q],begin,period,bins,true);
-//			index = getMaxIndex(vol,bins);
+//			index = Tools::getMaxIndex(vol,bins);
 			index = Tools::getMedianIndex(vol,bins);
 			if(index == -1)    // we have a larger timeseries in meme tracker than twitter then there are some cascades which they have nothing in the desired range (then we will discard them)
 			{

@@ -702,6 +702,89 @@ void Tools::plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& q1, THash<TStr
 
 
 // Hists
+void Tools::plotOneHistShift(THash<TStr,CascadeElementV>& quotes, char* name, uint period, char* periodstr, Mode mode, int DesiredCascadesCount)
+{
+	int bins,i,q,index,center,dif,Q,lengt,discards,minLen,smalls;
+	double* vols;
+	double* vol;
+	TFltPrV volumes;
+	uint begin = TSecTm(2008,8,1,0,0,0).GetAbsSecs();
+	uint end = TSecTm(2009,10,1,0,0,0).GetAbsSecs();
+	TExeTm ExeTm;
+	TGnuPlot plot;
+	plot.SetXYLabel(TStr::Fmt("Time[%s]",periodstr), "Volume");
+	plot.SetTitle("BinnedVolumes On Memetracker");
+
+	// ---== Computation ==---
+	Q = quotes.Len();
+	bins = (end - begin) / period;
+	lengt = 2 * bins + 1;
+	center = (lengt-1) / 2;
+	vols = new double[lengt];
+	for(i=0;i<lengt;i++)
+	{
+		vols[i] = 0;
+	}
+
+	int* lengs = new int[Q];
+	for(q=0;q<Q;q++)
+	{
+		lengs[q] = quotes[q].Len();
+	}
+	sort(lengs,lengs+Q,std::greater<int>());
+	minLen = lengs[DesiredCascadesCount-1];
+	delete[] lengs;
+
+	smalls = 0;
+	discards = 0;
+	for(q=0;q<Q;q++)
+	{
+		if(quotes[q].Len() < minLen)
+		{
+			smalls++;
+			continue;
+		}
+		vol = Tools::calculateHistOfCascade(quotes[q],begin,period,bins,true);
+		if(mode == MAX)
+		{
+			index = Tools::getMaxIndex(vol,bins);
+		}
+		if(mode == MEDIAN)
+		{
+			index = Tools::getMedianIndex(vol,bins);
+		}
+		if(index == -1)    // we have a larger timeseries in meme tracker than twitter then there are some cascades which they have nothing in the desired range (then we will discard them)
+		{
+			discards++;
+			continue;
+		}
+		dif = center - index;
+		for(i=0;i<bins;i++)
+		{
+			vols[dif + i] += vol[i];
+		}
+
+		delete[] vol;
+	}
+	quotes.Clr();
+	printf("Discards: %d, smalls: %d\n\n",discards,smalls);
+//		for(i=0;i<lengt;i++)
+	int myleng = 18;
+//		int myleng = 5;
+	for(i=center-myleng;i<=center+myleng;i++)
+	{
+		vols[i] /= (Q-discards-smalls);
+		TFltPr elem;
+		elem.Val1 = -center + i;
+		elem.Val2 = vols[i];
+		volumes.Add(elem);
+	}
+	plot.AddPlot(volumes,gpwPoints);
+	plot.SetDataPlotFNm("MyResults/Memes-Volumes.tab", "MyResults/Memes-Volumes.plt");
+	plot.SaveEps("MyResults/Memes-Volumes.eps",true);
+	delete[] vols;
+}
+
 void Tools::plotTwoHistShift(THash<TStr,CascadeElementV>& quotes, THash<TUInt,TSecTmV>& twitter, uint period, char* periodstr, char* name, Mode mode, char* s1, char* s2)
 {
 	int bins,i,c,index,center,dif,lengt,validCascadesCnt,minLen,quoteIndex,ind1,ind2;

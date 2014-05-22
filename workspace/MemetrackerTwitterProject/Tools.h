@@ -45,6 +45,7 @@ public:
 	static void plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& q1, THash<TStr,CascadeElementV>& q2, uint period, char* periodstr, char* name, char* s1, char* s2);
 
 	// Hist shift centralization
+	static void plotOneHistShift(THash<TStr,CascadeElementV>& quotes, char* name, uint period, char* periodstr, Mode mode, int DesiredCascadesCount=0);
 	static void plotTwoHistShift(THash<TStr,CascadeElementV>& quotes, THash<TUInt,TSecTmV>& twitter, uint period, char* periodstr, char* name, Mode mode, char* s1, char* s2);
 	static void plotTwoHistShift(THash<TStr,CascadeElementV>& q1, THash<TStr,CascadeElementV>& q2, uint period, char* periodstr, char* name, Mode mode, char* s1, char* s2);
 
