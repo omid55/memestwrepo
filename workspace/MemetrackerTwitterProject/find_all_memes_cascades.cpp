@@ -64,13 +64,14 @@ int main(int argc, char* argv[])
 		}
 	}
 
+	printf("\n\n");
 	TMemesDataLoader loader(filefullpath);
 	p = 0;
 	while(loader.LoadNext())
 	{
 		if(p == desired)
 		{
-			printf("Post: %s\nDateTime: %s\n",loader.PostUrlStr.CStr(),loader.PubTm.GetYmdTmStr().CStr());
+			printf("\nPost: %s\nDateTime: %s\n",loader.PostUrlStr.CStr(),loader.PubTm.GetYmdTmStr().CStr());
 			for(int i=0;i<loader.MemeV.Len();i++)
 			{
 				printf("Quote: %s\n", loader.MemeV[i].CStr());
@@ -79,7 +80,6 @@ int main(int argc, char* argv[])
 			{
 				printf("Link: %s\n", loader.LinkV[i].CStr());
 			}
-			printf("\n");
 		}
 		else if(p>desired)
 		{
