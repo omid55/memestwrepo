@@ -28,7 +28,7 @@ int main(int argc, char* argv[])
 {
 	// For checking quotes in QuotesData
 	int selected = atoi(argv[1]);
-	TZipIn z("QuotesData.rar");
+	TZipIn z("lastData/QuotesData.rar");
 	quotes.Load(z);
 	printf("QuotesData is loaded and it has %d items.",quotes.Len());
 
