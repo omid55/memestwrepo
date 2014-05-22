@@ -26,9 +26,9 @@ void SaveAll()
 
 int main(int argc, char* argv[])
 {
-	// For checking Memetracker loader file
-	int desired = atoi(argv[1]);
-	printf("Check starts ...\n");
+//	// For checking Memetracker loader file
+//	int desired = atoi(argv[1]);
+//	printf("Check starts ...\n");
 //	for(int year=2008;year<2010;year++)
 //	{
 //		int month = 8;
@@ -45,49 +45,49 @@ int main(int argc, char* argv[])
 //		}
 //	}
 //	printf("Done1\n\n\n\n");
-
-	// For checking Memetracker loader file
-	TStr filefullpath = TStr::Fmt("/agbs/datasets/memetracker/memes2_%d-%02i.txt.rar",2008,10);
-	fstream f("/is/ei/oaskaris/Downloads/memetrackerdata/memes_2008-10.txt",ios::in);
-	string line;
-	int p = 0;
-	while(p <= desired)
-	{
-		getline(f,line);
-		if(line.length()==0 || line[0]=='\n')
-		{
-			p++;
-		}
-		if(p == desired)
-		{
-			printf("%s\n",line.c_str());
-		}
-	}
-
-	TMemesDataLoader loader(filefullpath);
-	p = 0;
-	while(loader.LoadNext())
-	{
-		if(p == desired)
-		{
-			printf("\n\nPost: %s\nDateTime: %s\n",loader.PostUrlStr.CStr(),loader.PubTm.GetYmdTmStr().CStr());
-			for(int i=0;i<loader.MemeV.Len();i++)
-			{
-				printf("Quote: %s\n", loader.MemeV[i].CStr());
-			}
-			for(int i=0;i<loader.LinkV.Len();i++)
-			{
-				printf("Link: %s\n", loader.LinkV[i].CStr());
-			}
-		}
-		else if(p>desired)
-		{
-			break;
-		}
-		p++;
-	}
-	printf("Done3\n\n\n\n");
-	return 0;
+//
+//	// For checking Memetracker loader file
+//	TStr filefullpath = TStr::Fmt("/agbs/datasets/memetracker/memes2_%d-%02i.txt.rar",2008,10);
+//	fstream f("/is/ei/oaskaris/Downloads/memetrackerdata/memes_2008-10.txt",ios::in);
+//	string line;
+//	int p = 0;
+//	while(p <= desired)
+//	{
+//		getline(f,line);
+//		if(line.length()==0 || line[0]=='\n')
+//		{
+//			p++;
+//		}
+//		if(p == desired)
+//		{
+//			printf("%s\n",line.c_str());
+//		}
+//	}
+//
+//	TMemesDataLoader loader(filefullpath);
+//	p = 0;
+//	while(loader.LoadNext())
+//	{
+//		if(p == desired)
+//		{
+//			printf("\n\nPost: %s\nDateTime: %s\n",loader.PostUrlStr.CStr(),loader.PubTm.GetYmdTmStr().CStr());
+//			for(int i=0;i<loader.MemeV.Len();i++)
+//			{
+//				printf("Quote: %s\n", loader.MemeV[i].CStr());
+//			}
+//			for(int i=0;i<loader.LinkV.Len();i++)
+//			{
+//				printf("Link: %s\n", loader.LinkV[i].CStr());
+//			}
+//		}
+//		else if(p>desired)
+//		{
+//			break;
+//		}
+//		p++;
+//	}
+//	printf("Done3");
+//	return 0;
 
 	// FOR CHECKING POSTS
 //	posts.GetDat(posts.GetKey(id)) == id
@@ -124,7 +124,7 @@ int main(int argc, char* argv[])
 	try
 	{
 		Env = TEnv(argc, argv, TNotify::StdNotify);
-		Env.PrepArgs(TStr::Fmt("\nGenerate cascades from memetracker. build: %s, %s. Time: %s", __TIME__, __DATE__, TExeTm::GetCurTm()));
+		Env.PrepArgs(TStr::Fmt("\n((( Generate Cascades From Memetracker Dataset )))  build: %s, %s. Time: %s", __TIME__, __DATE__, TExeTm::GetCurTm()));
 
 		for(int year=2008;year<2010;year++)
 		{
