@@ -29,22 +29,22 @@ int main(int argc, char* argv[])
 	// For checking Memetracker loader file
 	int desired = atoi(argv[1]);
 	printf("Check starts ...\n");
-	for(int year=2008;year<2010;year++)
-	{
-		int month = 8;
-		int end = 13;
-		if(year==2009)
-		{
-			month = 1;
-			end = 10;
-		}
-		for(;month<end;month++)
-		{
-			TStr filefullpath = TStr::Fmt("/agbs/datasets/memetracker/memes2_%d-%02i.txt.rar",year,month);
-			printf("File path is: %s\n",filefullpath.CStr());
-		}
-	}
-	printf("Done1\n\n\n\n");
+//	for(int year=2008;year<2010;year++)
+//	{
+//		int month = 8;
+//		int end = 13;
+//		if(year==2009)
+//		{
+//			month = 1;
+//			end = 10;
+//		}
+//		for(;month<end;month++)
+//		{
+//			TStr filefullpath = TStr::Fmt("/agbs/datasets/memetracker/memes2_%d-%02i.txt.rar",year,month);
+//			printf("File path is: %s\n",filefullpath.CStr());
+//		}
+//	}
+//	printf("Done1\n\n\n\n");
 
 	// For checking Memetracker loader file
 	TStr filefullpath = TStr::Fmt("/agbs/datasets/memetracker/memes2_%d-%02i.txt.rar",2008,10);
@@ -64,14 +64,13 @@ int main(int argc, char* argv[])
 		}
 	}
 
-	printf("\n\n");
 	TMemesDataLoader loader(filefullpath);
 	p = 0;
 	while(loader.LoadNext())
 	{
 		if(p == desired)
 		{
-			printf("\nPost: %s\nDateTime: %s\n",loader.PostUrlStr.CStr(),loader.PubTm.GetYmdTmStr().CStr());
+			printf("\n\nPost: %s\nDateTime: %s\n",loader.PostUrlStr.CStr(),loader.PubTm.GetYmdTmStr().CStr());
 			for(int i=0;i<loader.MemeV.Len();i++)
 			{
 				printf("Quote: %s\n", loader.MemeV[i].CStr());
