@@ -27,6 +27,7 @@ void SaveAll()
 int main(int argc, char* argv[])
 {
 	// For checking Memetracker loader file
+	int desired = atoi(argv[1]);
 	printf("Check starts ...\n");
 	for(int year=2008;year<2010;year++)
 	{
@@ -48,36 +49,43 @@ int main(int argc, char* argv[])
 	// For checking Memetracker loader file
 	TStr filefullpath = TStr::Fmt("/agbs/datasets/memetracker/memes2_%d-%02i.txt.rar",2008,10);
 	fstream f("/is/ei/oaskaris/Downloads/memetrackerdata/memes_2008-10.txt",ios::in);
-	int l = 0;
 	string line;
-	while(l<100)
+	int p = 0;
+	while(p <= desired)
 	{
 		getline(f,line);
-		printf("%s\n",line.c_str());
-		l++;
+		if(line.length()==0 || line[0]=='\n')
+		{
+			p++;
+		}
+		if(p == desired)
+		{
+			printf("%s\n",line.c_str());
+		}
 	}
-	printf("Done2\n\n\n\n");
 
 	TMemesDataLoader loader(filefullpath);
-	int max = 20;
-	int it = 0;
+	p = 0;
 	while(loader.LoadNext())
 	{
-		if(it >= max)
+		if(p == desired)
+		{
+			printf("Post: %s\nDateTime: %s\n",loader.PostUrlStr.CStr(),loader.PubTm.GetYmdTmStr().CStr());
+			for(int i=0;i<loader.MemeV.Len();i++)
+			{
+				printf("Quote: %s\n", loader.MemeV[i].CStr());
+			}
+			for(int i=0;i<loader.LinkV.Len();i++)
+			{
+				printf("Link: %s\n", loader.LinkV[i].CStr());
+			}
+			printf("\n");
+		}
+		else if(p>desired)
 		{
 			break;
 		}
-		printf("Post: %s\nDateTime: %s\n",loader.PostUrlStr.CStr(),loader.PubTm.GetYmdTmStr().CStr());
-		for(int i=0;i<loader.MemeV.Len();i++)
-		{
-			printf("Quote: %s\n", loader.MemeV[i].CStr());
-		}
-		for(int i=0;i<loader.LinkV.Len();i++)
-		{
-			printf("Link: %s\n", loader.LinkV[i].CStr());
-		}
-		printf("\n\n");
-		it++;
+		p++;
 	}
 	printf("Done3\n\n\n\n");
 	return 0;
