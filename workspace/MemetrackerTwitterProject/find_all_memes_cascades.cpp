@@ -26,6 +26,59 @@ void SaveAll()
 
 int main(int argc, char* argv[])
 {
+	// For checking quotes in QuotesData
+	int selected = atoi(argv[1]);
+	TZipIn z("QuotesData.rar");
+	quotes.Load(z);
+	printf("QuotesData is loaded and it has %d items.",quotes.Len());
+
+	TStr selectedQuote = quotes.GetKey(selected);
+	cout << "\n\nQuote: " << selectedQuote.CStr() << endl;
+	cout << "\n\nCascade1:" << endl;
+	for(int i=0;i<quotes[selected].Len();i++)
+	{
+		cout << "t" << i << ": " << quotes[selected][i].time.GetYmdTmStr().CStr() << endl;
+	}
+	quotes.Clr();
+	cout << "\n\n\n";
+
+	TSecTmV casc;
+	for(int year=2008;year<2010;year++)
+	{
+		int month = 8;
+		int end = 13;
+		if(year==2009)
+		{
+			month = 1;
+			end = 10;
+		}
+		for(;month<end;month++)
+		{
+			TStr filefullpath = TStr::Fmt("/agbs/datasets/memetracker/memes2_%d-%02i.txt.rar",year,month);    // like memes2_2009-06.txt.rar
+			TMemesDataLoader loader(filefullpath);
+			while(loader.LoadNext())
+			{
+				for(int i=0;i<loader.MemeV.Len();i++)
+				{
+					TStr quoteLC = loader.MemeV[i].ToLc();
+					if(selectedQuote.EqI(quoteLC))
+					{
+						casc.Add(loader.PubTm);
+					}
+				}
+			}
+		}
+	}
+
+	cout << "\n\nCascade2:" << endl;
+	for(int i=0;i<casc.Len();i++)
+	{
+		cout << "t" << i << ": " << casc[i].GetYmdTmStr().CStr() << endl;
+	}
+	cout << "\n\nDONE" << endl;
+	return 0;
+
+
 //	// For checking Memetracker loader file
 //	int desired = atoi(argv[1]);
 //	printf("Check starts ...\n");
@@ -46,7 +99,6 @@ int main(int argc, char* argv[])
 //	}
 //	printf("Done1\n\n\n\n");
 //
-//	// For checking Memetracker loader file
 //	TStr filefullpath = TStr::Fmt("/agbs/datasets/memetracker/memes2_%d-%02i.txt.rar",2008,10);
 //	fstream f("/is/ei/oaskaris/Downloads/memetrackerdata/memes_2008-10.txt",ios::in);
 //	string line;
