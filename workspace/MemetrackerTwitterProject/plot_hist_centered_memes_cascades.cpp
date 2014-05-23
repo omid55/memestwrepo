@@ -24,9 +24,15 @@ int main(int argc, char* argv[])
 		printf("Loaded QuotesData has instances: %d\n\n\n",quotes.Len());
 
 		THash< TStr , CascadeElementV > nifty;
-		TZipIn z2("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY.rar");
+		TZipIn z2("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED.rar");
+//		TZipIn z2("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTS.rar");
 		nifty.Load(z2);
-		printf("Loaded QuotesPreprocessedData_NIFTY has instances: %d\n\n\n",nifty.Len());
+		printf("Loaded QuotesPreprocessedData_NIFTY_FINALFILTERED has instances: %d\n\n\n",nifty.Len());
+
+		THash< TStr , CascadeElementV > niftyfirsts;
+		TZipIn z3("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTS.rar");
+		niftyfirsts.Load(z3);
+		printf("Loaded QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTS has instances: %d\n\n\n",niftyfirsts.Len());
 
 //		THash< TStr , CascadeElementV > nifty_newsQuotes;
 //		TZipIn zin2("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_NEWS.rar");
@@ -63,6 +69,10 @@ int main(int argc, char* argv[])
 		Tools::plotOneHistShift(nifty,"Nifty-TOP1000-MEDIAN",period,periodstr,MEDIAN,DesiredCascadesCount);
 		Tools::plotOneHistShift(nifty,"Nifty-FULL-MAX",period,periodstr,MAX);
 		Tools::plotOneHistShift(nifty,"Nifty-TOP1000-MAX",period,periodstr,MAX,DesiredCascadesCount);
+		Tools::plotOneHistShift(niftyfirsts,"Firsts-Nifty-FULL-MEDIAN",period,periodstr,MEDIAN);
+		Tools::plotOneHistShift(niftyfirsts,"Firsts-Nifty-TOP1000-MEDIAN",period,periodstr,MEDIAN,DesiredCascadesCount);
+		Tools::plotOneHistShift(niftyfirsts,"Firsts-Nifty-FULL-MAX",period,periodstr,MAX);
+		Tools::plotOneHistShift(niftyfirsts,"Firsts-Nifty-TOP1000-MAX",period,periodstr,MAX,DesiredCascadesCount);
 
 //		// News vs Blogs
 //		Tools::plotTwoHistShift(nifty_newsQuotes,nifty_blogsQuotes,period,periodstr,"NewsBlogs-MEDIAN-Volumes", MEDIAN, "News", "Blogs");
