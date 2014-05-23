@@ -11,8 +11,8 @@
 int main(int argc, char* argv[])
 {
 	TExeTm ExeTm;
-	uint period = 6 * 3600;   // 6 Hours but, I think memetracker paper has 4 hours binning
-	char* periodstr = TStr("6 hours").GetCStr();
+	uint period = 4 * 3600;   // 4 Hours but, I think memetracker paper has 4 hours binning
+	char* periodstr = TStr("4 hours").GetCStr();
 	int DesiredCascadesCount = 1000;
 	printf("((( START individually Plot Memes Cascades CODE )))\n");
 	try

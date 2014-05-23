@@ -7,6 +7,9 @@
 // Omid55
 #include "Tools.h"
 
+
+static int myrange = 18;
+
 double* Tools::calculateHistOfCascade(TSecTmV& cascade,int rbegin, uint rperiod, int length, bool normalized)
 {
 	int i,index;
@@ -414,8 +417,6 @@ bool Tools::fileExists(TStr filepath)
 }
 
 // Individually
-static int myrange = 24;
-
 void Tools::plotOneIndividuallyShift(THash<TStr,CascadeElementV>& quotes, char* name, uint period, char* periodstr, int DesiredCascadesCount)
 {
 	int bins,i,q,index,center,Q,lengt,minLen;
@@ -768,9 +769,7 @@ void Tools::plotOneHistShift(THash<TStr,CascadeElementV>& quotes, char* name, ui
 	quotes.Clr();
 	printf("Discards: %d, smalls: %d\n\n",discards,smalls);
 //		for(i=0;i<lengt;i++)
-	int myleng = 18;
-//		int myleng = 5;
-	for(i=center-myleng;i<=center+myleng;i++)
+	for(i=center-myrange;i<=center+myrange;i++)
 	{
 		vols[i] /= (Q-discards-smalls);
 		TFltPr elem;
