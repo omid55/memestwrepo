@@ -696,7 +696,6 @@ void Tools::plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& q1, THash<TStr
 	plot2.SetDataPlotFNm(TStr::Fmt("MyResults/%s.tab",name), TStr::Fmt("MyResults/%s.plt",name));
 	plot2.SaveEps(TStr::Fmt("MyResults/%s.eps",name),true);
 
-
 	printf("Plot %s is done.\n",name);
 }
 
@@ -780,8 +779,8 @@ void Tools::plotOneHistShift(THash<TStr,CascadeElementV>& quotes, char* name, ui
 		volumes.Add(elem);
 	}
 	plot.AddPlot(volumes,gpwPoints);
-	plot.SetDataPlotFNm("MyResults/Memes-Volumes.tab", "MyResults/Memes-Volumes.plt");
-	plot.SaveEps("MyResults/Memes-Volumes.eps",true);
+	plot.SetDataPlotFNm(TStr::Fmt("MyResults/%s.tab",name), TStr::Fmt("MyResults/%s.plt",name));
+	plot.SaveEps(TStr::Fmt("MyResults/%s.eps",name),true);
 	delete[] vols;
 }
 
@@ -860,16 +859,8 @@ void Tools::plotTwoHistShift(THash<TStr,CascadeElementV>& quotes, THash<TUInt,TS
 	}
 	plot.AddPlot(volumes_memes,gpwPoints,s1);
 	plot.AddPlot(volumes_twitter_contents,gpwPoints,s2);
-	if(mode == MEDIAN)
-	{
-		plot.SetDataPlotFNm(TStr::Fmt("MyResults/%s.tab",name), TStr::Fmt("MyResults/%s.plt",name));
-		plot.SaveEps(TStr::Fmt("MyResults/%s.eps",name),true);
-	}
-	if(mode == MAX)
-	{
-		plot.SetDataPlotFNm(TStr::Fmt("MyResults/%s.tab",name), TStr::Fmt("MyResults/%s.plt",name));
-		plot.SaveEps(TStr::Fmt("MyResults/%s.eps",name),true);
-	}
+	plot.SetDataPlotFNm(TStr::Fmt("MyResults/%s.tab",name), TStr::Fmt("MyResults/%s.plt",name));
+	plot.SaveEps(TStr::Fmt("MyResults/%s.eps",name),true);
 
 	delete[] vols_memes;
 	delete[] vols_twitter_contents;
@@ -949,16 +940,8 @@ void Tools::plotTwoHistShift(THash<TStr,CascadeElementV>& q1, THash<TStr,Cascade
 	}
 	plot.AddPlot(volumes_memes,gpwPoints,s1);
 	plot.AddPlot(volumes_twitter_contents,gpwPoints,s2);
-	if(mode == MEDIAN)
-	{
-		plot.SetDataPlotFNm(TStr::Fmt("MyResults/%s.tab",name), TStr::Fmt("MyResults/%s.plt",name));
-		plot.SaveEps(TStr::Fmt("MyResults/%s.eps",name),true);
-	}
-	if(mode == MAX)
-	{
-		plot.SetDataPlotFNm(TStr::Fmt("MyResults/%s.tab",name), TStr::Fmt("MyResults/%s.plt",name));
-		plot.SaveEps(TStr::Fmt("MyResults/%s.eps",name),true);
-	}
+	plot.SetDataPlotFNm(TStr::Fmt("MyResults/%s.tab",name), TStr::Fmt("MyResults/%s.plt",name));
+	plot.SaveEps(TStr::Fmt("MyResults/%s.eps",name),true);
 
 	delete[] vols_memes;
 	delete[] vols_twitter_contents;
