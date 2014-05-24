@@ -766,7 +766,6 @@ void Tools::plotOneHistShift(THash<TStr,CascadeElementV>& quotes, char* name, ui
 
 		delete[] vol;
 	}
-	quotes.Clr();
 	printf("Discards: %d, smalls: %d\n\n",discards,smalls);
 //		for(i=0;i<lengt;i++)
 	for(i=center-myrange;i<=center+myrange;i++)

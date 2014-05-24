@@ -25,7 +25,6 @@ int main(int argc, char* argv[])
 
 		THash< TStr , CascadeElementV > nifty;
 		TZipIn z2("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED.rar");
-//		TZipIn z2("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTS.rar");
 		nifty.Load(z2);
 		printf("Loaded QuotesPreprocessedData_NIFTY_FINALFILTERED has instances: %d\n\n\n",nifty.Len());
 
@@ -65,14 +64,17 @@ int main(int argc, char* argv[])
 		Tools::plotOneHistShift(quotes,"Memes-TOP1000-MEDIAN",period,periodstr,MEDIAN,DesiredCascadesCount);
 		Tools::plotOneHistShift(quotes,"Memes-FULL-MAX",period,periodstr,MAX);
 		Tools::plotOneHistShift(quotes,"Memes-TOP1000-MAX",period,periodstr,MAX,DesiredCascadesCount);
+		quotes.Clr();
 		Tools::plotOneHistShift(nifty,"Nifty-FULL-MEDIAN",period,periodstr,MEDIAN);
 		Tools::plotOneHistShift(nifty,"Nifty-TOP1000-MEDIAN",period,periodstr,MEDIAN,DesiredCascadesCount);
 		Tools::plotOneHistShift(nifty,"Nifty-FULL-MAX",period,periodstr,MAX);
 		Tools::plotOneHistShift(nifty,"Nifty-TOP1000-MAX",period,periodstr,MAX,DesiredCascadesCount);
+		nifty.Clr();
 		Tools::plotOneHistShift(niftyfirsts,"Firsts-Nifty-FULL-MEDIAN",period,periodstr,MEDIAN);
 		Tools::plotOneHistShift(niftyfirsts,"Firsts-Nifty-TOP1000-MEDIAN",period,periodstr,MEDIAN,DesiredCascadesCount);
 		Tools::plotOneHistShift(niftyfirsts,"Firsts-Nifty-FULL-MAX",period,periodstr,MAX);
 		Tools::plotOneHistShift(niftyfirsts,"Firsts-Nifty-TOP1000-MAX",period,periodstr,MAX,DesiredCascadesCount);
+		niftyfirsts.Clr();
 
 //		// News vs Blogs
 //		Tools::plotTwoHistShift(nifty_newsQuotes,nifty_blogsQuotes,period,periodstr,"NewsBlogs-MEDIAN-Volumes", MEDIAN, "News", "Blogs");
