@@ -8,7 +8,7 @@
 #include "Tools.h"
 
 
-static int myrange = 18;
+static int myrange = 60;
 
 double* Tools::calculateHistOfCascade(TSecTmV& cascade,int rbegin, uint rperiod, int length, bool normalized)
 {
