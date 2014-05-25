@@ -20,7 +20,6 @@ void createNewsBlogsFirsts(char* filename, THash<TChA,TUInt> posts, THash<TStr,T
 	THash< TStr , CascadeElementV > newsQuotes;
 	THash< TStr , CascadeElementV > blogsQuotes;
 	Tools::separateTimestepsOfQuotesInBlogsNews(quotes,newsMediaHashtbl,posts,newsQuotes,blogsQuotes);
-	newsMediaHashtbl.Clr();
 
 	TZipOut zout1(TStr::Fmt("%s_NEWS.rar",filename));
 	newsQuotes.Save(zout1);
@@ -169,7 +168,7 @@ int main(int argc, char* argv[])
 		}
 		else
 		{
-			TZipIn newsIn("NewsMedia.rar");
+			TZipIn newsIn("/agbs/cluster/oaskaris/DATA/NewsMedia.rar");
 			newsMediaHashtbl.Load(newsIn);
 			printf("Loaded NewsMedia has %d items.\n\n\n",newsMediaHashtbl.Len());
 		}
