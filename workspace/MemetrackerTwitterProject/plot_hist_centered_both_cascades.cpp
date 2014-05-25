@@ -30,7 +30,7 @@ int main(int argc, char* argv[])
 {
 	TExeTm ExeTm;
 	uint period = 3600;   // Hour
-	char* periodstr = TStr("hour").GetCStr();
+	char* periodstr = TStr("hours").GetCStr();
 
 	printf("((( Starting The Plot Hist BOTH Cascades CODE )))\n");
 	try
@@ -65,35 +65,35 @@ int main(int argc, char* argv[])
 
 		// Plotting
 		printf("\n\n\nPlotting ...\n");
-		Tools::plotTwoHistShift(quotes1,twitter1,3600,"hours","HistUrlsMedian",MEDIAN,"Memes","urls on Twitter");
-		Tools::plotTwoHistShift(quotes1,twitter1,3600,"hours","HistUrlsMax", MAX,"Memes","urls on Twitter");
-		Tools::plotTwoHistShift(quotes2,twitter2,3600,"hours","HistContentsMedian",MEDIAN,"Memes","contents on Twitter");
-		Tools::plotTwoHistShift(quotes2,twitter2,3600,"hours","HistContentsMax",MAX,"Memes","contents on Twitter");
+		Tools::plotTwoHistShift(quotes1,twitter1,period,periodstr,"Hist/Urls/HistUrlsMedian",MEDIAN,"Memes","urls on Twitter");
+		Tools::plotTwoHistShift(quotes1,twitter1,period,periodstr,"Hist/Urls/HistUrlsMax", MAX,"Memes","urls on Twitter");
+		Tools::plotTwoHistShift(quotes2,twitter2,period,periodstr,"Hist/Contents/HistContentsMedian",MEDIAN,"Memes","contents on Twitter");
+		Tools::plotTwoHistShift(quotes2,twitter2,period,periodstr,"Hist/Contents/HistContentsMax",MAX,"Memes","contents on Twitter");
 
-		Tools::plotTwoHistShift(q1,twitter1,3600,"hours","HistNEWSUrlsMedian",MEDIAN,"Memes","urls on Twitter");
-		Tools::plotTwoHistShift(q1,twitter1,3600,"hours","HistNEWSUrlsMax", MAX,"Memes","urls on Twitter");
-		Tools::plotTwoHistShift(q2,twitter2,3600,"hours","HistNEWSContentsMedian",MEDIAN,"Memes","contents on Twitter");
-		Tools::plotTwoHistShift(q2,twitter2,3600,"hours","HistNEWSContentsMax",MAX,"Memes","contents on Twitter");
+		Tools::plotTwoHistShift(q1,twitter1,period,periodstr,"Hist/Urls/HistNEWSUrlsMedian",MEDIAN,"Memes","urls on Twitter");
+		Tools::plotTwoHistShift(q1,twitter1,period,periodstr,"Hist/Urls/HistNEWSUrlsMax", MAX,"Memes","urls on Twitter");
+		Tools::plotTwoHistShift(q2,twitter2,period,periodstr,"Hist/Contents/HistNEWSContentsMedian",MEDIAN,"Memes","contents on Twitter");
+		Tools::plotTwoHistShift(q2,twitter2,period,periodstr,"Hist/Contents/HistNEWSContentsMax",MAX,"Memes","contents on Twitter");
 
-		Tools::plotTwoHistShift(q3,twitter1,3600,"hours","HistBLOGSUrlsMedian",MEDIAN,"Memes","urls on Twitter");
-		Tools::plotTwoHistShift(q3,twitter1,3600,"hours","HistBLOGSUrlsMax", MAX,"Memes","urls on Twitter");
-		Tools::plotTwoHistShift(q4,twitter2,3600,"hours","HistBLOGSContentsMedian",MEDIAN,"Memes","contents on Twitter");
-		Tools::plotTwoHistShift(q4,twitter2,3600,"hours","HistBLOGSContentsMax",MAX,"Memes","contents on Twitter");
+		Tools::plotTwoHistShift(q3,twitter1,period,periodstr,"Hist/Urls/HistBLOGSUrlsMedian",MEDIAN,"Memes","urls on Twitter");
+		Tools::plotTwoHistShift(q3,twitter1,period,periodstr,"Hist/Urls/HistBLOGSUrlsMax", MAX,"Memes","urls on Twitter");
+		Tools::plotTwoHistShift(q4,twitter2,period,periodstr,"Hist/Contents/HistBLOGSContentsMedian",MEDIAN,"Memes","contents on Twitter");
+		Tools::plotTwoHistShift(q4,twitter2,period,periodstr,"Hist/Contents/HistBLOGSContentsMax",MAX,"Memes","contents on Twitter");
 
-		Tools::plotTwoHistShift(q5,twitter1,3600,"hours","HistFIRSTSUrlsMedian",MEDIAN,"Memes","urls on Twitter");
-		Tools::plotTwoHistShift(q5,twitter1,3600,"hours","HistFIRSTSUrlsMax", MAX,"Memes","urls on Twitter");
-		Tools::plotTwoHistShift(q6,twitter2,3600,"hours","HistFIRSTSContentsMedian",MEDIAN,"Memes","contents on Twitter");
-		Tools::plotTwoHistShift(q6,twitter2,3600,"hours","HistFIRSTSContentsMax",MAX,"Memes","contents on Twitter");
+		Tools::plotTwoHistShift(q5,twitter1,period,periodstr,"Hist/Urls/HistFIRSTSUrlsMedian",MEDIAN,"Memes","urls on Twitter");
+		Tools::plotTwoHistShift(q5,twitter1,period,periodstr,"Hist/Urls/HistFIRSTSUrlsMax", MAX,"Memes","urls on Twitter");
+		Tools::plotTwoHistShift(q6,twitter2,period,periodstr,"Hist/Contents/HistFIRSTSContentsMedian",MEDIAN,"Memes","contents on Twitter");
+		Tools::plotTwoHistShift(q6,twitter2,period,periodstr,"Hist/Contents/HistFIRSTSContentsMax",MAX,"Memes","contents on Twitter");
 
-		Tools::plotTwoHistShift(q7,twitter1,3600,"hours","HistFIRSTSNEWSUrlsMedian",MEDIAN,"Memes","urls on Twitter");
-		Tools::plotTwoHistShift(q7,twitter1,3600,"hours","HistFIRSTSNEWSUrlsMax", MAX,"Memes","urls on Twitter");
-		Tools::plotTwoHistShift(q8,twitter2,3600,"hours","HistFIRSTSNEWSContentsMedian",MEDIAN,"Memes","contents on Twitter");
-		Tools::plotTwoHistShift(q8,twitter2,3600,"hours","HistFIRSTSNEWSContentsMax",MAX,"Memes","contents on Twitter");
+		Tools::plotTwoHistShift(q7,twitter1,period,periodstr,"Hist/Urls/HistFIRSTSNEWSUrlsMedian",MEDIAN,"Memes","urls on Twitter");
+		Tools::plotTwoHistShift(q7,twitter1,period,periodstr,"Hist/Urls/HistFIRSTSNEWSUrlsMax", MAX,"Memes","urls on Twitter");
+		Tools::plotTwoHistShift(q8,twitter2,period,periodstr,"Hist/Contents/HistFIRSTSNEWSContentsMedian",MEDIAN,"Memes","contents on Twitter");
+		Tools::plotTwoHistShift(q8,twitter2,period,periodstr,"Hist/Contents/HistFIRSTSNEWSContentsMax",MAX,"Memes","contents on Twitter");
 
-		Tools::plotTwoHistShift(q9,twitter1,3600,"hours","HistFIRSTSBLOGSUrlsMedian",MEDIAN,"Memes","urls on Twitter");
-		Tools::plotTwoHistShift(q9,twitter1,3600,"hours","HistFIRSTSBLOGSUrlsMax", MAX,"Memes","urls on Twitter");
-		Tools::plotTwoHistShift(q10,twitter2,3600,"hours","HistFIRSTSBLOGSContentsMedian",MEDIAN,"Memes","contents on Twitter");
-		Tools::plotTwoHistShift(q10,twitter2,3600,"hours","HistFIRSTSBLOGSContentsMax",MAX,"Memes","contents on Twitter");
+		Tools::plotTwoHistShift(q9,twitter1,period,periodstr,"Hist/Urls/HistFIRSTSBLOGSUrlsMedian",MEDIAN,"Memes","urls on Twitter");
+		Tools::plotTwoHistShift(q9,twitter1,period,periodstr,"Hist/Urls/HistFIRSTSBLOGSUrlsMax", MAX,"Memes","urls on Twitter");
+		Tools::plotTwoHistShift(q10,twitter2,period,periodstr,"Hist/Contents/HistFIRSTSBLOGSContentsMedian",MEDIAN,"Memes","contents on Twitter");
+		Tools::plotTwoHistShift(q10,twitter2,period,periodstr,"Hist/Contents/HistFIRSTSBLOGSContentsMax",MAX,"Memes","contents on Twitter");
 
 
 		printf("\nPlots had been drawn successfully.");
