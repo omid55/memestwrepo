@@ -18,20 +18,20 @@ int main(int argc, char* argv[])
 		Env = TEnv(argc, argv, TNotify::StdNotify);
 		Env.PrepArgs(TStr::Fmt("\nPlotting Memes-TU Cascades. build: %s, %s. Time: %s", __TIME__, __DATE__, TExeTm::GetCurTm()));
 
-		THash< TStr , CascadeElementV > quotes;
-		TZipIn z1("lastData/QuotesData.rar");
-		quotes.Load(z1);
-		printf("Loaded QuotesData has instances: %d\n\n\n",quotes.Len());
-
-		THash< TStr , CascadeElementV > nifty;
-		TZipIn z2("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED.rar");
-		nifty.Load(z2);
-		printf("Loaded QuotesPreprocessedData_NIFTY_FINALFILTERED has instances: %d\n\n\n",nifty.Len());
-
-		THash< TStr , CascadeElementV > niftyfirsts;
-		TZipIn z3("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTS.rar");
-		niftyfirsts.Load(z3);
-		printf("Loaded QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTS has instances: %d\n\n\n",niftyfirsts.Len());
+//		THash< TStr , CascadeElementV > quotes;
+//		TZipIn z1("lastData/QuotesData.rar");
+//		quotes.Load(z1);
+//		printf("Loaded QuotesData has instances: %d\n\n\n",quotes.Len());
+//
+//		THash< TStr , CascadeElementV > nifty;
+//		TZipIn z2("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED.rar");
+//		nifty.Load(z2);
+//		printf("Loaded QuotesPreprocessedData_NIFTY_FINALFILTERED has instances: %d\n\n\n",nifty.Len());
+//
+//		THash< TStr , CascadeElementV > niftyfirsts;
+//		TZipIn z3("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTS.rar");
+//		niftyfirsts.Load(z3);
+//		printf("Loaded QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTS has instances: %d\n\n\n",niftyfirsts.Len());
 
 		THash< TStr , CascadeElementV > nifty_newsQuotes;
 		TZipIn zin2("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_NEWS.rar");

@@ -17,10 +17,10 @@ int main(int argc, char* argv[])
 	printf("((( START individually Plot Memes Cascades CODE )))\n");
 	try
 	{
-		THash< TStr , CascadeElementV > niftyqu;
-		TZipIn zin1("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED.rar");
-		niftyqu.Load(zin1);
-		printf("Loaded QuotesPreprocessedData_NIFTY_FINALFILTERED has instances: %d\n\n\n",niftyqu.Len());
+//		THash< TStr , CascadeElementV > niftyqu;
+//		TZipIn zin1("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED.rar");
+//		niftyqu.Load(zin1);
+//		printf("Loaded QuotesPreprocessedData_NIFTY_FINALFILTERED has instances: %d\n\n\n",niftyqu.Len());
 
 		THash< TStr , CascadeElementV > nifty_newsQuotes;
 		TZipIn zin2("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_NEWS.rar");
