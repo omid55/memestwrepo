@@ -8,49 +8,91 @@
 // Omid55
 #include "stdafx.h"
 
+void createNewsBlogsFirsts(char* filename, THash<TChA,TUInt> posts, THash<TStr,TUInt> newsMediaHashtbl)
+{
+	THash< TStr , CascadeElementV > quotes;
+	TZipIn ZquotesIn(TStr::Fmt("/agbs/cluster/oaskaris/DATA/%s.rar",filename));
+	quotes.Load(ZquotesIn);
+	printf("Loaded %s has instances: %d\n\n\n",filename,quotes.Len());
+
+	// ---=== Separating news and blogs ===---
+	// NIFTY
+	THash< TStr , CascadeElementV > newsQuotes;
+	THash< TStr , CascadeElementV > blogsQuotes;
+	Tools::separateTimestepsOfQuotesInBlogsNews(quotes,newsMediaHashtbl,posts,newsQuotes,blogsQuotes);
+	newsMediaHashtbl.Clr();
+
+	TZipOut zout1(TStr::Fmt("%s_NEWS.rar",filename));
+	newsQuotes.Save(zout1);
+	printf("%s_NEWS saving done, it contains %d posts.\n",filename,newsQuotes.Len());
+
+	TZipOut zout2(TStr::Fmt("%s_BLOGS.rar",filename));
+	blogsQuotes.Save(zout2);
+	printf("%s_BLOGS saving done, it contains %d posts.\n",filename,blogsQuotes.Len());
+
+	// Removing other mentioning and just save the first one
+	THash< TStr , CascadeElementV > firstMentionsquotes;
+	Tools::removeOtherTimestepsOfQuotesWithSameDomain(quotes,posts,firstMentionsquotes);
+	TZipOut zout3(TStr::Fmt("%s_FIRSTS.rar",filename));
+	firstMentionsquotes.Save(zout3);
+	printf("%s_FIRSTS saving done, it contains %d posts.\n",filename,firstMentionsquotes.Len());
+
+	THash< TStr , CascadeElementV > firstMentionsquotes_news;
+	Tools::removeOtherTimestepsOfQuotesWithSameDomain(newsQuotes,posts,firstMentionsquotes_news);
+	TZipOut zout4(TStr::Fmt("%s_FIRSTSNEWS.rar",filename));
+	firstMentionsquotes_news.Save(zout4);
+	printf("%s_FIRSTSNEWS saving done, it contains %d posts.\n",filename,firstMentionsquotes_news.Len());
+
+	THash< TStr , CascadeElementV > firstMentionsquotes_blogs;
+	Tools::removeOtherTimestepsOfQuotesWithSameDomain(blogsQuotes,posts,firstMentionsquotes_blogs);
+	TZipOut zout5(TStr::Fmt("%s_FIRSTSBLOGS.rar",filename));
+	firstMentionsquotes_blogs.Save(zout5);
+	printf("%s_FIRSTSBLOGS saving done, it contains %d posts.\n",filename,firstMentionsquotes_blogs.Len());
+}
+
 int main(int argc, char* argv[])
 {
-//	THash< TStr , CascadeElementV > niftyqu;
-//	TZipIn ZquotesIn2("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED.rar");
-//	niftyqu.Load(ZquotesIn2);
-//	printf("Loaded QuotesPreprocessedData_NIFTY_FINALFILTERED has instances: %d\n\n\n",niftyqu.Len());
+//	THash< TStr , CascadeElementV > quotes;
+//	TZipIn ZquotesIn2("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_FINALFILTERED.rar");
+//	quotes.Load(ZquotesIn2);
+//	printf("Loaded QuotesPreprocessedData_FINALFILTERED has instances: %d\n\n\n",quotes.Len());
 //
-//	THash< TStr , CascadeElementV > nifty_newsQuotes;
-//	TZipIn zin2("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_NEWS.rar");
-//	nifty_newsQuotes.Load(zin2);
-//	printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_NEWS loading done, it contains %d posts.\n",nifty_newsQuotes.Len());
+//	THash< TStr , CascadeElementV > newsQuotes;
+//	TZipIn zin2("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_FINALFILTERED_NEWS.rar");
+//	newsQuotes.Load(zin2);
+//	printf(TStr::Fmt("%s_NEWS loading done, it contains %d posts.\n",newsQuotes.Len());
 //
-//	THash< TStr , CascadeElementV > nifty_blogsQuotes;
-//	TZipIn zin3("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_BLOGS.rar");
-//	nifty_blogsQuotes.Load(zin3);
-//	printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_BLOGS loading done, it contains %d posts.\n",nifty_blogsQuotes.Len());
+//	THash< TStr , CascadeElementV > blogsQuotes;
+//	TZipIn zin3("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_FINALFILTERED_BLOGS.rar");
+//	blogsQuotes.Load(zin3);
+//	printf(TStr::Fmt("%s_BLOGS loading done, it contains %d posts.\n",blogsQuotes.Len());
 //
-//	THash< TStr , CascadeElementV > firstMentionsNiftyqu;
-//	TZipIn zin4("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTS.rar");
-//	firstMentionsNiftyqu.Load(zin4);
-//	printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTS saving done, it contains %d posts.\n",firstMentionsNiftyqu.Len());
+//	THash< TStr , CascadeElementV > firstMentionsquotes;
+//	TZipIn zin4("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_FINALFILTERED_FIRSTS.rar");
+//	firstMentionsquotes.Load(zin4);
+//	printf(TStr::Fmt("%s_FIRSTS saving done, it contains %d posts.\n",firstMentionsquotes.Len());
 //
 //	while(true)
 //	{
 //		int index;
-//		cout << "\n\n\nEnter index (0-" << niftyqu.Len()-1 << "): ";
+//		cout << "\n\n\nEnter index (0-" << quotes.Len()-1 << "): ";
 //		cin >> index;
 //		if(index < 0) break;
 //
 //		cout << "Original:\n";
-//		for(int i=0;i<niftyqu[index].Len();i++)
+//		for(int i=0;i<quotes[index].Len();i++)
 //		{
-//			cout << niftyqu[index][i].time.GetYmdTmStr().CStr() << endl;
+//			cout << quotes[index][i].time.GetYmdTmStr().CStr() << endl;
 //		}
 //		cout << "\n\nNews:\n";
-//		for(int i=0;i<nifty_newsQuotes[index].Len();i++)
+//		for(int i=0;i<newsQuotes[index].Len();i++)
 //		{
-//			cout << nifty_newsQuotes[index][i].time.GetYmdTmStr().CStr() << endl;
+//			cout << newsQuotes[index][i].time.GetYmdTmStr().CStr() << endl;
 //		}
 //		cout << "\n\nBlogs:\n";
-//		for(int i=0;i<nifty_blogsQuotes[index].Len();i++)
+//		for(int i=0;i<blogsQuotes[index].Len();i++)
 //		{
-//			cout << nifty_blogsQuotes[index][i].time.GetYmdTmStr().CStr() << endl;
+//			cout << blogsQuotes[index][i].time.GetYmdTmStr().CStr() << endl;
 //		}
 //	}
 //	return 0;
@@ -68,19 +110,19 @@ int main(int argc, char* argv[])
 //		if(index < 0) break;
 //
 //		cout << "Original:\n";
-//		for(int i=0;i<niftyqu[index].Len();i++)
+//		for(int i=0;i<quotes[index].Len();i++)
 //		{
-//			cout << posts.GetKey(niftyqu[index][i].post).CStr() << endl;
+//			cout << posts.GetKey(quotes[index][i].post).CStr() << endl;
 //		}
 //		cout << "\n\nNews:\n";
-//		for(int i=0;i<nifty_newsQuotes[index].Len();i++)
+//		for(int i=0;i<newsQuotes[index].Len();i++)
 //		{
-//			cout << posts.GetKey(nifty_newsQuotes[index][i].post).CStr() << endl;
+//			cout << posts.GetKey(newsQuotes[index][i].post).CStr() << endl;
 //		}
 //		cout << "\n\nBlogs:\n";
-//		for(int i=0;i<nifty_blogsQuotes[index].Len();i++)
+//		for(int i=0;i<blogsQuotes[index].Len();i++)
 //		{
-//			cout << posts.GetKey(nifty_blogsQuotes[index][i].post).CStr() << endl;
+//			cout << posts.GetKey(blogsQuotes[index][i].post).CStr() << endl;
 //		}
 //	}
 //
@@ -92,14 +134,14 @@ int main(int argc, char* argv[])
 //		if(index < 0) break;
 //
 //		cout << "Original:\n";
-//		for(int i=0;i<niftyqu[index].Len();i++)
+//		for(int i=0;i<quotes[index].Len();i++)
 //		{
-//			cout << posts.GetKey(niftyqu[index][i].post).CStr() << endl;
+//			cout << posts.GetKey(quotes[index][i].post).CStr() << endl;
 //		}
 //		cout << "\n\nFirstMentionsFqu:\n";
-//		for(int i=0;i<firstMentionsNiftyqu[index].Len();i++)
+//		for(int i=0;i<firstMentionsquotes[index].Len();i++)
 //		{
-//			cout << posts.GetKey(firstMentionsNiftyqu[index][i].post).CStr() << endl;
+//			cout << posts.GetKey(firstMentionsquotes[index][i].post).CStr() << endl;
 //		}
 //	}
 
@@ -132,52 +174,17 @@ int main(int argc, char* argv[])
 			printf("Loaded NewsMedia has %d items.\n\n\n",newsMediaHashtbl.Len());
 		}
 
-		THash< TStr , CascadeElementV > niftyqu;
-		TZipIn ZquotesIn2("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED.rar");
-	//		TZipIn ZquotesIn2("QuotesPreprocessedData_NIFTY_SUBSETTED.rar");       // for local in my computer
-		niftyqu.Load(ZquotesIn2);
-		printf("Loaded QuotesPreprocessedData_NIFTY_FINALFILTERED has instances: %d\n\n\n",niftyqu.Len());
-
 		THash<TChA,TUInt> posts;
 		TZipIn ZpostsIn("/agbs/cluster/oaskaris/DATA/PostsData.rar");
 		posts.Load(ZpostsIn);
 		printf("PostsData loading done, it contains %d posts.\n",posts.Len());
 
-		// ---=== Separating news and blogs ===---
-		// NIFTY
-		THash< TStr , CascadeElementV > nifty_newsQuotes;
-		THash< TStr , CascadeElementV > nifty_blogsQuotes;
-		Tools::separateTimestepsOfQuotesInBlogsNews(niftyqu,newsMediaHashtbl,posts,nifty_newsQuotes,nifty_blogsQuotes);
-		newsMediaHashtbl.Clr();
 
-		TZipOut zout1("QuotesPreprocessedData_NIFTY_FINALFILTERED_NEWS.rar");
-		nifty_newsQuotes.Save(zout1);
-		printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_NEWS saving done, it contains %d posts.\n",nifty_newsQuotes.Len());
+		// Create news and blogs and firsts
+//		createNewsBlogsFirsts("QuotesPreprocessedData_NIFTY_FINALFILTERED",posts,newsMediaHashtbl);
+		createNewsBlogsFirsts("QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS",posts,newsMediaHashtbl);
+		createNewsBlogsFirsts("QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents",posts,newsMediaHashtbl);
 
-		TZipOut zout2("QuotesPreprocessedData_NIFTY_FINALFILTERED_BLOGS.rar");
-		nifty_blogsQuotes.Save(zout2);
-		printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_BLOGS saving done, it contains %d posts.\n",nifty_blogsQuotes.Len());
-
-		// Removing other mentioning and just save the first one
-		THash< TStr , CascadeElementV > firstMentionsNiftyqu;
-		Tools::removeOtherTimestepsOfQuotesWithSameDomain(niftyqu,posts,firstMentionsNiftyqu);
-		TZipOut zout3("QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTS.rar");
-		firstMentionsNiftyqu.Save(zout3);
-		printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTS saving done, it contains %d posts.\n",firstMentionsNiftyqu.Len());
-
-		THash< TStr , CascadeElementV > firstMentionsNiftyqu_news;
-		Tools::removeOtherTimestepsOfQuotesWithSameDomain(nifty_newsQuotes,posts,firstMentionsNiftyqu_news);
-		TZipOut zout4("QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTSNEWS.rar");
-		firstMentionsNiftyqu_news.Save(zout4);
-		printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTSNEWS saving done, it contains %d posts.\n",firstMentionsNiftyqu_news.Len());
-
-		THash< TStr , CascadeElementV > firstMentionsNiftyqu_blogs;
-		Tools::removeOtherTimestepsOfQuotesWithSameDomain(nifty_blogsQuotes,posts,firstMentionsNiftyqu_blogs);
-		TZipOut zout5("QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTSBLOGS.rar");
-		firstMentionsNiftyqu_blogs.Save(zout5);
-		printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTSBLOGS saving done, it contains %d posts.\n",firstMentionsNiftyqu_blogs.Len());
-
-		posts.Clr();
 		printf("\n\nDONE\n\n");
 	}
 	catch(exception& ex)

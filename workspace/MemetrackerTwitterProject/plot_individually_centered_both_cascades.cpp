@@ -74,45 +74,36 @@ int main(int argc, char* argv[])
 		THash< TUInt , TSecTmV > twitter2 = loadTwitter("/agbs/cluster/oaskaris/DATA/CascadesOnTwitterData_FINALFILTERED.rar");
 
 		// News vs Blogs
-		THash< TStr , CascadeElementV > q1 = loadQuotes("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS_News.rar");
-		THash< TUInt , TSecTmV > t1 	   = loadTwitter("/agbs/cluster/oaskaris/DATA/CascadesFullUrlsOnTwitterData_FINALFILTERED_News.rar");
-		THash< TStr , CascadeElementV > q2 = loadQuotes("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents_News.rar");
-		THash< TUInt , TSecTmV > t2 	   = loadTwitter("/agbs/cluster/oaskaris/DATA/CascadesOnTwitterData_FINALFILTERED_News.rar");
+		THash< TStr , CascadeElementV > q1 = loadQuotes("QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS_NEWS.rar");
+		THash< TStr , CascadeElementV > q2 = loadQuotes("QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents_NEWS.rar");
 
-		THash< TStr , CascadeElementV > q3 = loadQuotes("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS_Blogs.rar");
-		THash< TUInt , TSecTmV > t3 	   = loadTwitter("/agbs/cluster/oaskaris/DATA/CascadesFullUrlsOnTwitterData_FINALFILTERED_Blogs.rar");
-		THash< TStr , CascadeElementV > q4 = loadQuotes("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents_Blogs.rar");
-		THash< TUInt , TSecTmV > t4 	   = loadTwitter("/agbs/cluster/oaskaris/DATA/CascadesOnTwitterData_FINALFILTERED_Blogs.rar");
+		THash< TStr , CascadeElementV > q3 = loadQuotes("QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS_BLOGS.rar");
+		THash< TStr , CascadeElementV > q4 = loadQuotes("QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents_BLOGS.rar");
 
-		THash< TStr , CascadeElementV > q5 = loadQuotes("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS_Firsts.rar");
-		THash< TUInt , TSecTmV > t5 	   = loadTwitter("/agbs/cluster/oaskaris/DATA/CascadesFullUrlsOnTwitterData_FINALFILTERED_Firsts.rar");
-		THash< TStr , CascadeElementV > q6 = loadQuotes("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents_Firsts.rar");
-		THash< TUInt , TSecTmV > t6 	   = loadTwitter("/agbs/cluster/oaskaris/DATA/CascadesOnTwitterData_FINALFILTERED_Firsts.rar");
+		THash< TStr , CascadeElementV > q5 = loadQuotes("QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS_FIRSTS.rar");
+		THash< TStr , CascadeElementV > q6 = loadQuotes("QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents_FIRSTS.rar");
 
-		THash< TStr , CascadeElementV > q7 = loadQuotes("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS_FirstNews.rar");
-		THash< TUInt , TSecTmV > t7 	   = loadTwitter("/agbs/cluster/oaskaris/DATA/CascadesFullUrlsOnTwitterData_FINALFILTERED_FirstNews.rar");
-		THash< TStr , CascadeElementV > q8 = loadQuotes("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents_FirstNews.rar");
-		THash< TUInt , TSecTmV > t8 	   = loadTwitter("/agbs/cluster/oaskaris/DATA/CascadesOnTwitterData_FINALFILTERED_FirstNews.rar");
+		THash< TStr , CascadeElementV > q7 = loadQuotes("QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS_FIRSTSNEWS.rar");
+		THash< TStr , CascadeElementV > q8 = loadQuotes("QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents_FIRSTSNEWS.rar");
 
-		THash< TStr , CascadeElementV > q9 = loadQuotes("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS_FirstBlogs.rar");
-		THash< TUInt , TSecTmV > t9 	   = loadTwitter("/agbs/cluster/oaskaris/DATA/CascadesFullUrlsOnTwitterData_FINALFILTERED_FirstBlogs.rar");
-		THash< TStr , CascadeElementV > q10 = loadQuotes("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents_FirstBlogs.rar");
-		THash< TUInt , TSecTmV > t10 	   = loadTwitter("/agbs/cluster/oaskaris/DATA/CascadesOnTwitterData_FINALFILTERED_FirstBlogs.rar");
+		THash< TStr , CascadeElementV > q9 = loadQuotes("QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS_FIRSTSBLOGS.rar");
+		THash< TStr , CascadeElementV > q10 = loadQuotes("QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents_FIRSTSBLOGS.rar");
 
 
 		// Plotting
+		printf("\n\n\nPlotting ...\n");
 		Tools::plotTwoIndividuallyShift(quotes1,twitter1,period,periodstr,"IndividualUrls");
 		Tools::plotTwoIndividuallyShift(quotes2,twitter2,period,periodstr,"IndividualContents");
-		Tools::plotTwoIndividuallyShift(q1,t1,period,periodstr,"IndividualUrls_NEWS");
-		Tools::plotTwoIndividuallyShift(q2,t2,period,periodstr,"IndividualContents_NEWS");
-		Tools::plotTwoIndividuallyShift(q3,t3,period,periodstr,"IndividualUrls_BLOGS");
-		Tools::plotTwoIndividuallyShift(q4,t4,period,periodstr,"IndividualContents_BLOGS");
-		Tools::plotTwoIndividuallyShift(q5,t5,period,periodstr,"IndividualUrls_FIRSTS");
-		Tools::plotTwoIndividuallyShift(q6,t6,period,periodstr,"IndividualContents_FIRSTS");
-		Tools::plotTwoIndividuallyShift(q7,t7,period,periodstr,"IndividualUrls_FIRSTNEWS");
-		Tools::plotTwoIndividuallyShift(q8,t8,period,periodstr,"IndividualContents_FIRSTNEWS");
-		Tools::plotTwoIndividuallyShift(q9,t9,period,periodstr,"IndividualUrls_FIRSTBLOGS");
-		Tools::plotTwoIndividuallyShift(q10,t10,period,periodstr,"IndividualContents_FIRSTBLOGS");
+		Tools::plotTwoIndividuallyShift(q1,twitter1,period,periodstr,"IndividualUrls_NEWS");
+		Tools::plotTwoIndividuallyShift(q2,twitter2,period,periodstr,"IndividualContents_NEWS");
+		Tools::plotTwoIndividuallyShift(q3,twitter1,period,periodstr,"IndividualUrls_BLOGS");
+		Tools::plotTwoIndividuallyShift(q4,twitter2,period,periodstr,"IndividualContents_BLOGS");
+		Tools::plotTwoIndividuallyShift(q5,twitter1,period,periodstr,"IndividualUrls_FIRSTS");
+		Tools::plotTwoIndividuallyShift(q6,twitter2,period,periodstr,"IndividualContents_FIRSTS");
+		Tools::plotTwoIndividuallyShift(q7,twitter1,period,periodstr,"IndividualUrls_FIRSTSNEWS");
+		Tools::plotTwoIndividuallyShift(q8,twitter2,period,periodstr,"IndividualContents_FIRSTSNEWS");
+		Tools::plotTwoIndividuallyShift(q9,twitter1,period,periodstr,"IndividualUrls_FIRSTSBLOGS");
+		Tools::plotTwoIndividuallyShift(q10,twitter2,period,periodstr,"IndividualContents_FIRSTSBLOGS");
 
 
 		printf("\nPlots had been drawn successfully.");
