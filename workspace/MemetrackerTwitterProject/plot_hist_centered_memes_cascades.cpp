@@ -56,7 +56,7 @@ int main(int argc, char* argv[])
 
 		// Plotting
 		uint period = 4 * 3600;     // 4 hours
-		char periodstr[] = "4 hours";
+		char* periodstr = TStr("4 hours").GetCStr();   //char periodstr[] = "4 hours";
 		int DesiredCascadesCount = 1000;
 
 //		// Memes
@@ -77,10 +77,12 @@ int main(int argc, char* argv[])
 //		niftyfirsts.Clr();
 
 		// News vs Blogs
-		Tools::plotTwoHistShift(nifty_newsQuotes,nifty_blogsQuotes,period,periodstr,"NewsBlogs-MEDIAN-Volumes", MEDIAN, "News", "Blogs");
-		Tools::plotTwoHistShift(firstMentionsNiftyqu_newsQuotes,firstMentionsNiftyqu_blogsQuotes,period,periodstr,"FirstsNewsBlogs-MEDIAN-Volumes", MEDIAN, "News", "Blogs");
-		Tools::plotTwoHistShift(nifty_newsQuotes,nifty_blogsQuotes,period,periodstr,"NewsBlogs-MAX-Volumes", MAX, "News", "Blogs");
-		Tools::plotTwoHistShift(firstMentionsNiftyqu_newsQuotes,firstMentionsNiftyqu_blogsQuotes,period,periodstr,"FirstsNewsBlogs-MAX-Volumes", MAX, "News", "Blogs");
+		period = 3600;
+		periodstr = TStr("hours").GetCStr();
+		Tools::plotTwoHistShift(nifty_newsQuotes,nifty_blogsQuotes,period,periodstr,"Histed-NewsBlogs-MEDIAN", MEDIAN, "News", "Blogs");
+		Tools::plotTwoHistShift(firstMentionsNiftyqu_newsQuotes,firstMentionsNiftyqu_blogsQuotes,period,periodstr,"Histed-FirstsNewsBlogs-MEDIAN", MEDIAN, "News", "Blogs");
+		Tools::plotTwoHistShift(nifty_newsQuotes,nifty_blogsQuotes,period,periodstr,"Histed-NewsBlogs-MAX", MAX, "News", "Blogs");
+		Tools::plotTwoHistShift(firstMentionsNiftyqu_newsQuotes,firstMentionsNiftyqu_blogsQuotes,period,periodstr,"Histed-FirstsNewsBlogs-MAX", MAX, "News", "Blogs");
 
 
 		printf("\nPlots had been drawn successfully.");

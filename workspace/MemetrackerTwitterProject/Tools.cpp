@@ -632,10 +632,10 @@ void Tools::plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& q1, THash<TStr
 		int integratedMedianValue = integratedTimestamps[leng/2];
 		delete[] integratedTimestamps;
 
-		TIntV memeCascade;
+		TIntV q1Cascade;
 		for(int i=0;i<q1[q].Len();i++)
 		{
-			memeCascade.Add((int)q1[q][i].time.GetAbsSecs() - integratedMedianValue);
+			q1Cascade.Add((int)q1[q][i].time.GetAbsSecs() - integratedMedianValue);
 		}
 		TIntV q2Cascade;
 		for(int i=0;i<q2[q].Len();i++)
@@ -644,13 +644,13 @@ void Tools::plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& q1, THash<TStr
 		}
 		int beginShifted = begin - end;
 
-		double* memeVol = Tools::calculateHistOfCascade(memeCascade,beginShifted,period,lengt,true);
-		memeCascade.Clr();
+		double* q1Vol = Tools::calculateHistOfCascade(q1Cascade,beginShifted,period,lengt,true);
+		q1Cascade.Clr();
 		for(int i=0;i<lengt;i++)
 		{
-			q1Volumes[i] += memeVol[i];
+			q1Volumes[i] += q1Vol[i];
 		}
-		delete[] memeVol;
+		delete[] q1Vol;
 
 		double* q2Vol = Tools::calculateHistOfCascade(q2Cascade,beginShifted,period,lengt,true);
 		q2Cascade.Clr();
@@ -669,7 +669,7 @@ void Tools::plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& q1, THash<TStr
 //	for(int i=0;i<lengt;i++)
 	{
 		q1Volumes[i] /= q1.Len();
-		q2Volumes[i] /= q1.Len();
+		q2Volumes[i] /= q2.Len();
 		TFltPr elem;
 		elem.Val1 = -center + i;
 
@@ -876,7 +876,7 @@ void Tools::plotTwoHistShift(THash<TStr,CascadeElementV>& q1, THash<TStr,Cascade
 	uint end = TSecTm(2009,10,1,0,0,0).GetAbsSecs();
 	TGnuPlot plot;
 	plot.SetXYLabel(TStr::Fmt("Time[%s]",periodstr), "Volume");
-	plot.SetTitle("Hourly Binned Quotes Cascade over Memetracker and its contents over Twitter");
+	plot.SetTitle("Binned Quotes Cascade over Memetracker and its contents over Twitter");
 
 	// ---== Computation ==---
 	bins = (end - begin) / period;
