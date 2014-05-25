@@ -70,8 +70,8 @@ int main(int argc, char* argv[])
 //		Tools::plotOneIndividuallyShift(firstMentionsNiftyqu_blogsQuotes,"NIFTY-FirstMentions-Memes-Volume-TopSelected-Blogs",period,periodstr,DesiredCascadesCount);
 
 		// News and Blogs togehter
-		period = 3600;
-		periodstr = TStr("hours").GetCStr();
+		period = 60;
+		periodstr = TStr("minutes").GetCStr();
 		Tools::plotTwoIndividuallyShift(nifty_newsQuotes,nifty_blogsQuotes,period,periodstr,"IndividualNewsBlogs","News","Blogs");
 		Tools::plotTwoIndividuallyShift(firstMentionsNiftyqu_newsQuotes,firstMentionsNiftyqu_blogsQuotes,period,periodstr,"IndividualFirstsNewsBlogs","FirstsNews","FirstsBlogs");
 
