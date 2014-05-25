@@ -710,7 +710,6 @@ void Tools::plotOneHistShift(THash<TStr,CascadeElementV>& quotes, char* name, ui
 	TFltPrV volumes;
 	uint begin = TSecTm(2008,8,1,0,0,0).GetAbsSecs();
 	uint end = TSecTm(2009,10,1,0,0,0).GetAbsSecs();
-	TExeTm ExeTm;
 	TGnuPlot plot;
 	plot.SetXYLabel(TStr::Fmt("Time[%s]",periodstr), "Volume");
 	plot.SetTitle("BinnedVolumes On Memetracker");

@@ -33,25 +33,25 @@ int main(int argc, char* argv[])
 		niftyfirsts.Load(z3);
 		printf("Loaded QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTS has instances: %d\n\n\n",niftyfirsts.Len());
 
-//		THash< TStr , CascadeElementV > nifty_newsQuotes;
-//		TZipIn zin2("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_NEWS.rar");
-//		nifty_newsQuotes.Load(zin2);
-//		printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_NEWS loading done, it contains %d items.\n",nifty_newsQuotes.Len());
-//
-//		THash< TStr , CascadeElementV > nifty_blogsQuotes;
-//		TZipIn zin3("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_BLOGS.rar");
-//		nifty_blogsQuotes.Load(zin3);
-//		printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_BLOGS loading done, it contains %d items.\n",nifty_blogsQuotes.Len());
-//
-//		THash< TStr , CascadeElementV > firstMentionsNiftyqu_newsQuotes;
-//		TZipIn zin5("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTSNEWS.rar");
-//		firstMentionsNiftyqu_newsQuotes.Load(zin5);
-//		printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTSNEWS loading done, it contains %d items.\n",firstMentionsNiftyqu_newsQuotes.Len());
-//
-//		THash< TStr , CascadeElementV > firstMentionsNiftyqu_blogsQuotes;
-//		TZipIn zin6("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTSBLOGS.rar");
-//		firstMentionsNiftyqu_blogsQuotes.Load(zin6);
-//		printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTSBLOGS loading done, it contains %d items.\n",firstMentionsNiftyqu_blogsQuotes.Len());
+		THash< TStr , CascadeElementV > nifty_newsQuotes;
+		TZipIn zin2("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_NEWS.rar");
+		nifty_newsQuotes.Load(zin2);
+		printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_NEWS loading done, it contains %d items.\n",nifty_newsQuotes.Len());
+
+		THash< TStr , CascadeElementV > nifty_blogsQuotes;
+		TZipIn zin3("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_BLOGS.rar");
+		nifty_blogsQuotes.Load(zin3);
+		printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_BLOGS loading done, it contains %d items.\n",nifty_blogsQuotes.Len());
+
+		THash< TStr , CascadeElementV > firstMentionsNiftyqu_newsQuotes;
+		TZipIn zin5("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTSNEWS.rar");
+		firstMentionsNiftyqu_newsQuotes.Load(zin5);
+		printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTSNEWS loading done, it contains %d items.\n",firstMentionsNiftyqu_newsQuotes.Len());
+
+		THash< TStr , CascadeElementV > firstMentionsNiftyqu_blogsQuotes;
+		TZipIn zin6("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTSBLOGS.rar");
+		firstMentionsNiftyqu_blogsQuotes.Load(zin6);
+		printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTSBLOGS loading done, it contains %d items.\n",firstMentionsNiftyqu_blogsQuotes.Len());
 
 
 		// Plotting
@@ -59,28 +59,28 @@ int main(int argc, char* argv[])
 		char periodstr[] = "4 hours";
 		int DesiredCascadesCount = 1000;
 
-		// Memes
-		Tools::plotOneHistShift(quotes,"Memes-FULL-MEDIAN",period,periodstr,MEDIAN);
-		Tools::plotOneHistShift(quotes,"Memes-TOP1000-MEDIAN",period,periodstr,MEDIAN,DesiredCascadesCount);
-		Tools::plotOneHistShift(quotes,"Memes-FULL-MAX",period,periodstr,MAX);
-		Tools::plotOneHistShift(quotes,"Memes-TOP1000-MAX",period,periodstr,MAX,DesiredCascadesCount);
-		quotes.Clr();
-		Tools::plotOneHistShift(nifty,"Nifty-FULL-MEDIAN",period,periodstr,MEDIAN);
-		Tools::plotOneHistShift(nifty,"Nifty-TOP1000-MEDIAN",period,periodstr,MEDIAN,DesiredCascadesCount);
-		Tools::plotOneHistShift(nifty,"Nifty-FULL-MAX",period,periodstr,MAX);
-		Tools::plotOneHistShift(nifty,"Nifty-TOP1000-MAX",period,periodstr,MAX,DesiredCascadesCount);
-		nifty.Clr();
-		Tools::plotOneHistShift(niftyfirsts,"Firsts-Nifty-FULL-MEDIAN",period,periodstr,MEDIAN);
-		Tools::plotOneHistShift(niftyfirsts,"Firsts-Nifty-TOP1000-MEDIAN",period,periodstr,MEDIAN,DesiredCascadesCount);
-		Tools::plotOneHistShift(niftyfirsts,"Firsts-Nifty-FULL-MAX",period,periodstr,MAX);
-		Tools::plotOneHistShift(niftyfirsts,"Firsts-Nifty-TOP1000-MAX",period,periodstr,MAX,DesiredCascadesCount);
-		niftyfirsts.Clr();
+//		// Memes
+//		Tools::plotOneHistShift(quotes,"Memes-FULL-MEDIAN",period,periodstr,MEDIAN);
+//		Tools::plotOneHistShift(quotes,"Memes-TOP1000-MEDIAN",period,periodstr,MEDIAN,DesiredCascadesCount);
+//		Tools::plotOneHistShift(quotes,"Memes-FULL-MAX",period,periodstr,MAX);
+//		Tools::plotOneHistShift(quotes,"Memes-TOP1000-MAX",period,periodstr,MAX,DesiredCascadesCount);
+//		quotes.Clr();
+//		Tools::plotOneHistShift(nifty,"Nifty-FULL-MEDIAN",period,periodstr,MEDIAN);
+//		Tools::plotOneHistShift(nifty,"Nifty-TOP1000-MEDIAN",period,periodstr,MEDIAN,DesiredCascadesCount);
+//		Tools::plotOneHistShift(nifty,"Nifty-FULL-MAX",period,periodstr,MAX);
+//		Tools::plotOneHistShift(nifty,"Nifty-TOP1000-MAX",period,periodstr,MAX,DesiredCascadesCount);
+//		nifty.Clr();
+//		Tools::plotOneHistShift(niftyfirsts,"Firsts-Nifty-FULL-MEDIAN",period,periodstr,MEDIAN);
+//		Tools::plotOneHistShift(niftyfirsts,"Firsts-Nifty-TOP1000-MEDIAN",period,periodstr,MEDIAN,DesiredCascadesCount);
+//		Tools::plotOneHistShift(niftyfirsts,"Firsts-Nifty-FULL-MAX",period,periodstr,MAX);
+//		Tools::plotOneHistShift(niftyfirsts,"Firsts-Nifty-TOP1000-MAX",period,periodstr,MAX,DesiredCascadesCount);
+//		niftyfirsts.Clr();
 
-//		// News vs Blogs
-//		Tools::plotTwoHistShift(nifty_newsQuotes,nifty_blogsQuotes,period,periodstr,"NewsBlogs-MEDIAN-Volumes", MEDIAN, "News", "Blogs");
-//		Tools::plotTwoHistShift(firstMentionsNiftyqu_newsQuotes,firstMentionsNiftyqu_blogsQuotes,period,periodstr,"FirstsNewsBlogs-MEDIAN-Volumes", MEDIAN, "News", "Blogs");
-//		Tools::plotTwoHistShift(nifty_newsQuotes,nifty_blogsQuotes,period,periodstr,"NewsBlogs-MAX-Volumes", MAX, "News", "Blogs");
-//		Tools::plotTwoHistShift(firstMentionsNiftyqu_newsQuotes,firstMentionsNiftyqu_blogsQuotes,period,periodstr,"FirstsNewsBlogs-MAX-Volumes", MAX, "News", "Blogs");
+		// News vs Blogs
+		Tools::plotTwoHistShift(nifty_newsQuotes,nifty_blogsQuotes,period,periodstr,"NewsBlogs-MEDIAN-Volumes", MEDIAN, "News", "Blogs");
+		Tools::plotTwoHistShift(firstMentionsNiftyqu_newsQuotes,firstMentionsNiftyqu_blogsQuotes,period,periodstr,"FirstsNewsBlogs-MEDIAN-Volumes", MEDIAN, "News", "Blogs");
+		Tools::plotTwoHistShift(nifty_newsQuotes,nifty_blogsQuotes,period,periodstr,"NewsBlogs-MAX-Volumes", MAX, "News", "Blogs");
+		Tools::plotTwoHistShift(firstMentionsNiftyqu_newsQuotes,firstMentionsNiftyqu_blogsQuotes,period,periodstr,"FirstsNewsBlogs-MAX-Volumes", MAX, "News", "Blogs");
 
 
 		printf("\nPlots had been drawn successfully.");
