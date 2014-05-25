@@ -416,6 +416,102 @@ bool Tools::fileExists(TStr filepath)
 	return true;
 }
 
+// CCDF
+void Tools::myPrivatePlotCCDF_PrintPosNeg(double* arr, int leng, char* name, char* xlabel)
+{
+	TGnuPlot plot;
+	TFltPrV middle;
+	bool firstFound = false;
+	double middleY;
+	int i,pos=0,neg=0;
+	double x1,y1,x2,y2,mean=0,posRatio,negRatio,x,y;
+	TFltPrV points;
+
+	printf("%s Drawing:\n",name);
+	plot.SetXYLabel(xlabel, "P(X>d)");
+	for(i=0;i<leng;i++)
+	{
+		if(arr[i] > 0)
+		{
+			pos++;
+		}
+		if(arr[i] < 0)
+		{
+			neg++;
+		}
+		mean += arr[i];
+	}
+	posRatio = (double)pos/leng;
+	negRatio = (double)neg/leng;
+	mean /= leng;
+
+	printf("Positive Ratio: %f, Negative Ratio: %f\n",posRatio,negRatio);
+	if(posRatio > 0.5)
+	{
+		printf("Twitter is sooner.\n");
+	}
+	else if(negRatio > 0.5)
+	{
+		printf("Memes is sooner.\n");
+	}
+	else
+	{
+		printf("They are equal!!!\n");
+	}
+	printf("Mean: %f\n",mean);
+
+	// Ploting CCDF
+	sort(arr,arr+leng);
+	for(i=0;i<leng;i++)
+	{
+		x = arr[i];
+		y = 1.0 - (1.0/leng)*i;
+		points.Add(TFltPr(x,y));
+		if(x > 0 && !firstFound)
+		{
+			firstFound = true;
+			x1 = arr[i-1];
+			y1 =  1.0 - (1.0/leng) * (i-1);
+			x2 = x;
+			y2 = y;
+			middleY = -x1*(y2-y1)/(x2-x1)+y1;
+			plot.SetTitle(TStr::Fmt("y is %f at x=0",middleY));
+		}
+	}
+
+	middle.Add(TFltPr(0,middleY));
+	plot.AddPlot(points,gpwLines);
+	plot.AddPlot(middle,gpwPoints);
+	plot.SetDataPlotFNm(TStr::Fmt("MyResults/%s.tab",name), TStr::Fmt("MyResults/%s.plt",name));
+	plot.SaveEps(TStr::Fmt("MyResults/%s.eps",name));
+	printf("%s had been drawn successfully.\n\n",name);
+}
+
+void Tools::plotCCDFStartMedianEnd(THash<TStr,CascadeElementV> quotes, THash<TUInt,TSecTmV> twitter, char* name)
+{
+	int i,quoteIndex;
+	double posRatio,negRatio,mean=0;
+	double* medianDifference = new double[twitter.Len()];
+	double* startDifference = new double[twitter.Len()];
+	double* endDifference = new double[twitter.Len()];
+	for(i=0;i<twitter.Len();i++)
+	{
+		quoteIndex = twitter.GetKey(i);
+		CascadeElementV memesCascade = quotes[i];    ///CascadeElementV memesCascade = quotes[quoteIndex];
+		TSecTmV twCascade = twitter.GetDat(quoteIndex);
+
+		medianDifference[i] = (double)memesCascade[memesCascade.Len()/2].time.GetAbsSecs() - (double)twCascade[twCascade.Len()/2].GetAbsSecs();
+		startDifference[i] = (double)memesCascade[0].time.GetAbsSecs() - (double)twCascade[0].GetAbsSecs();
+		endDifference[i] = (double)memesCascade[memesCascade.Len()-1].time.GetAbsSecs() - (double)twCascade[twCascade.Len()-1].GetAbsSecs();
+	}
+
+	// Plot Drawing
+	Tools::myPrivatePlotCCDF_PrintPosNeg(medianDifference,twitter.Len(),TStr::Fmt("%sMedianDifferenceCCDF",name).CStr(),"d [(Memes median - Twitter median) of cascade's times]");
+	Tools::myPrivatePlotCCDF_PrintPosNeg(startDifference,twitter.Len(),TStr::Fmt("%sStartDifferenceCCDF",name).CStr(),"d [(Memes start - Twitter start) of cascade's times]");
+	Tools::myPrivatePlotCCDF_PrintPosNeg(endDifference,twitter.Len(),TStr::Fmt("%sEndDifferenceCCDF",name).CStr(),"d [(Memes end - Twitter end) of cascade's times]");
+}
+
+
 // Individually
 void Tools::plotOneIndividuallyShift(THash<TStr,CascadeElementV>& quotes, char* name, uint period, char* periodstr, int DesiredCascadesCount)
 {
