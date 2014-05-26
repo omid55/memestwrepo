@@ -453,15 +453,15 @@ void Tools::myPrivatePlotCCDF_PrintPosNeg(double* arr, int leng, char* name, cha
 	printf("Positive Ratio: %f, Negative Ratio: %f\n",posRatio,negRatio);
 	if(posRatio > 0.5)
 	{
-		printf("Twitter is sooner.\n");
+		printf("{{{Twitter is sooner.}}}\n");
 	}
 	else if(negRatio > 0.5)
 	{
-		printf("Memes is sooner.\n");
+		printf("{{{Memes is sooner.}}}\n");
 	}
 	else
 	{
-		printf("They are equal!!!\n");
+		printf("{{{They are equal!!!}}}\n");
 	}
 	printf("Mean: %f\n",mean);
 
@@ -494,16 +494,14 @@ void Tools::myPrivatePlotCCDF_PrintPosNeg(double* arr, int leng, char* name, cha
 
 void Tools::plotCCDFStartMedianEnd(THash<TStr,CascadeElementV> quotes, THash<TUInt,TSecTmV> twitter, char* name)
 {
-	int i,quoteIndex;
 	double posRatio,negRatio,mean=0;
 	double* medianDifference = new double[twitter.Len()];
 	double* startDifference = new double[twitter.Len()];
 	double* endDifference = new double[twitter.Len()];
-	for(i=0;i<twitter.Len();i++)
+	for(int i=0;i<twitter.Len();i++)
 	{
-		quoteIndex = twitter.GetKey(i);
-		CascadeElementV memesCascade = quotes[i];    ///CascadeElementV memesCascade = quotes[quoteIndex];
-		TSecTmV twCascade = twitter.GetDat(quoteIndex);
+		CascadeElementV memesCascade = quotes[i];
+		TSecTmV twCascade = twitter[i];
 
 		medianDifference[i] = (double)memesCascade[memesCascade.Len()/2].time.GetAbsSecs() - (double)twCascade[twCascade.Len()/2].GetAbsSecs();
 		startDifference[i] = (double)memesCascade[0].time.GetAbsSecs() - (double)twCascade[0].GetAbsSecs();
