@@ -517,17 +517,29 @@ void Tools::plotCCDFStartMedianEnd(THash<TStr,CascadeElementV> quotes, THash<TUI
 void Tools::plotCCDFStartMedianEnd(THash<TStr,CascadeElementV> q1, THash<TStr,CascadeElementV> q2, char* name, char* legendname1, char* legendname2)
 {
 	double posRatio,negRatio,mean=0;
-	double* medianDifference = new double[q1.Len()];
-	double* startDifference = new double[q1.Len()];
-	double* endDifference = new double[q1.Len()];
+	int len = 0;
+	for(int i=0;i<q1.Len();i++)
+	{
+		if(q1[i].Len() > 0 && q2[i].Len() > 0)
+		{
+			len++;
+		}
+	}
+	double* medianDifference = new double[len];
+	double* startDifference = new double[len];
+	double* endDifference = new double[len];
+	int c = 0;
 	for(int i=0;i<q1.Len();i++)
 	{
 		CascadeElementV q1Cascade = q1[i];
 		CascadeElementV q2Cascade = q2[i];
 
-		medianDifference[i] = (double)q1Cascade[q1Cascade.Len()/2].time.GetAbsSecs() - (double)q2Cascade[q2Cascade.Len()/2].time.GetAbsSecs();
-		startDifference[i] = (double)q1Cascade[0].time.GetAbsSecs() - (double)q2Cascade[0].time.GetAbsSecs();
-		endDifference[i] = (double)q1Cascade[q1Cascade.Len()-1].time.GetAbsSecs() - (double)q2Cascade[q2Cascade.Len()-1].time.GetAbsSecs();
+		if(q1Cascade.Len() > 0 && q2Cascade.Len() > 0)
+		{
+			medianDifference[c] = (double)q1Cascade[q1Cascade.Len()/2].time.GetAbsSecs() - (double)q2Cascade[q2Cascade.Len()/2].time.GetAbsSecs();
+			startDifference[c] = (double)q1Cascade[0].time.GetAbsSecs() - (double)q2Cascade[0].time.GetAbsSecs();
+			endDifference[c++] = (double)q1Cascade[q1Cascade.Len()-1].time.GetAbsSecs() - (double)q2Cascade[q2Cascade.Len()-1].time.GetAbsSecs();
+		}
 	}
 
 	// Plot Drawing
