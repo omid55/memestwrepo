@@ -55,10 +55,10 @@ int main(int argc, char* argv[])
 		THash< TStr , CascadeElementV > q9 = Tools::loadQuotes("QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS_FIRSTSBLOGS.rar");
 		THash< TStr , CascadeElementV > q10 = Tools::loadQuotes("QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents_FIRSTSBLOGS.rar");
 
-		THash< TStr , CascadeElementV > q11 = Tools::loadQuotes("QuotesPreprocessedData_NIFTY_FINALFILTERED_NEWS.rar");
-		THash< TStr , CascadeElementV > q12 = Tools::loadQuotes("QuotesPreprocessedData_NIFTY_FINALFILTERED_BLOGS.rar");
-		THash< TStr , CascadeElementV > q13 = Tools::loadQuotes("QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTSNEWS.rar");
-		THash< TStr , CascadeElementV > q14 = Tools::loadQuotes("QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTSBLOGS.rar");
+		THash< TStr , CascadeElementV > q11 = Tools::loadQuotes("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_NEWS.rar");
+		THash< TStr , CascadeElementV > q12 = Tools::loadQuotes("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_BLOGS.rar");
+		THash< TStr , CascadeElementV > q13 = Tools::loadQuotes("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTSNEWS.rar");
+		THash< TStr , CascadeElementV > q14 = Tools::loadQuotes("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTSBLOGS.rar");
 
 
 		// Plotting
