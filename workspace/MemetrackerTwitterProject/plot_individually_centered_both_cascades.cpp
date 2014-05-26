@@ -92,6 +92,8 @@ int main(int argc, char* argv[])
 
 		// Plotting
 		printf("\n\n\nPlotting ...\n");
+		int status = system("mkdir -p Individual/Urls/; mkdir -p Individual/Contents/");
+
 		Tools::plotTwoIndividuallyShift(quotes1,twitter1,period,periodstr,"Individual/Urls/IndividualUrls");
 		Tools::plotTwoIndividuallyShift(quotes2,twitter2,period,periodstr,"Individual/Contents/IndividualContents");
 		Tools::plotTwoIndividuallyShift(q1,twitter1,period,periodstr,"Individual/Urls/IndividualUrls_NEWS");
