@@ -33,16 +33,10 @@ void applyFilter(THash< TStr , CascadeElementV >& quotes,THash< TUInt , TSecTmV 
 		}
 		*/
 
-//		TIntV memesTimes;
-//		for(int i=0;i<quotes[quoteIndex].Len();i++)
-//		{
-//			memesTimes.Add(quotes[quoteIndex][i].time.GetAbsSecs());
-//		}
-		double* vol_me = Tools::calculateHistOfCascade(quotes[quoteIndex],begin,period,bins,false);
-		double* vol_tu = Tools::calculateHistOfCascade(twitter.GetDat(quoteIndex),begin,period,bins,false);
-
-
 //		// === FINAL PHASE of NIFTY (REMOVING WITH MULTIPLE PEAKS) ===
+//		double* vol_me = Tools::calculateHistOfCascade(quotes[quoteIndex],begin,period,bins,false);
+//		double* vol_tu = Tools::calculateHistOfCascade(twitter.GetDat(quoteIndex),begin,period,bins,false);
+//
 //		// calculating mean and standard deviation
 //		double mean = 0;
 //		for(int i=0;i<bins;i++)
@@ -87,8 +81,8 @@ void applyFilter(THash< TStr , CascadeElementV >& quotes,THash< TUInt , TSecTmV 
 
 		quotesFiltered.AddDat(quotes.GetKey(quoteIndex),quotes[quoteIndex]);
 		twitterFiltered.AddDat(quoteIndex,twitter.GetDat(quoteIndex));
-		delete[] vol_me;
-		delete[] vol_tu;
+//		delete[] vol_me;
+//		delete[] vol_tu;
 	}
 
 	TZipOut mout(quotesName);
@@ -98,6 +92,7 @@ void applyFilter(THash< TStr , CascadeElementV >& quotes,THash< TUInt , TSecTmV 
 	twitterFiltered.Save(tout);
 	printf("Saved %s has instances: %d\n\n\n",twName,twitterFiltered.Len());
 }
+
 
 int main(int argc, char* argv[])
 {

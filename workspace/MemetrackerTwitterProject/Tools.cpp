@@ -8,7 +8,12 @@
 #include "Tools.h"
 
 
+// Global Variables
 static int myrange = 24;
+static int begin = TSecTm(2008,7,31,0,0,0).GetAbsSecs();
+static int end = TSecTm(2009,10,1,0,0,0).GetAbsSecs();
+// Global Variables
+
 
 double* Tools::calculateHistOfCascade(TSecTmV& cascade,int rbegin, uint rperiod, int length, bool normalized)
 {
@@ -519,9 +524,6 @@ void Tools::plotOneIndividuallyShift(THash<TStr,CascadeElementV>& quotes, char* 
 	double* vols;
 	double* vol;
 	TFltPrV volumes;
-	uint begin = TSecTm(2008,8,1,0,0,0).GetAbsSecs();
-	uint end = TSecTm(2009,10,1,0,0,0).GetAbsSecs();
-
 	TGnuPlot plot;
 	plot.SetXYLabel(TStr::Fmt("Time[%s]",periodstr), "Volume");
 
@@ -598,10 +600,8 @@ void Tools::plotOneIndividuallyShift(THash<TStr,CascadeElementV>& quotes, char* 
 	printf("Plot %s is done.\n",name);
 }
 
-void Tools::plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& quotes , THash<TUInt,TSecTmV>& twitter, uint period, char* periodstr, char* name)
+void Tools::plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& quotes, THash<TUInt,TSecTmV>& twitter, uint period, char* periodstr, char* name)
 {
-	int begin = TSecTm(2008,8,1,0,0,0).GetAbsSecs();
-	int end = TSecTm(2009,10,1,0,0,0).GetAbsSecs();
 	int bins = (end - begin) / period;
 	int lengt = 2 * bins + 1;
 	int center = (lengt-1) / 2;
@@ -699,8 +699,6 @@ void Tools::plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& quotes , THash
 
 void Tools::plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& q1, THash<TStr,CascadeElementV>& q2, uint period, char* periodstr, char* name, char* s1, char* s2)
 {
-	int begin = TSecTm(2008,8,1,0,0,0).GetAbsSecs();
-	int end = TSecTm(2009,10,1,0,0,0).GetAbsSecs();
 	int bins = (end - begin) / period;
 	int lengt = 2 * bins + 1;
 	int center = (lengt-1) / 2;
@@ -804,8 +802,6 @@ void Tools::plotOneHistShift(THash<TStr,CascadeElementV>& quotes, char* name, ui
 	double* vols;
 	double* vol;
 	TFltPrV volumes;
-	uint begin = TSecTm(2008,8,1,0,0,0).GetAbsSecs();
-	uint end = TSecTm(2009,10,1,0,0,0).GetAbsSecs();
 	TGnuPlot plot;
 	plot.SetXYLabel(TStr::Fmt("Time[%s]",periodstr), "Volume");
 	plot.SetTitle("BinnedVolumes On Memetracker");
@@ -886,8 +882,6 @@ void Tools::plotTwoHistShift(THash<TStr,CascadeElementV>& quotes, THash<TUInt,TS
 	double* vol_tu;
 	TFltPrV volumes_memes;
 	TFltPrV volumes_twitter_contents;
-	uint begin = TSecTm(2008,7,31,0,0,0).GetAbsSecs();
-	uint end = TSecTm(2009,10,1,0,0,0).GetAbsSecs();
 	TGnuPlot plot;
 	plot.SetXYLabel(TStr::Fmt("Time[%s]",periodstr), "Volume");
 	plot.SetTitle("Hourly Binned Quotes Cascade over Memetracker and its contents over Twitter");
@@ -908,9 +902,9 @@ void Tools::plotTwoHistShift(THash<TStr,CascadeElementV>& quotes, THash<TUInt,TS
 	validCascadesCnt = 0;
 	for(c=0;c<twitter.Len();c++)
 	{
-		quoteIndex = twitter.GetKey(c);
+//		quoteIndex = twitter.GetKey(c);
 		vol_me = Tools::calculateHistOfCascade(quotes[c],begin,period,bins,true);
-		vol_tu = Tools::calculateHistOfCascade(twitter.GetDat(quoteIndex),begin,period,bins,true);
+		vol_tu = Tools::calculateHistOfCascade(twitter[c],begin,period,bins,true);   //.GetDat(quoteIndex)
 
 		if(mode == MEDIAN)
 		{
@@ -968,8 +962,6 @@ void Tools::plotTwoHistShift(THash<TStr,CascadeElementV>& q1, THash<TStr,Cascade
 	double* vol_tu;
 	TFltPrV volumes_memes;
 	TFltPrV volumes_twitter_contents;
-	uint begin = TSecTm(2008,7,31,0,0,0).GetAbsSecs();
-	uint end = TSecTm(2009,10,1,0,0,0).GetAbsSecs();
 	TGnuPlot plot;
 	plot.SetXYLabel(TStr::Fmt("Time[%s]",periodstr), "Volume");
 	plot.SetTitle("Binned Quotes Cascade over Memetracker and its contents over Twitter");

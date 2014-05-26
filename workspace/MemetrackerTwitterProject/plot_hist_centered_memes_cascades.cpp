@@ -18,20 +18,20 @@ int main(int argc, char* argv[])
 		Env = TEnv(argc, argv, TNotify::StdNotify);
 		Env.PrepArgs(TStr::Fmt("\nPlotting Memes-TU Cascades. build: %s, %s. Time: %s", __TIME__, __DATE__, TExeTm::GetCurTm()));
 
-//		THash< TStr , CascadeElementV > quotes;
-//		TZipIn z1("lastData/QuotesData.rar");
-//		quotes.Load(z1);
-//		printf("Loaded QuotesData has instances: %d\n\n\n",quotes.Len());
-//
-//		THash< TStr , CascadeElementV > nifty;
-//		TZipIn z2("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED.rar");
-//		nifty.Load(z2);
-//		printf("Loaded QuotesPreprocessedData_NIFTY_FINALFILTERED has instances: %d\n\n\n",nifty.Len());
-//
-//		THash< TStr , CascadeElementV > niftyfirsts;
-//		TZipIn z3("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTS.rar");
-//		niftyfirsts.Load(z3);
-//		printf("Loaded QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTS has instances: %d\n\n\n",niftyfirsts.Len());
+		THash< TStr , CascadeElementV > quotes;
+		TZipIn z1("lastData/QuotesData.rar");
+		quotes.Load(z1);
+		printf("Loaded QuotesData has instances: %d\n\n\n",quotes.Len());
+
+		THash< TStr , CascadeElementV > nifty;
+		TZipIn z2("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED.rar");
+		nifty.Load(z2);
+		printf("Loaded QuotesPreprocessedData_NIFTY_FINALFILTERED has instances: %d\n\n\n",nifty.Len());
+
+		THash< TStr , CascadeElementV > niftyfirsts;
+		TZipIn z3("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTS.rar");
+		niftyfirsts.Load(z3);
+		printf("Loaded QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTS has instances: %d\n\n\n",niftyfirsts.Len());
 
 		THash< TStr , CascadeElementV > nifty_newsQuotes;
 		TZipIn zin2("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_NEWS.rar");
@@ -59,22 +59,22 @@ int main(int argc, char* argv[])
 		char* periodstr = TStr("4 hours").GetCStr();   //char periodstr[] = "4 hours";
 		int DesiredCascadesCount = 1000;
 
-//		// Memes
-//		Tools::plotOneHistShift(quotes,"Memes-FULL-MEDIAN",period,periodstr,MEDIAN);
-//		Tools::plotOneHistShift(quotes,"Memes-TOP1000-MEDIAN",period,periodstr,MEDIAN,DesiredCascadesCount);
-//		Tools::plotOneHistShift(quotes,"Memes-FULL-MAX",period,periodstr,MAX);
-//		Tools::plotOneHistShift(quotes,"Memes-TOP1000-MAX",period,periodstr,MAX,DesiredCascadesCount);
-//		quotes.Clr();
-//		Tools::plotOneHistShift(nifty,"Nifty-FULL-MEDIAN",period,periodstr,MEDIAN);
-//		Tools::plotOneHistShift(nifty,"Nifty-TOP1000-MEDIAN",period,periodstr,MEDIAN,DesiredCascadesCount);
-//		Tools::plotOneHistShift(nifty,"Nifty-FULL-MAX",period,periodstr,MAX);
-//		Tools::plotOneHistShift(nifty,"Nifty-TOP1000-MAX",period,periodstr,MAX,DesiredCascadesCount);
-//		nifty.Clr();
-//		Tools::plotOneHistShift(niftyfirsts,"Firsts-Nifty-FULL-MEDIAN",period,periodstr,MEDIAN);
-//		Tools::plotOneHistShift(niftyfirsts,"Firsts-Nifty-TOP1000-MEDIAN",period,periodstr,MEDIAN,DesiredCascadesCount);
-//		Tools::plotOneHistShift(niftyfirsts,"Firsts-Nifty-FULL-MAX",period,periodstr,MAX);
-//		Tools::plotOneHistShift(niftyfirsts,"Firsts-Nifty-TOP1000-MAX",period,periodstr,MAX,DesiredCascadesCount);
-//		niftyfirsts.Clr();
+		// Memes
+		Tools::plotOneHistShift(quotes,"Memes-FULL-MEDIAN",period,periodstr,MEDIAN);
+		Tools::plotOneHistShift(quotes,"Memes-TOP1000-MEDIAN",period,periodstr,MEDIAN,DesiredCascadesCount);
+		Tools::plotOneHistShift(quotes,"Memes-FULL-MAX",period,periodstr,MAX);
+		Tools::plotOneHistShift(quotes,"Memes-TOP1000-MAX",period,periodstr,MAX,DesiredCascadesCount);
+		quotes.Clr();
+		Tools::plotOneHistShift(nifty,"Nifty-FULL-MEDIAN",period,periodstr,MEDIAN);
+		Tools::plotOneHistShift(nifty,"Nifty-TOP1000-MEDIAN",period,periodstr,MEDIAN,DesiredCascadesCount);
+		Tools::plotOneHistShift(nifty,"Nifty-FULL-MAX",period,periodstr,MAX);
+		Tools::plotOneHistShift(nifty,"Nifty-TOP1000-MAX",period,periodstr,MAX,DesiredCascadesCount);
+		nifty.Clr();
+		Tools::plotOneHistShift(niftyfirsts,"Firsts-Nifty-FULL-MEDIAN",period,periodstr,MEDIAN);
+		Tools::plotOneHistShift(niftyfirsts,"Firsts-Nifty-TOP1000-MEDIAN",period,periodstr,MEDIAN,DesiredCascadesCount);
+		Tools::plotOneHistShift(niftyfirsts,"Firsts-Nifty-FULL-MAX",period,periodstr,MAX);
+		Tools::plotOneHistShift(niftyfirsts,"Firsts-Nifty-TOP1000-MAX",period,periodstr,MAX,DesiredCascadesCount);
+		niftyfirsts.Clr();
 
 		// News vs Blogs
 		period = 3600;

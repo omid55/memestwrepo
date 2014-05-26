@@ -26,17 +26,19 @@ inline THash<TUInt,TSecTmV> loadTwitter(char* name)
 	return tw;
 }
 
+
 int main(int argc, char* argv[])
 {
-//	// test with toy example
+//	// test with toy example   // --->>> FULLY TESTED
 //	THash< TStr , CascadeElementV > qq1;
 //	THash< TUInt , TSecTmV > tt1;
 //	TStr emp("");
 //	CascadeElementV v;
-//	TSecTm t1(2008,5,5,1,10,0);
-//	TSecTm t2(2008,8,1,2,2,0);
-//	TSecTm t3(2008,8,2,9,1,0);
-//	TSecTm t4(2008,8,4,3,0,0);
+//
+//	TSecTm t1(2008,9,5,1,10,0);
+//	TSecTm t2(2008,10,1,11,2,0);
+//	TSecTm t3(2008,10,2,11,1,0);
+//	TSecTm t4(2008,10,4,11,0,0);
 //	v.Add(CascadeElement(t1));
 //	v.Add(CascadeElement(t2));
 //	v.Add(CascadeElement(t3));
@@ -44,16 +46,18 @@ int main(int argc, char* argv[])
 //	qq1.AddDat(emp,v);
 //
 //	TSecTmV vv;
-//	vv.Add(TSecTm(2008,8,3,0,0,0));
-//	vv.Add(TSecTm(2008,8,20,0,0,0));
-//	vv.Add(TSecTm(2008,10,28,0,0,0));
+//
+//	vv.Add(TSecTm(2008,10,3,10,0,0));
+//	vv.Add(TSecTm(2008,10,20,10,0,0));
+//	vv.Add(TSecTm(2008,11,28,10,0,0));
 //	tt1.AddDat(1,vv);
 //	uint per = 24 * 3600;
 //	char pst[] = "days";
-//	Tools::plotTwoHistShift(qq1,tt1,per,pst,"HistUrlsMedian",MEDIAN,"Memes","Twitter");
-//
+//	Tools::plotTwoHistShift(qq1,tt1,per,pst,"TEST-HIST-MEDIAN",MEDIAN,"Memes","Twitter");
+//	Tools::plotTwoHistShift(qq1,tt1,per,pst,"TEST-HIST-MAX",MAX,"Memes","Twitter");
+//	Tools::plotTwoIndividuallyShift(qq1,tt1,per,pst,"TEST-INDIV");
 //	return 0;
-//// ----------------------------------------
+////// ----------------------------------------
 
 
 	TExeTm ExeTm;

@@ -17,10 +17,10 @@ int main(int argc, char* argv[])
 	printf("((( START individually Plot Memes Cascades CODE )))\n");
 	try
 	{
-//		THash< TStr , CascadeElementV > niftyqu;
-//		TZipIn zin1("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED.rar");
-//		niftyqu.Load(zin1);
-//		printf("Loaded QuotesPreprocessedData_NIFTY_FINALFILTERED has instances: %d\n\n\n",niftyqu.Len());
+		THash< TStr , CascadeElementV > niftyqu;
+		TZipIn zin1("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED.rar");
+		niftyqu.Load(zin1);
+		printf("Loaded QuotesPreprocessedData_NIFTY_FINALFILTERED has instances: %d\n\n\n",niftyqu.Len());
 
 		THash< TStr , CascadeElementV > nifty_newsQuotes;
 		TZipIn zin2("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_NEWS.rar");
@@ -49,25 +49,25 @@ int main(int argc, char* argv[])
 
 
 		// Plotting
-//		// All
-//		Tools::plotOneIndividuallyShift(niftyqu,"NIFTY-Individual",period,periodstr);
-//		Tools::plotOneIndividuallyShift(niftyqu,"NIFTY-Individual-TOP1000",period,periodstr,DesiredCascadesCount);
-//		niftyqu.Clr();
-//		Tools::plotOneIndividuallyShift(firstMentionsNiftyqu,"Firsts-Individual-NIFTY",period,periodstr);
-//		Tools::plotOneIndividuallyShift(firstMentionsNiftyqu,"Firsts-Individual-NIFTY-TOP1000",period,periodstr,DesiredCascadesCount);
-//		firstMentionsNiftyqu.Clr();
+		// All
+		Tools::plotOneIndividuallyShift(niftyqu,"NIFTY-Individual",period,periodstr);
+		Tools::plotOneIndividuallyShift(niftyqu,"NIFTY-Individual-TOP1000",period,periodstr,DesiredCascadesCount);
+		niftyqu.Clr();
+		Tools::plotOneIndividuallyShift(firstMentionsNiftyqu,"Firsts-Individual-NIFTY",period,periodstr);
+		Tools::plotOneIndividuallyShift(firstMentionsNiftyqu,"Firsts-Individual-NIFTY-TOP1000",period,periodstr,DesiredCascadesCount);
+		firstMentionsNiftyqu.Clr();
 
-//		// News and Blogs
-//		Tools::plotOneIndividuallyShift(nifty_newsQuotes,"NIFTY-Memes-Volume-News",period,periodstr);
-//		Tools::plotOneIndividuallyShift(nifty_newsQuotes,"NIFTY-Memes-Volume-TopSelected-News",period,periodstr,DesiredCascadesCount);
-//		Tools::plotOneIndividuallyShift(nifty_blogsQuotes,"NIFTY-Memes-Volume-Blogs",period,periodstr);
-//		Tools::plotOneIndividuallyShift(nifty_blogsQuotes,"NIFTY-Memes-Volume-TopSelected-Blogs",period,periodstr,DesiredCascadesCount);
-//
-//		// Plotting first mentions of news and blogs
-//		Tools::plotOneIndividuallyShift(firstMentionsNiftyqu_newsQuotes,"NIFTY-FirstMentions-Memes-Volume-News",period,periodstr);
-//		Tools::plotOneIndividuallyShift(firstMentionsNiftyqu_newsQuotes,"NIFTY-FirstMentions-Memes-Volume-TopSelected-News",period,periodstr,DesiredCascadesCount);
-//		Tools::plotOneIndividuallyShift(firstMentionsNiftyqu_blogsQuotes,"NIFTY-FirstMentions-Memes-Volume-Blogs",period,periodstr);
-//		Tools::plotOneIndividuallyShift(firstMentionsNiftyqu_blogsQuotes,"NIFTY-FirstMentions-Memes-Volume-TopSelected-Blogs",period,periodstr,DesiredCascadesCount);
+		// News and Blogs
+		Tools::plotOneIndividuallyShift(nifty_newsQuotes,"NIFTY-Memes-Volume-News",period,periodstr);
+		Tools::plotOneIndividuallyShift(nifty_newsQuotes,"NIFTY-Memes-Volume-TopSelected-News",period,periodstr,DesiredCascadesCount);
+		Tools::plotOneIndividuallyShift(nifty_blogsQuotes,"NIFTY-Memes-Volume-Blogs",period,periodstr);
+		Tools::plotOneIndividuallyShift(nifty_blogsQuotes,"NIFTY-Memes-Volume-TopSelected-Blogs",period,periodstr,DesiredCascadesCount);
+
+		// Plotting first mentions of news and blogs
+		Tools::plotOneIndividuallyShift(firstMentionsNiftyqu_newsQuotes,"NIFTY-FirstMentions-Memes-Volume-News",period,periodstr);
+		Tools::plotOneIndividuallyShift(firstMentionsNiftyqu_newsQuotes,"NIFTY-FirstMentions-Memes-Volume-TopSelected-News",period,periodstr,DesiredCascadesCount);
+		Tools::plotOneIndividuallyShift(firstMentionsNiftyqu_blogsQuotes,"NIFTY-FirstMentions-Memes-Volume-Blogs",period,periodstr);
+		Tools::plotOneIndividuallyShift(firstMentionsNiftyqu_blogsQuotes,"NIFTY-FirstMentions-Memes-Volume-TopSelected-Blogs",period,periodstr,DesiredCascadesCount);
 
 		// News and Blogs togehter
 		period = 3600;
