@@ -118,9 +118,9 @@ int main(int argc, char* argv[])
 		Env.PrepArgs(TStr::Fmt("\nCCDF Plotting Memes-TU Cascades. build: %s, %s. Time: %s", __TIME__, __DATE__, TExeTm::GetCurTm()));
 
 		// REMOVE IT
-		TZipIn ZquotesIn1("Quotes_TEST_4Urls.rar");		//("/agbs/cluster/oaskaris/Data_Preparing_Codes/RESULTS/QuotesPreprocessedData_NIFTY.rar");   //("QuotesPreprocessedData_NIFTY_RANGEFIXED_FILTERED.rar");
+		TZipIn ZquotesIn1("Quotes_TEST_4Contents.rar");		//("/agbs/cluster/oaskaris/Data_Preparing_Codes/RESULTS/QuotesPreprocessedData_NIFTY.rar");   //("QuotesPreprocessedData_NIFTY_RANGEFIXED_FILTERED.rar");
 		quotes.Load(ZquotesIn1);
-		printf("Loaded Quotes_TEST_4Urls has instances: %d\n\n\n",quotes.Len());
+		printf("Loaded Quotes_TEST_4Contents has instances: %d\n\n\n",quotes.Len());
 
 		TZipIn ZcascadesOnTwitterIn2("Cascades_TEST_4Contents.rar"); 		//("/agbs/cluster/oaskaris/Data_Preparing_Codes/RESULTS/CascadesOnTwitterData.rar");
 		cascadesOnTwitterContents.Load(ZcascadesOnTwitterIn2);
