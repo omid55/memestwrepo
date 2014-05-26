@@ -543,9 +543,9 @@ void Tools::plotCCDFStartMedianEnd(THash<TStr,CascadeElementV> q1, THash<TStr,Ca
 	}
 
 	// Plot Drawing
-	Tools::myPrivatePlotCCDF_PrintPosNeg(medianDifference,q1.Len(),TStr::Fmt("%sMedianDifferenceCCDF",name).CStr(),TStr::Fmt("d [%s median - %s median]",legendname1,legendname2).CStr());
-	Tools::myPrivatePlotCCDF_PrintPosNeg(startDifference,q1.Len(),TStr::Fmt("%sStartDifferenceCCDF",name).CStr(),TStr::Fmt("d [%s start - %s start]",legendname1,legendname2).CStr());
-	Tools::myPrivatePlotCCDF_PrintPosNeg(endDifference,q1.Len(),TStr::Fmt("%sEndDifferenceCCDF",name).CStr(),TStr::Fmt("d [%s end - %s end]",legendname1,legendname2).CStr());
+	Tools::myPrivatePlotCCDF_PrintPosNeg(medianDifference,len,TStr::Fmt("%sMedianDifferenceCCDF",name).CStr(),TStr::Fmt("d [%s median - %s median]",legendname1,legendname2).CStr());
+	Tools::myPrivatePlotCCDF_PrintPosNeg(startDifference,len,TStr::Fmt("%sStartDifferenceCCDF",name).CStr(),TStr::Fmt("d [%s start - %s start]",legendname1,legendname2).CStr());
+	Tools::myPrivatePlotCCDF_PrintPosNeg(endDifference,len,TStr::Fmt("%sEndDifferenceCCDF",name).CStr(),TStr::Fmt("d [%s end - %s end]",legendname1,legendname2).CStr());
 }
 
 
