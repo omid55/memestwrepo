@@ -65,7 +65,7 @@ int main(int argc, char* argv[])
 
 		// Plotting
 		printf("\n\n\nPlotting ...\n");
-		int status = system("mkdir -p Hist/Urls/; mkdir -p Hist/Contents/");
+		int status = system("mkdir -p MyResults/Hist/Urls/; mkdir -p MyResults/Hist/Contents/");
 
 		Tools::plotTwoHistShift(quotes1,twitter1,period,periodstr,"Hist/Urls/HistUrlsMedian",MEDIAN,"Memes","urls on Twitter");
 		Tools::plotTwoHistShift(quotes1,twitter1,period,periodstr,"Hist/Urls/HistUrlsMax", MAX,"Memes","urls on Twitter");
