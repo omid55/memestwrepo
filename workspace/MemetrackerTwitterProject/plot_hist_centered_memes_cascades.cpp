@@ -77,8 +77,8 @@ int main(int argc, char* argv[])
 //		niftyfirsts.Clr();
 
 		// News vs Blogs
-		period = 60;
-		periodstr = TStr("minutes").GetCStr();
+		period = 3600;
+		periodstr = TStr("hours").GetCStr();
 		Tools::plotTwoHistShift(nifty_newsQuotes,nifty_blogsQuotes,period,periodstr,"Histed-NewsBlogs-MEDIAN", MEDIAN, "News", "Blogs");
 		Tools::plotTwoHistShift(firstMentionsNiftyqu_newsQuotes,firstMentionsNiftyqu_blogsQuotes,period,periodstr,"Histed-FirstsNewsBlogs-MEDIAN", MEDIAN, "News", "Blogs");
 		Tools::plotTwoHistShift(nifty_newsQuotes,nifty_blogsQuotes,period,periodstr,"Histed-NewsBlogs-MAX", MAX, "News", "Blogs");

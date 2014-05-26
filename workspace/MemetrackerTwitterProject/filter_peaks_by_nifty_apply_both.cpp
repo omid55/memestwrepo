@@ -41,37 +41,41 @@ void applyFilter(THash< TStr , CascadeElementV >& quotes,THash< TUInt , TSecTmV 
 		double* vol_me = Tools::calculateHistOfCascade(quotes[quoteIndex],begin,period,bins,false);
 		double* vol_tu = Tools::calculateHistOfCascade(twitter.GetDat(quoteIndex),begin,period,bins,false);
 
-		// calculating mean and standard deviation
-		double mean = 0;
-		for(int i=0;i<bins;i++)
-		{
-			mean += vol_me[i];
-		}
-		mean /= bins;
 
-		double std = 0;
-		for(int i=0;i<bins;i++)
-		{
-			std += pow(vol_me[i]-mean , 2);
-		}
-		std = sqrt(std / (bins-1));
+//		// === FINAL PHASE of NIFTY (REMOVING WITH MULTIPLE PEAKS) ===
+//		// calculating mean and standard deviation
+//		double mean = 0;
+//		for(int i=0;i<bins;i++)
+//		{
+//			mean += vol_me[i];
+//		}
+//		mean /= bins;
+//
+//		double std = 0;
+//		for(int i=0;i<bins;i++)
+//		{
+//			std += pow(vol_me[i]-mean , 2);
+//		}
+//		std = sqrt(std / (bins-1));
+//
+//		// peak definition by NIFTY: a point is a peak if its volume in 9 days binning is 1 standard deviation higher than the average frequency
+//		double maxVolume = mean + std;
+//		int peakCnt = 0;
+//		for(int i=0;i<bins;i++)
+//		{
+//			if(vol_me[i] > maxVolume)
+//			{
+//				peakCnt++;
+//			}
+//		}
+//		// if there is more than 5 peaks ignore this quote, since it is not a meme
+//		if(peakCnt > 5)
+//		{
+//			delete[] vol_me;
+//			continue;
+//		}
+//		// === FINAL PHASE of NIFTY (REMOVING WITH MULTIPLE PEAKS) ===
 
-		// peak definition by NIFTY: a point is a peak if its volume in 9 days binning is 1 standard deviation higher than the average frequency
-		double maxVolume = mean + std;
-		int peakCnt = 0;
-		for(int i=0;i<bins;i++)
-		{
-			if(vol_me[i] > maxVolume)
-			{
-				peakCnt++;
-			}
-		}
-		// if there is more than 5 peaks ignore this quote, since it is not a meme
-		if(peakCnt > 5)
-		{
-			delete[] vol_me;
-			continue;
-		}
 
 //		// To remove those Twitter has sooner start
 //		if(isurls==true && twitter.GetDat(quoteIndex)[0].GetAbsSecs() < quotes[quoteIndex][0].time.GetAbsSecs())
@@ -121,56 +125,15 @@ int main(int argc, char* argv[])
 		cascadesOnTwitterContents.Load(ZIn);
 		printf("Loaded CascadesOnTwitterData has instances: %d\n\n\n",cascadesOnTwitterContents.Len());
 
-		// News vs Blogs
-		THash< TStr , CascadeElementV > nifty_newsQuotes;
-		TZipIn zin2("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_NEWS.rar");
-		nifty_newsQuotes.Load(zin2);
-		printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_NEWS loading done, it contains %d posts.\n",nifty_newsQuotes.Len());
-
-		THash< TStr , CascadeElementV > nifty_blogsQuotes;
-		TZipIn zin3("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_BLOGS.rar");
-		nifty_blogsQuotes.Load(zin3);
-		printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_BLOGS loading done, it contains %d posts.\n",nifty_blogsQuotes.Len());
-
-		// Firsts
-		THash< TStr , CascadeElementV > firstMentionsNiftyqu;
-		TZipIn zin20("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTS.rar");
-		firstMentionsNiftyqu.Load(zin20);
-		printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTS loading done, it contains %d posts.\n",firstMentionsNiftyqu.Len());
-
-		// Just firsts of News vs Blogs
-		THash< TStr , CascadeElementV > firstMentionsNiftyqu_newsQuotes;
-		TZipIn zin5("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTSNEWS.rar");
-		firstMentionsNiftyqu_newsQuotes.Load(zin5);
-		printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTSNEWS loading done, it contains %d posts.\n",firstMentionsNiftyqu_newsQuotes.Len());
-
-		THash< TStr , CascadeElementV > firstMentionsNiftyqu_blogsQuotes;
-		TZipIn zin6("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTSBLOGS.rar");
-		firstMentionsNiftyqu_blogsQuotes.Load(zin6);
-		printf("QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTSBLOGS loading done, it contains %d posts.\n",firstMentionsNiftyqu_blogsQuotes.Len());
-
 
 		// Filtering
-		// all nifty quotes
-		applyFilter(quotes,cascadesOnTwitterUrls,"QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS.rar","CascadesFullUrlsOnTwitterData_FINALFILTERED.rar",true);
-		applyFilter(quotes,cascadesOnTwitterContents,"QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents.rar","CascadesOnTwitterData_FINALFILTERED.rar",false);
+//		applyFilter(quotes,cascadesOnTwitterUrls,"QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS.rar","CascadesFullUrlsOnTwitterData_FINALFILTERED.rar",true);
+//		applyFilter(quotes,cascadesOnTwitterContents,"QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents.rar","CascadesOnTwitterData_FINALFILTERED.rar",false);
 
-		// News vs Blogs
-		applyFilter(nifty_newsQuotes,cascadesOnTwitterUrls,"QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS_News.rar","CascadesFullUrlsOnTwitterData_FINALFILTERED_News.rar",true);
-		applyFilter(nifty_newsQuotes,cascadesOnTwitterContents,"QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents_News.rar","CascadesOnTwitterData_FINALFILTERED_News.rar",false);
-		applyFilter(nifty_blogsQuotes,cascadesOnTwitterUrls,"QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS_Blogs.rar","CascadesFullUrlsOnTwitterData_FINALFILTERED_Blogs.rar",true);
-		applyFilter(nifty_blogsQuotes,cascadesOnTwitterContents,"QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents_Blogs.rar","CascadesOnTwitterData_FINALFILTERED_Blogs.rar",false);
-
-		// Firsts
-		applyFilter(firstMentionsNiftyqu,cascadesOnTwitterUrls,"QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS_Firsts.rar","CascadesFullUrlsOnTwitterData_FINALFILTERED_Firsts.rar",true);
-		applyFilter(firstMentionsNiftyqu,cascadesOnTwitterContents,"QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents_Firsts.rar","CascadesOnTwitterData_FINALFILTERED_Firsts.rar",true);
-
-		// Just firsts of News vs Blogs
-		applyFilter(firstMentionsNiftyqu_newsQuotes,cascadesOnTwitterUrls,"QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS_FirstNews.rar","CascadesFullUrlsOnTwitterData_FINALFILTERED_FirstNews.rar",true);
-		applyFilter(firstMentionsNiftyqu_newsQuotes,cascadesOnTwitterContents,"QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents_FirstNews.rar","CascadesOnTwitterData_FINALFILTERED_FirstNews.rar",false);
-		applyFilter(firstMentionsNiftyqu_blogsQuotes,cascadesOnTwitterUrls,"QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS_FirstBlogs.rar","CascadesFullUrlsOnTwitterData_FINALFILTERED_FirstBlogs.rar",true);
-		applyFilter(firstMentionsNiftyqu_blogsQuotes,cascadesOnTwitterContents,"QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents_FirstBlogs.rar","CascadesOnTwitterData_FINALFILTERED_FirstBlogs.rar",false);
-
+		// REMOVE IT
+		applyFilter(quotes,cascadesOnTwitterUrls,"Quotes_TEST_4Urls.rar","Cascades_TEST_4Urls.rar",true);
+		applyFilter(quotes,cascadesOnTwitterContents,"Quotes_TEST_4Contents.rar","Cascades_TEST_4Contents.rar",false);
+		// REMOVE IT
 
 		printf("\nFilters had been done successfully.\n");
 	}
