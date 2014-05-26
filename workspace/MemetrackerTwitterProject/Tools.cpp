@@ -492,7 +492,7 @@ void Tools::myPrivatePlotCCDF_PrintPosNeg(double* arr, int leng, char* name, cha
 	printf("%s had been drawn successfully.\n\n",name);
 }
 
-void Tools::plotCCDFStartMedianEnd(THash<TStr,CascadeElementV> quotes, THash<TUInt,TSecTmV> twitter, char* name)
+void Tools::plotCCDFStartMedianEnd(THash<TStr,CascadeElementV> quotes, THash<TUInt,TSecTmV> twitter, char* name, char* legendname1)
 {
 	double posRatio,negRatio,mean=0;
 	double* medianDifference = new double[twitter.Len()];
@@ -509,9 +509,31 @@ void Tools::plotCCDFStartMedianEnd(THash<TStr,CascadeElementV> quotes, THash<TUI
 	}
 
 	// Plot Drawing
-	Tools::myPrivatePlotCCDF_PrintPosNeg(medianDifference,twitter.Len(),TStr::Fmt("%sMedianDifferenceCCDF",name).CStr(),"d [(Memes median - Twitter median) of cascade's times]");
-	Tools::myPrivatePlotCCDF_PrintPosNeg(startDifference,twitter.Len(),TStr::Fmt("%sStartDifferenceCCDF",name).CStr(),"d [(Memes start - Twitter start) of cascade's times]");
-	Tools::myPrivatePlotCCDF_PrintPosNeg(endDifference,twitter.Len(),TStr::Fmt("%sEndDifferenceCCDF",name).CStr(),"d [(Memes end - Twitter end) of cascade's times]");
+	Tools::myPrivatePlotCCDF_PrintPosNeg(medianDifference,twitter.Len(),TStr::Fmt("%sMedianDifferenceCCDF",name).CStr(),TStr::Fmt("d [(%s median - Twitter median) of cascade's times]",legendname1).CStr());
+	Tools::myPrivatePlotCCDF_PrintPosNeg(startDifference,twitter.Len(),TStr::Fmt("%sStartDifferenceCCDF",name).CStr(),TStr::Fmt("d [(%s start - Twitter start) of cascade's times]",legendname1).CStr());
+	Tools::myPrivatePlotCCDF_PrintPosNeg(endDifference,twitter.Len(),TStr::Fmt("%sEndDifferenceCCDF",name).CStr(),TStr::Fmt("d [(%s end - Twitter end) of cascade's times]",legendname1).CStr());
+}
+
+void Tools::plotCCDFStartMedianEnd(THash<TStr,CascadeElementV> q1, THash<TStr,CascadeElementV> q2, char* name, char* legendname1, char* legendname2)
+{
+	double posRatio,negRatio,mean=0;
+	double* medianDifference = new double[q1.Len()];
+	double* startDifference = new double[q1.Len()];
+	double* endDifference = new double[q1.Len()];
+	for(int i=0;i<q1.Len();i++)
+	{
+		CascadeElementV q1Cascade = q1[i];
+		CascadeElementV q2Cascade = q2[i];
+
+		medianDifference[i] = (double)q1Cascade[q1Cascade.Len()/2].time.GetAbsSecs() - (double)q2Cascade[q2Cascade.Len()/2].time.GetAbsSecs();
+		startDifference[i] = (double)q1Cascade[0].time.GetAbsSecs() - (double)q2Cascade[0].time.GetAbsSecs();
+		endDifference[i] = (double)q1Cascade[q1Cascade.Len()-1].time.GetAbsSecs() - (double)q2Cascade[q2Cascade.Len()-1].time.GetAbsSecs();
+	}
+
+	// Plot Drawing
+	Tools::myPrivatePlotCCDF_PrintPosNeg(medianDifference,q1.Len(),TStr::Fmt("%sMedianDifferenceCCDF",name).CStr(),TStr::Fmt("d [%s median - %s median]",legendname1,legendname2).CStr());
+	Tools::myPrivatePlotCCDF_PrintPosNeg(startDifference,q1.Len(),TStr::Fmt("%sStartDifferenceCCDF",name).CStr(),TStr::Fmt("d [%s start - %s start]",legendname1,legendname2).CStr());
+	Tools::myPrivatePlotCCDF_PrintPosNeg(endDifference,q1.Len(),TStr::Fmt("%sEndDifferenceCCDF",name).CStr(),TStr::Fmt("d [%s end - %s end]",legendname1,legendname2).CStr());
 }
 
 
@@ -1030,4 +1052,21 @@ void Tools::plotTwoHistShift(THash<TStr,CascadeElementV>& q1, THash<TStr,Cascade
 	delete[] vols_twitter_contents;
 }
 
+THash<TStr,CascadeElementV> Tools::loadQuotes(char* name)
+{
+	THash<TStr,CascadeElementV> qs;
+	TZipIn rarinput(name);
+	qs.Load(rarinput);
+	printf("Quotes: It has %d items.\n\n",qs.Len());
+	return qs;
+}
+
+THash<TUInt,TSecTmV> Tools::loadTwitter(char* name)
+{
+	THash<TUInt,TSecTmV> tw;
+	TZipIn rarinput(name);
+	tw.Load(rarinput);
+	printf("Twitter: It has %d items.\n\n",tw.Len());
+	return tw;
+}
 

@@ -122,13 +122,9 @@ int main(int argc, char* argv[])
 
 
 		// Filtering
-//		applyFilter(quotes,cascadesOnTwitterUrls,"QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS.rar","CascadesFullUrlsOnTwitterData_FINALFILTERED.rar",true);
-//		applyFilter(quotes,cascadesOnTwitterContents,"QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents.rar","CascadesOnTwitterData_FINALFILTERED.rar",false);
+		applyFilter(quotes,cascadesOnTwitterUrls,"QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS.rar","CascadesFullUrlsOnTwitterData_FINALFILTERED.rar",true);
+		applyFilter(quotes,cascadesOnTwitterContents,"QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents.rar","CascadesOnTwitterData_FINALFILTERED.rar",false);
 
-		// REMOVE IT
-		applyFilter(quotes,cascadesOnTwitterUrls,"Quotes_TEST_4Urls.rar","Cascades_TEST_4Urls.rar",true);
-		applyFilter(quotes,cascadesOnTwitterContents,"Quotes_TEST_4Contents.rar","Cascades_TEST_4Contents.rar",false);
-		// REMOVE IT
 
 		printf("\nFilters had been done successfully.\n");
 	}

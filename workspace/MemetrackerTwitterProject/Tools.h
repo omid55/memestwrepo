@@ -5,8 +5,8 @@
  *      Author: omid55
  */
 
-#ifndef TOOLS_H_
-#define TOOLS_H_
+#ifndef _TOOLS_H
+#define _TOOLS_H
 
 #include "stdafx.h"
 #include "CascadeElement.h"
@@ -43,7 +43,8 @@ public:
 private:
 	static void myPrivatePlotCCDF_PrintPosNeg(double* arr, int leng, char* name, char* xlabel);
 public:
-	static void plotCCDFStartMedianEnd(THash<TStr,CascadeElementV> quotes, THash<TUInt,TSecTmV> twitter, char* name);
+	static void plotCCDFStartMedianEnd(THash<TStr,CascadeElementV> quotes, THash<TUInt,TSecTmV> twitter, char* name, char* legendname1);
+	static void plotCCDFStartMedianEnd(THash<TStr,CascadeElementV> q1, THash<TStr,CascadeElementV> q2, char* name, char* legendname1, char* legendname2);
 
 	// Individually shift centralization
 	static void plotOneIndividuallyShift(THash<TStr,CascadeElementV>& quotes, char* name, uint period, char* periodstr, int DesiredCascadesCount=0);
@@ -55,6 +56,8 @@ public:
 	static void plotTwoHistShift(THash<TStr,CascadeElementV>& quotes, THash<TUInt,TSecTmV>& twitter, uint period, char* periodstr, char* name, Mode mode, char* s1, char* s2);
 	static void plotTwoHistShift(THash<TStr,CascadeElementV>& q1, THash<TStr,CascadeElementV>& q2, uint period, char* periodstr, char* name, Mode mode, char* s1, char* s2);
 
+	static THash<TStr,CascadeElementV> loadQuotes(char* name);
+	static THash<TUInt,TSecTmV> loadTwitter(char* name);
 };
 
 #endif /* TOOLS_H_ */

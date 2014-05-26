@@ -5,8 +5,8 @@
  *      Author: omid55
  */
 
-#ifndef CASCADEELEMENT_H_
-#define CASCADEELEMENT_H_
+#ifndef _CASCADEELEMENT_H
+#define _CASCADEELEMENT_H
 #include "./snap/Snap.h"
 
 class CascadeElement
