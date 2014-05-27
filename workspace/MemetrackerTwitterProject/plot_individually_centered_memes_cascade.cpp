@@ -73,8 +73,8 @@ int main(int argc, char* argv[])
 		period = 3600;
 		periodstr = TStr("hours").GetCStr();
 		Tools::plotTwoIndividuallyShift(nifty_newsQuotes,nifty_blogsQuotes,period,periodstr,"IndividualNewsBlogs","News","Blogs");
-		Tools::plotTwoIndividuallyShift(firstMentionsNiftyqu_newsQuotes,firstMentionsNiftyqu_blogsQuotes,period,periodstr,"IndividualFirstsNewsBlogs","FirstsNews","FirstsBlogs",DesiredCascadesCount);
-		Tools::plotTwoIndividuallyShift(nifty_newsQuotes,nifty_blogsQuotes,period,periodstr,"IndividualNewsBlogs-TOP1000","News","Blogs");
+		Tools::plotTwoIndividuallyShift(firstMentionsNiftyqu_newsQuotes,firstMentionsNiftyqu_blogsQuotes,period,periodstr,"IndividualFirstsNewsBlogs","FirstsNews","FirstsBlogs");
+		Tools::plotTwoIndividuallyShift(nifty_newsQuotes,nifty_blogsQuotes,period,periodstr,"IndividualNewsBlogs-TOP1000","News","Blogs",DesiredCascadesCount);
 		Tools::plotTwoIndividuallyShift(firstMentionsNiftyqu_newsQuotes,firstMentionsNiftyqu_blogsQuotes,period,periodstr,"IndividualFirstsNewsBlogs-TOP1000","FirstsNews","FirstsBlogs",DesiredCascadesCount);
 
 
