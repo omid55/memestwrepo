@@ -20,11 +20,12 @@ enum Mode
 class Tools
 {
 public:
+	static int getTheBinIndex(int x, int rbegin, uint rperiod);
 	static double* calculateHistOfCascade(TIntV& cascade, int rbegin, uint rperiod, int length, bool normalized);
 	static double* calculateHistOfCascade(TSecTmV& cascade, int rbegin, uint rperiod, int length, bool normalized);
 	static double* calculateHistOfCascade(CascadeElementV& cascade, int rbegin, uint rperiod, int length, bool normalized);
 	static int getMaxIndex(double* d,int len);
-	static int getMedianIndex(double* d,int len);
+//	static int getMedianIndex(double* d,int len);
 	static TPair<TInt,TInt> findRangeWithValues(double* d,int len);
 	static void separateTimestepsOfQuotesInBlogsNews(THash< TStr,CascadeElementV >& quotes, THash<TStr,TUInt>& newsMedia, THash<TChA,TUInt>& posts, THash<TStr,CascadeElementV>& newsQuotesOutput, THash<TStr,CascadeElementV>& blogsQuotesOutput);
 	static void removeOtherTimestepsOfQuotesWithSameDomain(THash<TStr,CascadeElementV>& quotes, THash<TChA,TUInt>& posts, THash<TStr,CascadeElementV>& outputQuotes);

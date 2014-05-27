@@ -150,6 +150,11 @@ double* Tools::calculateHistOfCascade(TIntV& cascade, int rbegin, uint rperiod, 
 	return vols;
 }
 
+int Tools::getTheBinIndex(int x, int rbegin, uint rperiod)
+{
+	return floor(((double)x - (double)rbegin) / (double)rperiod);
+}
+
 double* Tools::calculateHistOfCascade(CascadeElementV& cascade, int rbegin, uint rperiod, int length, bool normalized)
 {
 	int i,index;
@@ -160,7 +165,7 @@ double* Tools::calculateHistOfCascade(CascadeElementV& cascade, int rbegin, uint
 	}
 	for(i=0;i<cascade.Len();i++)
 	{
-		index = floor(((double)cascade[i].time.GetAbsSecs() - (double)rbegin) / rperiod);
+		index = Tools::getTheBinIndex(cascade[i].time.GetAbsSecs(),rbegin,rperiod);
 		if(index >= length || index < 0)
 		{
 			continue;
@@ -215,20 +220,20 @@ int Tools::getMaxIndex(double* d,int len)
 	return index;
 }
 
-int Tools::getMedianIndex(double* d,int len)
-{
-	int i1 = 0;
-	int i2 = len - 1;
-	while(i1 < len - 1 && d[i1] == 0)
-	{
-		i1++;
-	}
-	while(i2 > 0 && d[i2] == 0)
-	{
-		i2--;
-	}
-	return (int)floor((i1 + i2) / 2);
-}
+//int Tools::getMedianIndex(double* d,int len)
+//{
+//	int i1 = 0;
+//	int i2 = len - 1;
+//	while(i1 < len - 1 && d[i1] == 0)
+//	{
+//		i1++;
+//	}
+//	while(i2 > 0 && d[i2] == 0)
+//	{
+//		i2--;
+//	}
+//	return (int)floor((i1 + i2) / 2);
+//}
 
 TPair<TInt,TInt> Tools::findRangeWithValues(double* d,int len)
 {
@@ -887,7 +892,13 @@ void Tools::plotOneHistShift(THash<TStr,CascadeElementV>& quotes, char* name, ui
 		}
 		if(mode == MEDIAN)
 		{
-			index = Tools::getMedianIndex(vol,bins);
+//			index = Tools::getMedianIndex(vol,bins);
+
+			if(quotes[q].Len()==0)
+			{
+				continue;
+			}
+			index = Tools::getTheBinIndex(quotes[q][quotes[q].Len()/2].time.GetAbsSecs(),begin,period);
 		}
 		if(index == -1)    // we have a larger timeseries in meme tracker than twitter then there are some cascades which they have nothing in the desired range (then we will discard them)
 		{
@@ -953,8 +964,15 @@ void Tools::plotTwoHistShift(THash<TStr,CascadeElementV>& quotes, THash<TUInt,TS
 
 		if(mode == MEDIAN)
 		{
-			ind1 = Tools::getMedianIndex(vol_me,bins);
-			ind2 = Tools::getMedianIndex(vol_tu,bins);
+//			ind1 = Tools::getMedianIndex(vol_me,bins);
+//			ind2 = Tools::getMedianIndex(vol_tu,bins);
+
+			if(quotes[c].Len()==0 || twitter[c].Len()==0)
+			{
+				continue;
+			}
+			ind1 = Tools::getTheBinIndex(quotes[c][quotes[c].Len()/2].time.GetAbsSecs(),begin,period);
+			ind2 = Tools::getTheBinIndex(twitter[c][twitter[c].Len()/2].GetAbsSecs(),begin,period);
 		}
 		if(mode == MAX)
 		{
@@ -1032,8 +1050,15 @@ void Tools::plotTwoHistShift(THash<TStr,CascadeElementV>& q1, THash<TStr,Cascade
 
 		if(mode == MEDIAN)
 		{
-			ind1 = Tools::getMedianIndex(vol_me,bins);
-			ind2 = Tools::getMedianIndex(vol_tu,bins);
+//			ind1 = Tools::getMedianIndex(vol_me,bins);
+//			ind2 = Tools::getMedianIndex(vol_tu,bins);
+
+			if(q1[c].Len()==0 || q2[c].Len()==0)
+			{
+				continue;
+			}
+			ind1 = Tools::getTheBinIndex(q1[c][q1[c].Len()/2].time.GetAbsSecs(),begin,period);
+			ind2 = Tools::getTheBinIndex(q2[c][q2[c].Len()/2].time.GetAbsSecs(),begin,period);
 		}
 		if(mode == MAX)
 		{

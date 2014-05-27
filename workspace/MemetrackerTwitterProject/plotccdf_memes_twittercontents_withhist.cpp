@@ -86,7 +86,6 @@ THash< TUInt , TSecTmV > cascadesOnTwitterContents;
 
 int main(int argc, char* argv[])
 {
-	TSecTmV ti;
 	TExeTm ExeTm;
 	double* vol_me;
 	double* vol_tc;
@@ -124,12 +123,7 @@ int main(int argc, char* argv[])
 //			cout << "q" << c << ": " << quotes.GetKey(c).CStr() << endl;
 
 			quoteIndex = cascadesOnTwitterContents.GetKey(c);
-			ti.Clr();
-			for(i=0;i<quotes[c].Len();i++)    ///for(i=0;i<quotes[quoteIndex].Len();i++)
-			{
-				ti.Add(quotes[c][i].time);    ///ti.Add(quotes[quoteIndex][i].time);
-			}
-			vol_me = Tools::calculateHistOfCascade(ti,begin,period,bins,true);
+			vol_me = Tools::calculateHistOfCascade(quotes[c],begin,period,bins,true);
 			vol_tc = Tools::calculateHistOfCascade(cascadesOnTwitterContents.GetDat(quoteIndex),begin,period,bins,true);
 
 			ind1 = Tools::getMaxIndex(vol_me,bins);
@@ -142,8 +136,16 @@ int main(int argc, char* argv[])
 			}
 			maxDifference[lengmax++] = (double)ind1 - (double)ind2;
 
-			ind1 = Tools::getMedianIndex(vol_me,bins);
-			ind2 = Tools::getMedianIndex(vol_tc,bins);
+//			ind1 = Tools::getMedianIndex(vol_me,bins);
+//			ind2 = Tools::getMedianIndex(vol_tc,bins);
+
+			if(quotes[c].Len()==0 || cascadesOnTwitterContents[c].Len()==0)
+			{
+				continue;
+			}
+			ind1 = Tools::getTheBinIndex(quotes[c][quotes[c].Len()/2].time.GetAbsSecs(),begin,period);
+			ind2 = Tools::getTheBinIndex(cascadesOnTwitterContents[c][cascadesOnTwitterContents[c].Len()/2].GetAbsSecs(),begin,period);
+
 			if(ind1 == -1 || ind2 == -1)
 			{
 				delete[] vol_me;
