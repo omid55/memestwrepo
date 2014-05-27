@@ -508,9 +508,9 @@ void Tools::plotCCDFStartMedianEnd(THash<TStr,CascadeElementV> quotes, THash<TUI
 			len++;
 		}
 	}
-	double* medianDifference = new double[twitter.Len()];
-	double* startDifference = new double[twitter.Len()];
-	double* endDifference = new double[twitter.Len()];
+	double* medianDifference = new double[len];
+	double* startDifference = new double[len];
+	double* endDifference = new double[len];
 	int c = 0;
 	for(int i=0;i<twitter.Len();i++)
 	{
@@ -747,8 +747,9 @@ void Tools::plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& quotes, THash<
 	printf("Plot %s is done.\n",name);
 }
 
-void Tools::plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& q1, THash<TStr,CascadeElementV>& q2, uint period, char* periodstr, char* name, char* s1, char* s2)
+void Tools::plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& q1, THash<TStr,CascadeElementV>& q2, uint period, char* periodstr, char* name, char* s1, char* s2, int DesiredCascadesCount)
 {
+	int minLen;
 	int bins = (end - begin) / period;
 	int lengt = 2 * bins + 1;
 	int center = (lengt-1) / 2;
@@ -760,9 +761,30 @@ void Tools::plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& q1, THash<TStr
 		q2Volumes[i] = 0;
 	}
 
+	// The quotes cascades with min size DesiredCascadesCount
+	if(DesiredCascadesCount!=0)
+	{
+		IAssert(q1.Len() == q2.Len());
+		int* lengs = new int[q1.Len()];
+		for(int q=0;q<q1.Len();q++)
+		{
+			lengs[q] = q1[q].Len() + q2[q].Len();
+		}
+		sort(lengs,lengs+q1.Len(),std::greater<int>());
+		minLen = lengs[DesiredCascadesCount-1];
+		delete[] lengs;
+	}
+
+	int smalls = 0;
 	for(int q=0;q<q1.Len();q++)
 	{
 		int leng = q1[q].Len() + q2[q].Len();
+		if(leng < minLen)
+		{
+			smalls++;
+			continue;
+		}
+
 		int* integratedTimestamps = new int[leng];
 		for(int i=0;i<q1[q].Len();i++)
 		{
@@ -808,12 +830,14 @@ void Tools::plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& q1, THash<TStr
 	printf("Plotting ...\n");
 	TFltPrV q1Volumes4Plot;
 	TFltPrV q2Volumes4Plot;
+	int finalLen = q1.Len()-smalls;
+	printf("\tFor %d cascades.\n\n",finalLen);
 	IAssert(center-myrange>0 && center+myrange<lengt);
 	for(int i=center-myrange;i<=center+myrange;i++)
 //	for(int i=0;i<lengt;i++)
 	{
-		q1Volumes[i] /= q1.Len();
-		q2Volumes[i] /= q2.Len();
+		q1Volumes[i] /= finalLen;
+		q2Volumes[i] /= finalLen;
 		TFltPr elem;
 		elem.Val1 = -center + i;
 

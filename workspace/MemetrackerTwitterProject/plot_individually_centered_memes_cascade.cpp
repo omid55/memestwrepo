@@ -49,31 +49,33 @@ int main(int argc, char* argv[])
 
 
 		// Plotting
-		// All
-		Tools::plotOneIndividuallyShift(niftyqu,"NIFTY-Individual",period,periodstr);
-		Tools::plotOneIndividuallyShift(niftyqu,"NIFTY-Individual-TOP1000",period,periodstr,DesiredCascadesCount);
-		niftyqu.Clr();
-		Tools::plotOneIndividuallyShift(firstMentionsNiftyqu,"Firsts-Individual-NIFTY",period,periodstr);
-		Tools::plotOneIndividuallyShift(firstMentionsNiftyqu,"Firsts-Individual-NIFTY-TOP1000",period,periodstr,DesiredCascadesCount);
-		firstMentionsNiftyqu.Clr();
-
-		// News and Blogs
-		Tools::plotOneIndividuallyShift(nifty_newsQuotes,"NIFTY-Memes-Volume-News",period,periodstr);
-		Tools::plotOneIndividuallyShift(nifty_newsQuotes,"NIFTY-Memes-Volume-TopSelected-News",period,periodstr,DesiredCascadesCount);
-		Tools::plotOneIndividuallyShift(nifty_blogsQuotes,"NIFTY-Memes-Volume-Blogs",period,periodstr);
-		Tools::plotOneIndividuallyShift(nifty_blogsQuotes,"NIFTY-Memes-Volume-TopSelected-Blogs",period,periodstr,DesiredCascadesCount);
-
-		// Plotting first mentions of news and blogs
-		Tools::plotOneIndividuallyShift(firstMentionsNiftyqu_newsQuotes,"NIFTY-FirstMentions-Memes-Volume-News",period,periodstr);
-		Tools::plotOneIndividuallyShift(firstMentionsNiftyqu_newsQuotes,"NIFTY-FirstMentions-Memes-Volume-TopSelected-News",period,periodstr,DesiredCascadesCount);
-		Tools::plotOneIndividuallyShift(firstMentionsNiftyqu_blogsQuotes,"NIFTY-FirstMentions-Memes-Volume-Blogs",period,periodstr);
-		Tools::plotOneIndividuallyShift(firstMentionsNiftyqu_blogsQuotes,"NIFTY-FirstMentions-Memes-Volume-TopSelected-Blogs",period,periodstr,DesiredCascadesCount);
+//		// All
+//		Tools::plotOneIndividuallyShift(niftyqu,"NIFTY-Individual",period,periodstr);
+//		Tools::plotOneIndividuallyShift(niftyqu,"NIFTY-Individual-TOP1000",period,periodstr,DesiredCascadesCount);
+//		niftyqu.Clr();
+//		Tools::plotOneIndividuallyShift(firstMentionsNiftyqu,"Firsts-Individual-NIFTY",period,periodstr);
+//		Tools::plotOneIndividuallyShift(firstMentionsNiftyqu,"Firsts-Individual-NIFTY-TOP1000",period,periodstr,DesiredCascadesCount);
+//		firstMentionsNiftyqu.Clr();
+//
+//		// News and Blogs
+//		Tools::plotOneIndividuallyShift(nifty_newsQuotes,"NIFTY-Memes-Volume-News",period,periodstr);
+//		Tools::plotOneIndividuallyShift(nifty_newsQuotes,"NIFTY-Memes-Volume-TopSelected-News",period,periodstr,DesiredCascadesCount);
+//		Tools::plotOneIndividuallyShift(nifty_blogsQuotes,"NIFTY-Memes-Volume-Blogs",period,periodstr);
+//		Tools::plotOneIndividuallyShift(nifty_blogsQuotes,"NIFTY-Memes-Volume-TopSelected-Blogs",period,periodstr,DesiredCascadesCount);
+//
+//		// Plotting first mentions of news and blogs
+//		Tools::plotOneIndividuallyShift(firstMentionsNiftyqu_newsQuotes,"NIFTY-FirstMentions-Memes-Volume-News",period,periodstr);
+//		Tools::plotOneIndividuallyShift(firstMentionsNiftyqu_newsQuotes,"NIFTY-FirstMentions-Memes-Volume-TopSelected-News",period,periodstr,DesiredCascadesCount);
+//		Tools::plotOneIndividuallyShift(firstMentionsNiftyqu_blogsQuotes,"NIFTY-FirstMentions-Memes-Volume-Blogs",period,periodstr);
+//		Tools::plotOneIndividuallyShift(firstMentionsNiftyqu_blogsQuotes,"NIFTY-FirstMentions-Memes-Volume-TopSelected-Blogs",period,periodstr,DesiredCascadesCount);
 
 		// News and Blogs togehter
 		period = 3600;
 		periodstr = TStr("hours").GetCStr();
 		Tools::plotTwoIndividuallyShift(nifty_newsQuotes,nifty_blogsQuotes,period,periodstr,"IndividualNewsBlogs","News","Blogs");
-		Tools::plotTwoIndividuallyShift(firstMentionsNiftyqu_newsQuotes,firstMentionsNiftyqu_blogsQuotes,period,periodstr,"IndividualFirstsNewsBlogs","FirstsNews","FirstsBlogs");
+		Tools::plotTwoIndividuallyShift(firstMentionsNiftyqu_newsQuotes,firstMentionsNiftyqu_blogsQuotes,period,periodstr,"IndividualFirstsNewsBlogs","FirstsNews","FirstsBlogs",DesiredCascadesCount);
+		Tools::plotTwoIndividuallyShift(nifty_newsQuotes,nifty_blogsQuotes,period,periodstr,"IndividualNewsBlogs-TOP1000","News","Blogs");
+		Tools::plotTwoIndividuallyShift(firstMentionsNiftyqu_newsQuotes,firstMentionsNiftyqu_blogsQuotes,period,periodstr,"IndividualFirstsNewsBlogs-TOP1000","FirstsNews","FirstsBlogs",DesiredCascadesCount);
 
 
 		printf("Plots had been drawn successfully.");
