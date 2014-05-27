@@ -648,7 +648,7 @@ void Tools::plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& quotes, THash<
 {
 	int bins = (end - begin) / period;
 	int lengt = 2 * bins + 1;
-	int center = (lengt-1) / 2;
+	int center = (lengt - 1) / 2;
 	double* memeVolumes = new double[lengt];
 	double* twitterVolumes = new double[lengt];
 	for(int i=0;i<lengt;i++)
@@ -659,7 +659,7 @@ void Tools::plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& quotes, THash<
 
 	for(int q=0;q<quotes.Len();q++)
 	{
-		int leng = quotes[q].Len()+twitter[q].Len();
+		int leng = quotes[q].Len() + twitter[q].Len();
 		int* integratedTimestamps = new int[leng];
 		for(int i=0;i<quotes[q].Len();i++)
 		{
@@ -711,14 +711,15 @@ void Tools::plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& quotes, THash<
 	{
 		memeVolumes[i] /= quotes.Len();
 		twitterVolumes[i] /= quotes.Len();
-		TFltPr elem;
-		elem.Val1 = -center + i;
+		TFltPr elem1;
+		elem1.Val1 = -center + i;
+		elem1.Val2 = memeVolumes[i];
+		memeVolumes4Plot.Add(elem1);
 
-		elem.Val2 = memeVolumes[i];
-		memeVolumes4Plot.Add(elem);
-
-		elem.Val2 = twitterVolumes[i];
-		twitterVolumes4Plot.Add(elem);
+		TFltPr elem2;
+		elem2.Val1 = -center + i;
+		elem2.Val2 = twitterVolumes[i];
+		twitterVolumes4Plot.Add(elem2);
 	}
 	delete[] memeVolumes;
 	delete[] twitterVolumes;
