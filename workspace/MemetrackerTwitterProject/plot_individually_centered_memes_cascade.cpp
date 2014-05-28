@@ -17,6 +17,11 @@ int main(int argc, char* argv[])
 	printf("((( START individually Plot Memes Cascades CODE )))\n");
 	try
 	{
+		THash< TStr , CascadeElementV > quotes;
+		TZipIn z1("lastData/QuotesData.rar");
+		quotes.Load(z1);
+		printf("Loaded QuotesData has instances: %d\n\n\n",quotes.Len());
+
 		THash< TStr , CascadeElementV > niftyqu;
 		TZipIn zin1("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED.rar");
 		niftyqu.Load(zin1);
@@ -49,7 +54,10 @@ int main(int argc, char* argv[])
 
 
 		// Plotting
-//		// All
+		// All
+		Tools::plotOneIndividuallyShift(quotes,"Memes-Individual",period,periodstr);
+		Tools::plotOneIndividuallyShift(quotes,"Memes-Individual-TOP1000",period,periodstr,DesiredCascadesCount);
+		quotes.Clr();
 //		Tools::plotOneIndividuallyShift(niftyqu,"NIFTY-Individual",period,periodstr);
 //		Tools::plotOneIndividuallyShift(niftyqu,"NIFTY-Individual-TOP1000",period,periodstr,DesiredCascadesCount);
 //		niftyqu.Clr();
@@ -68,14 +76,14 @@ int main(int argc, char* argv[])
 //		Tools::plotOneIndividuallyShift(firstMentionsNiftyqu_newsQuotes,"NIFTY-FirstMentions-Memes-Volume-TopSelected-News",period,periodstr,DesiredCascadesCount);
 //		Tools::plotOneIndividuallyShift(firstMentionsNiftyqu_blogsQuotes,"NIFTY-FirstMentions-Memes-Volume-Blogs",period,periodstr);
 //		Tools::plotOneIndividuallyShift(firstMentionsNiftyqu_blogsQuotes,"NIFTY-FirstMentions-Memes-Volume-TopSelected-Blogs",period,periodstr,DesiredCascadesCount);
-
-		// News and Blogs togehter
-		period = 3600;
-		periodstr = TStr("hours").GetCStr();
-		Tools::plotTwoIndividuallyShift(nifty_newsQuotes,nifty_blogsQuotes,period,periodstr,"IndividualNewsBlogs","News","Blogs");
-		Tools::plotTwoIndividuallyShift(firstMentionsNiftyqu_newsQuotes,firstMentionsNiftyqu_blogsQuotes,period,periodstr,"IndividualFirstsNewsBlogs","FirstsNews","FirstsBlogs");
-		Tools::plotTwoIndividuallyShift(nifty_newsQuotes,nifty_blogsQuotes,period,periodstr,"IndividualNewsBlogs-TOP1000","News","Blogs",DesiredCascadesCount);
-		Tools::plotTwoIndividuallyShift(firstMentionsNiftyqu_newsQuotes,firstMentionsNiftyqu_blogsQuotes,period,periodstr,"IndividualFirstsNewsBlogs-TOP1000","FirstsNews","FirstsBlogs",DesiredCascadesCount);
+//
+//		// News and Blogs togehter
+//		period = 3600;
+//		periodstr = TStr("hours").GetCStr();
+//		Tools::plotTwoIndividuallyShift(nifty_newsQuotes,nifty_blogsQuotes,period,periodstr,"IndividualNewsBlogs","News","Blogs");
+//		Tools::plotTwoIndividuallyShift(firstMentionsNiftyqu_newsQuotes,firstMentionsNiftyqu_blogsQuotes,period,periodstr,"IndividualFirstsNewsBlogs","FirstsNews","FirstsBlogs");
+//		Tools::plotTwoIndividuallyShift(nifty_newsQuotes,nifty_blogsQuotes,period,periodstr,"IndividualNewsBlogs-TOP1000","News","Blogs",DesiredCascadesCount);
+//		Tools::plotTwoIndividuallyShift(firstMentionsNiftyqu_newsQuotes,firstMentionsNiftyqu_blogsQuotes,period,periodstr,"IndividualFirstsNewsBlogs-TOP1000","FirstsNews","FirstsBlogs",DesiredCascadesCount);
 
 
 		printf("Plots had been drawn successfully.");

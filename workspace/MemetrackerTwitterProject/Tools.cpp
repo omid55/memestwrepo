@@ -707,7 +707,7 @@ void Tools::plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& quotes, THash<
 		delete[] twitterVol;
 	}
 
-	printf("Plotting ...\n");
+	printf("\n\nPlotting ...\n");
 	TFltPrV memeVolumes4Plot;
 	TFltPrV twitterVolumes4Plot;
 	IAssert(center-myrange>0 && center+myrange<lengt);
