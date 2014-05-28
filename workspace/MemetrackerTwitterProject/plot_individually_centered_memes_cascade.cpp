@@ -55,8 +55,8 @@ int main(int argc, char* argv[])
 
 		// Plotting
 		// All
-		Tools::plotOneIndividuallyShift(quotes,"Memes-Individual",period,periodstr);
-		Tools::plotOneIndividuallyShift(quotes,"Memes-Individual-TOP1000",period,periodstr,DesiredCascadesCount);
+		Tools::plotOneIndividuallyShift(quotes,"Memes-FULL-Individual",period,periodstr);
+		Tools::plotOneIndividuallyShift(quotes,"Memes-FULL-Individual-TOP1000",period,periodstr,DesiredCascadesCount);
 		quotes.Clr();
 //		Tools::plotOneIndividuallyShift(niftyqu,"NIFTY-Individual",period,periodstr);
 //		Tools::plotOneIndividuallyShift(niftyqu,"NIFTY-Individual-TOP1000",period,periodstr,DesiredCascadesCount);
