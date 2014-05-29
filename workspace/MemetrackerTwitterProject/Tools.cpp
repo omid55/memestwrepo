@@ -536,8 +536,8 @@ void Tools::plotCCDFStartMedianEnd(THash<TStr,CascadeElementV> quotes, THash<TUI
 	{
 		rz = "is later";
 	}
-	double thedifference = abs(mean);
-	printf("\n\nMEAN=> days: %f, hours: %f, minutes: %f, %s %s.\n", (thedifference/(3600*24)), (thedifference/3600), (thedifference/60), legendname1, rz.CStr());
+	mean = abs(mean);
+	printf("\n\nRESULTMEAN=> days: %f, hours: %f, minutes: %f, %s %s.\n", (mean/(3600*24)), (mean/3600), (mean/60), legendname1, rz.CStr());
 
 	// Plot Drawing
 	Tools::myPrivatePlotCCDF_PrintPosNeg(medianDifference,len,TStr::Fmt("%sMedianDifferenceCCDF",name).CStr(),TStr::Fmt("d [(%s median - Twitter median) of cascade's times]",legendname1).CStr());
@@ -547,7 +547,7 @@ void Tools::plotCCDFStartMedianEnd(THash<TStr,CascadeElementV> quotes, THash<TUI
 
 void Tools::plotCCDFStartMedianEnd(THash<TStr,CascadeElementV> q1, THash<TStr,CascadeElementV> q2, char* name, char* legendname1, char* legendname2)
 {
-	double posRatio,negRatio,mean=0;
+	double posRatio,negRatio;
 	int len = 0;
 	for(int i=0;i<q1.Len();i++)
 	{
@@ -559,6 +559,7 @@ void Tools::plotCCDFStartMedianEnd(THash<TStr,CascadeElementV> q1, THash<TStr,Ca
 	double* medianDifference = new double[len];
 	double* startDifference = new double[len];
 	double* endDifference = new double[len];
+	double mean = 0;
 	int c = 0;
 	for(int i=0;i<q1.Len();i++)
 	{
@@ -568,10 +569,24 @@ void Tools::plotCCDFStartMedianEnd(THash<TStr,CascadeElementV> q1, THash<TStr,Ca
 		if(q1Cascade.Len() > 0 && q2Cascade.Len() > 0)
 		{
 			medianDifference[c] = (double)q1Cascade[q1Cascade.Len()/2].time.GetAbsSecs() - (double)q2Cascade[q2Cascade.Len()/2].time.GetAbsSecs();
+			mean += medianDifference[c];
 			startDifference[c] = (double)q1Cascade[0].time.GetAbsSecs() - (double)q2Cascade[0].time.GetAbsSecs();
 			endDifference[c++] = (double)q1Cascade[q1Cascade.Len()-1].time.GetAbsSecs() - (double)q2Cascade[q2Cascade.Len()-1].time.GetAbsSecs();
 		}
 	}
+	mean /= q1.Len();
+	TStr rz;
+	if(mean<0)
+	{
+		rz = "is sooner";
+	}
+	else
+	{
+		rz = "is later";
+	}
+	mean = abs(mean);
+	printf("\n\nRESULTMEAN=> days: %f, hours: %f, minutes: %f, %s %s.\n", (mean/(3600*24)), (mean/3600), (mean/60), legendname1, rz.CStr());
+
 
 	// Plot Drawing
 	Tools::myPrivatePlotCCDF_PrintPosNeg(medianDifference,len,TStr::Fmt("%sMedianDifferenceCCDF",name).CStr(),TStr::Fmt("d [%s median - %s median]",legendname1,legendname2).CStr());
