@@ -6,7 +6,7 @@
  */
 // Omid55
 #include "Tools.h"
-
+#include <cmath>
 
 // Global Variables
 static int myrange = 24;
@@ -499,7 +499,7 @@ void Tools::myPrivatePlotCCDF_PrintPosNeg(double* arr, int leng, char* name, cha
 
 void Tools::plotCCDFStartMedianEnd(THash<TStr,CascadeElementV> quotes, THash<TUInt,TSecTmV> twitter, char* name, char* legendname1)
 {
-	double posRatio,negRatio,mean=0;
+	double posRatio,negRatio;
 	int len = 0;
 	for(int i=0;i<twitter.Len();i++)
 	{
@@ -536,8 +536,8 @@ void Tools::plotCCDFStartMedianEnd(THash<TStr,CascadeElementV> quotes, THash<TUI
 	{
 		rz = "is later";
 	}
-	mean = abs(mean);
-	printf("\n\nMEAN=> days: %f, hours: %f, minutes: %f, %s %s.\n", (mean/(3600*24)), (mean/3600), (mean/60), legendname1, rz.CStr());
+	double thedifference = abs(mean);
+	printf("\n\nMEAN=> days: %f, hours: %f, minutes: %f, %s %s.\n", (thedifference/(3600*24)), (thedifference/3600), (thedifference/60), legendname1, rz.CStr());
 
 	// Plot Drawing
 	Tools::myPrivatePlotCCDF_PrintPosNeg(medianDifference,len,TStr::Fmt("%sMedianDifferenceCCDF",name).CStr(),TStr::Fmt("d [(%s median - Twitter median) of cascade's times]",legendname1).CStr());
