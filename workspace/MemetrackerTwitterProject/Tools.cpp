@@ -512,6 +512,7 @@ void Tools::plotCCDFStartMedianEnd(THash<TStr,CascadeElementV> quotes, THash<TUI
 	double* startDifference = new double[len];
 	double* endDifference = new double[len];
 	int c = 0;
+	double mean = 0;
 	for(int i=0;i<twitter.Len();i++)
 	{
 		CascadeElementV memesCascade = quotes[i];
@@ -520,10 +521,23 @@ void Tools::plotCCDFStartMedianEnd(THash<TStr,CascadeElementV> quotes, THash<TUI
 		if(quotes[i].Len() > 0 && twitter[i].Len() > 0)
 		{
 			medianDifference[c] = (double)memesCascade[memesCascade.Len()/2].time.GetAbsSecs() - (double)twCascade[twCascade.Len()/2].GetAbsSecs();
+			mean += medianDifference[c];
 			startDifference[c] = (double)memesCascade[0].time.GetAbsSecs() - (double)twCascade[0].GetAbsSecs();
 			endDifference[c++] = (double)memesCascade[memesCascade.Len()-1].time.GetAbsSecs() - (double)twCascade[twCascade.Len()-1].GetAbsSecs();
 		}
 	}
+	mean /= twitter.Len();
+	TStr rz;
+	if(mean<0)
+	{
+		rz = "is sooner";
+	}
+	else
+	{
+		rz = "is later";
+	}
+	mean = abs(mean);
+	printf("\n\nMEAN=> days: %f, hours: %f, minutes: %f, %s %s.\n", (mean/(3600*24)), (mean/3600), (mean/60), legendname1, rz.CStr());
 
 	// Plot Drawing
 	Tools::myPrivatePlotCCDF_PrintPosNeg(medianDifference,len,TStr::Fmt("%sMedianDifferenceCCDF",name).CStr(),TStr::Fmt("d [(%s median - Twitter median) of cascade's times]",legendname1).CStr());

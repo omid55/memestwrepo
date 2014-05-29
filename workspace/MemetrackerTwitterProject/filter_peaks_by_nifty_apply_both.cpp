@@ -33,42 +33,42 @@ void applyFilter(THash< TStr , CascadeElementV >& quotes,THash< TUInt , TSecTmV 
 		}
 		*/
 
-//		// === FINAL PHASE of NIFTY (REMOVING WITH MULTIPLE PEAKS) ===
-//		double* vol_me = Tools::calculateHistOfCascade(quotes[quoteIndex],begin,period,bins,false);
-//		double* vol_tu = Tools::calculateHistOfCascade(twitter.GetDat(quoteIndex),begin,period,bins,false);
-//
-//		// calculating mean and standard deviation
-//		double mean = 0;
-//		for(int i=0;i<bins;i++)
-//		{
-//			mean += vol_me[i];
-//		}
-//		mean /= bins;
-//
-//		double std = 0;
-//		for(int i=0;i<bins;i++)
-//		{
-//			std += pow(vol_me[i]-mean , 2);
-//		}
-//		std = sqrt(std / (bins-1));
-//
-//		// peak definition by NIFTY: a point is a peak if its volume in 9 days binning is 1 standard deviation higher than the average frequency
-//		double maxVolume = mean + std;
-//		int peakCnt = 0;
-//		for(int i=0;i<bins;i++)
-//		{
-//			if(vol_me[i] > maxVolume)
-//			{
-//				peakCnt++;
-//			}
-//		}
-//		// if there is more than 5 peaks ignore this quote, since it is not a meme
-//		if(peakCnt > 5)
-//		{
-//			delete[] vol_me;
-//			continue;
-//		}
-//		// === FINAL PHASE of NIFTY (REMOVING WITH MULTIPLE PEAKS) ===
+		// === FINAL PHASE of NIFTY (REMOVING WITH MULTIPLE PEAKS) ===
+		double* vol_me = Tools::calculateHistOfCascade(quotes[quoteIndex],begin,period,bins,false);
+		double* vol_tu = Tools::calculateHistOfCascade(twitter.GetDat(quoteIndex),begin,period,bins,false);
+
+		// calculating mean and standard deviation
+		double mean = 0;
+		for(int i=0;i<bins;i++)
+		{
+			mean += vol_me[i];
+		}
+		mean /= bins;
+
+		double std = 0;
+		for(int i=0;i<bins;i++)
+		{
+			std += pow(vol_me[i]-mean , 2);
+		}
+		std = sqrt(std / (bins-1));
+
+		// peak definition by NIFTY: a point is a peak if its volume in 9 days binning is 1 standard deviation higher than the average frequency
+		double maxVolume = mean + std;
+		int peakCnt = 0;
+		for(int i=0;i<bins;i++)
+		{
+			if(vol_me[i] > maxVolume)
+			{
+				peakCnt++;
+			}
+		}
+		// if there is more than 5 peaks ignore this quote, since it is not a meme
+		if(peakCnt > 5)
+		{
+			delete[] vol_me;
+			continue;
+		}
+		// === FINAL PHASE of NIFTY (REMOVING WITH MULTIPLE PEAKS) ===
 
 
 //		// To remove those Twitter has sooner start
@@ -81,8 +81,8 @@ void applyFilter(THash< TStr , CascadeElementV >& quotes,THash< TUInt , TSecTmV 
 
 		quotesFiltered.AddDat(quotes.GetKey(quoteIndex),quotes[quoteIndex]);
 		twitterFiltered.AddDat(quoteIndex,twitter.GetDat(quoteIndex));
-//		delete[] vol_me;
-//		delete[] vol_tu;
+		delete[] vol_me;
+		delete[] vol_tu;
 	}
 
 	TZipOut mout(quotesName);
