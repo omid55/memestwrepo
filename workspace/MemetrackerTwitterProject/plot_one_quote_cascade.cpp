@@ -15,6 +15,7 @@ void doCompute(	THash< TStr , CascadeElementV > memes, THash< TUInt , TSecTmV > 
 	int minlenhisted = 4;
 
 	int bins,i,c,index,minLen;
+	i = quoteIdx;
 	double* vol_me;
 	double* vol_tu;
 	TFltPrV volumes_memes;
@@ -24,9 +25,9 @@ void doCompute(	THash< TStr , CascadeElementV > memes, THash< TUInt , TSecTmV > 
 	uint end = TSecTm(2009,10,1,0,0,0).GetAbsSecs();
 	bins = (end - begin) / period;
 	int cnt = 0;
-	for(i=0;i<memes.Len();i++)
+//	for(i=0;i<memes.Len();i++)
 	{
-		if(TStrUtil::CountWords(memes.GetKey(i)) >= minlen && memes[i].Len() >= mincascadelen && twitter[i].Len() >= mincascadelen)
+//		if(TStrUtil::CountWords(memes.GetKey(i)) >= minlen && memes[i].Len() >= mincascadelen && twitter[i].Len() >= mincascadelen)
 		{
 			// ---== Computation ==---
 			vol_me = Tools::calculateHistOfCascade(memes[i],begin,period,bins,normalized);
@@ -35,7 +36,7 @@ void doCompute(	THash< TStr , CascadeElementV > memes, THash< TUInt , TSecTmV > 
 			{
 				delete[] vol_me;
 				delete[] vol_tu;
-				continue;
+//				continue;
 			}
 
 			if(cnt == quoteIdx)
@@ -89,7 +90,7 @@ void doCompute(	THash< TStr , CascadeElementV > memes, THash< TUInt , TSecTmV > 
 				pl.SetDataPlotFNm(TStr::Fmt("MyResults/Quote%d-%s-Original.tab",quoteIdx,name), TStr::Fmt("MyResults/Quote%d-%s-Original.plt",quoteIdx,name));
 				pl.SaveEps(TStr::Fmt("MyResults/Quote%d-%s-Original.eps",quoteIdx,name));
 
-				break;
+//				break;
 			}
 			delete[] vol_me;
 			delete[] vol_tu;
@@ -143,7 +144,7 @@ int main(int argc, char* argv[])
 		// Computing
 		while(true)
 		{
-			doCompute(quotesContents, cascadesOnTwitterContents, quoteIdx, normalized, "Content");
+//			doCompute(quotesContents, cascadesOnTwitterContents, quoteIdx, normalized, "Content");
 			doCompute(quotesUrls, cascadesOnTwitterUrls, quoteIdx, normalized, "Url");
 			cout << "\n\nPlease Enter Next Quote Index: ";
 			cin >> quoteIdx;
