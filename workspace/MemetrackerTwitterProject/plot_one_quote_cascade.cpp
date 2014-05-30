@@ -24,6 +24,8 @@ void doCompute(	THash< TStr , CascadeElementV > memes, THash< TUInt , TSecTmV > 
 	uint end = TSecTm(2009,10,1,0,0,0).GetAbsSecs();
 	bins = (end - begin) / period;
 	int cnt = 0;
+
+	i = 10600;
 //	for(i=0;i<memes.Len();i++)
 //	{
 //		if(TStrUtil::CountWords(memes.GetKey(i)) >= minlen && memes[i].Len() >= mincascadelen && twitter[i].Len() >= mincascadelen)
