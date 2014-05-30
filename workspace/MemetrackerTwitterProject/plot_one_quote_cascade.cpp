@@ -122,20 +122,20 @@ int main(int argc, char* argv[])
 
 		// ---== Loading Data ==---
 //		TZipIn ZquotesIn1("QuotesPreprocessedData_NIFTY_RANGEFIXED_FILTERED_4URLS.rar");
-		TZipIn ZquotesIn1("QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS.rar");
+		TZipIn ZquotesIn1("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS.rar");
 		quotesUrls.Load(ZquotesIn1);
 		printf("Loaded QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS has instances: %d\n\n\n",quotesUrls.Len());
 
 //		TZipIn ZcascadesOnTwitterIn("CascadesFullUrlsOnTwitterData_FILTERED.rar");
-		TZipIn ZcascadesOnTwitterIn("CascadesFullUrlsOnTwitterData_FINALFILTERED.rar");
+		TZipIn ZcascadesOnTwitterIn("/agbs/cluster/oaskaris/DATA/CascadesFullUrlsOnTwitterData_FINALFILTERED.rar");
 		cascadesOnTwitterUrls.Load(ZcascadesOnTwitterIn);
 		printf("Loaded CascadesFullUrlsOnTwitterData_FINALFILTERED has instances: %d\n\n\n",cascadesOnTwitterUrls.Len());
 
-		TZipIn ZquotesIn2("QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents.rar");	//("/agbs/cluster/oaskaris/Data_Preparing_Codes/RESULTS/QuotesPreprocessedData_NIFTY.rar");      ///("QuotesPreprocessedData_NIFTY_RANGEFIXED_FILTERED.rar");
+		TZipIn ZquotesIn2("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents.rar");	//("/agbs/cluster/oaskaris/Data_Preparing_Codes/RESULTS/QuotesPreprocessedData_NIFTY.rar");      ///("QuotesPreprocessedData_NIFTY_RANGEFIXED_FILTERED.rar");
 		quotesContents.Load(ZquotesIn2);
 		printf("Loaded QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents has instances: %d\n\n\n",quotesContents.Len());
 
-		TZipIn ZIn("CascadesOnTwitterData_FINALFILTERED.rar");	//("/agbs/cluster/oaskaris/Data_Preparing_Codes/RESULTS/CascadesOnTwitterData.rar");
+		TZipIn ZIn("/agbs/cluster/oaskaris/DATA/CascadesOnTwitterData_FINALFILTERED.rar");	//("/agbs/cluster/oaskaris/Data_Preparing_Codes/RESULTS/CascadesOnTwitterData.rar");
 		cascadesOnTwitterContents.Load(ZIn);
 		printf("Loaded CascadesOnTwitterData_FINALFILTERED has instances: %d\n\n\n",cascadesOnTwitterContents.Len());
 
