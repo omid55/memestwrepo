@@ -73,8 +73,8 @@ int main(int argc, char* argv[])
 				continue;
 			}
 			vol = Tools::calculateHistOfCascade(quotes[q],begin,period,bins,true);
-//			index = Tools::getMaxIndex(vol,bins);
-			index = Tools::getMedianIndex(vol,bins);
+			index = Tools::getMaxIndex(vol,bins);
+//			index = Tools::getMedianIndex(vol,bins);
 			if(index == -1)    // we have a larger timeseries in meme tracker than twitter then there are some cascades which they have nothing in the desired range (then we will discard them)
 			{
 				discards++;

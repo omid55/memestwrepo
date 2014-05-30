@@ -8,7 +8,6 @@
 
 #include "stdafx.h"
 
-
 void doCompute(	THash< TStr , CascadeElementV > memes, THash< TUInt , TSecTmV > twitter, int quoteIdx, bool normalized, char* name)
 {
 	int minlen = 10;
@@ -51,23 +50,33 @@ void doCompute(	THash< TStr , CascadeElementV > memes, THash< TUInt , TSecTmV > 
 				TPair<TInt,TInt> r2 = Tools::findRangeWithValues(vol_tu,bins);
 				int indexBegin = min(r1.Val1.Val,r2.Val1.Val);
 				int indexEnd = max(r1.Val2.Val,r2.Val2.Val);
+				TStr xticsMemes = "set xtics (", xticsTw = "set xtics (";;
 				for(i=indexBegin;i<=indexEnd;i++)
 				{
 					if(vol_me[i]>0)
 					{
 						volumes_memes.Add(TFltPr(i,vol_me[i]));
+						TSecTm newDate(begin + i * period);
+						xticsMemes += TStr::Fmt("\"%d/%d %d:%d\" %d, ", newDate.GetMonthN(), newDate.GetDayN(), newDate.GetHourN(), newDate.GetMinN(), i);
 					}
 					if(vol_tu[i]>0)
 					{
 						volumes_twitter_urls.Add(TFltPr(i,vol_tu[i]));
+						TSecTm newDate(begin + i * period);
+						xticsTw += TStr::Fmt("\"%d/%d %d:%d\" %d, ", newDate.GetMonthN(), newDate.GetDayN(), newDate.GetHourN(), newDate.GetMinN(), i);
 					}
 				}
 				delete[] vol_me;
 				delete[] vol_tu;
 
+				xticsMemes = xticsMemes.GetSubStr(0,xticsMemes.Len()-3) + ")";
+				xticsTw = xticsTw.GetSubStr(0,xticsTw.Len()-3) + ")";
+
+
 				plot.SetTitle(memes.GetKey(quoteIdx));
 				plot.AddPlot(volumes_memes,gpwPoints,"Memes");
 				plot.AddPlot(volumes_twitter_urls,gpwPoints,"Urls on Twitter");
+				plot.AddCmd(xticsMemes);
 				plot.SetDataPlotFNm(TStr::Fmt("MyResults/Quote%d-%s.tab",quoteIdx,name), TStr::Fmt("MyResults/Quote%d-%s.plt",quoteIdx,name));
 				plot.SaveEps(TStr::Fmt("MyResults/Quote%d-%s.eps",quoteIdx,name),true);
 
@@ -76,6 +85,7 @@ void doCompute(	THash< TStr , CascadeElementV > memes, THash< TUInt , TSecTmV > 
 				pl.SetTitle(memes.GetKey(quoteIdx).CStr());
 				pl.AddPlot(volumes_memes,gpwLinesPoints,"Memes");
 				pl.AddPlot(volumes_twitter_urls,gpwLinesPoints,"Urls on Twitter");
+				plot.AddCmd(xticsTw);
 				pl.SetDataPlotFNm(TStr::Fmt("MyResults/Quote%d-%s-Original.tab",quoteIdx,name), TStr::Fmt("MyResults/Quote%d-%s-Original.plt",quoteIdx,name));
 				pl.SaveEps(TStr::Fmt("MyResults/Quote%d-%s-Original.eps",quoteIdx,name));
 

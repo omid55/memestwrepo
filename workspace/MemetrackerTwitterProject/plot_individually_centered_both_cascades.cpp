@@ -10,7 +10,49 @@
 
 int main(int argc, char* argv[])
 {
-//	// test with toy example   // --->>> FULLY TESTED
+//	// test with toy example with small numbers
+//	THash< TStr , CascadeElementV > qq1;
+//	THash< TUInt , TSecTmV > tt1;
+//	TStr emp("1");
+//	CascadeElementV v;
+//
+//	TSecTm t1(uint(2));
+//	TSecTm t2(uint(5));
+//	TSecTm t3(uint(8));
+//	TSecTm t4(uint(9));
+//	v.Add(CascadeElement(t1));
+//	v.Add(CascadeElement(t2));
+//	v.Add(CascadeElement(t3));
+//	v.Add(CascadeElement(t4));
+//	qq1.AddDat(emp,v);
+//
+//	TStr emp2("2");
+//	CascadeElementV v2;
+//	TSecTm t5(uint(1));
+//	TSecTm t6(uint(10));
+//	v2.Add(CascadeElement(t5));
+//	v2.Add(CascadeElement(t6));
+//	qq1.AddDat(emp2,v2);
+//
+//
+//	TSecTmV vv2;
+//	vv2.Add(TSecTm(uint(7)));
+//	vv2.Add(TSecTm(uint(8)));
+//	tt1.AddDat(2,vv2);
+//
+//	TSecTmV vv;
+//	vv.Add(TSecTm(uint(1)));
+//	vv.Add(TSecTm(uint(3)));
+//	vv.Add(TSecTm(uint(7)));
+//	tt1.AddDat(1,vv);
+//
+//	uint per = 1;
+//	char pst[] = "1 unit";
+//
+//	Tools::plotTwoIndividuallyShift(qq1,tt1,per,pst,"MY-TOY-TEST");
+//	return 0;
+
+//	// test with real toy example   // --->>> FULLY TESTED
 //	THash< TStr , CascadeElementV > qq1;
 //	THash< TUInt , TSecTmV > tt1;
 //	TStr emp("");
