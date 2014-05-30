@@ -145,7 +145,7 @@ int main(int argc, char* argv[])
 		// Computing
 		while(true)
 		{
-			doCompute(quotesContents, cascadesOnTwitterContents, quoteIdx, normalized, "Content");
+//			doCompute(quotesContents, cascadesOnTwitterContents, quoteIdx, normalized, "Content");
 			doCompute(quotesUrls, cascadesOnTwitterUrls, quoteIdx, normalized, "Url");
 			cout << "\n\nPlease Enter Next Quote Index: ";
 			cin >> quoteIdx;
