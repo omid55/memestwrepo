@@ -15,7 +15,6 @@ void doCompute(	THash< TStr , CascadeElementV > memes, THash< TUInt , TSecTmV > 
 	int minlenhisted = 4;
 
 	int bins,i,c,index,minLen;
-	i = quoteIdx;
 	double* vol_me;
 	double* vol_tu;
 	TFltPrV volumes_memes;
@@ -26,22 +25,24 @@ void doCompute(	THash< TStr , CascadeElementV > memes, THash< TUInt , TSecTmV > 
 	bins = (end - begin) / period;
 	int cnt = 0;
 //	for(i=0;i<memes.Len();i++)
-	{
+//	{
 //		if(TStrUtil::CountWords(memes.GetKey(i)) >= minlen && memes[i].Len() >= mincascadelen && twitter[i].Len() >= mincascadelen)
-		{
-			// ---== Computation ==---
-			vol_me = Tools::calculateHistOfCascade(memes[i],begin,period,bins,normalized);
-			vol_tu = Tools::calculateHistOfCascade(twitter[i],begin,period,bins,normalized);
-			if(Tools::countNoneZeros(vol_me,bins) < minlenhisted || Tools::countNoneZeros(vol_tu,bins) < minlenhisted)
-			{
-				delete[] vol_me;
-				delete[] vol_tu;
+//		{
+//			// ---== Computation ==---
+//			vol_me = Tools::calculateHistOfCascade(memes[i],begin,period,bins,normalized);
+//			vol_tu = Tools::calculateHistOfCascade(twitter[i],begin,period,bins,normalized);
+//			if(Tools::countNoneZeros(vol_me,bins) < minlenhisted || Tools::countNoneZeros(vol_tu,bins) < minlenhisted)
+//			{
+//				delete[] vol_me;
+//				delete[] vol_tu;
 //				continue;
-			}
+//			}
+//
+//			if(cnt == quoteIdx)
+//			{
+//				quoteIdx = i;
+				quoteIdx = 10600;
 
-			if(cnt == quoteIdx)
-			{
-				quoteIdx = i;
 				TGnuPlot plot;
 				plot.SetXYLabel("Time [days]", "Volume");
 				plot.SetTitle(memes.GetKey(quoteIdx).CStr());
@@ -91,12 +92,12 @@ void doCompute(	THash< TStr , CascadeElementV > memes, THash< TUInt , TSecTmV > 
 				pl.SaveEps(TStr::Fmt("MyResults/Quote%d-%s-Original.eps",quoteIdx,name));
 
 //				break;
-			}
-			delete[] vol_me;
-			delete[] vol_tu;
-			cnt++;
-		}
-	}
+//			}
+//			delete[] vol_me;
+//			delete[] vol_tu;
+//			cnt++;
+//		}
+//	}
 }
 
 
@@ -144,7 +145,7 @@ int main(int argc, char* argv[])
 		// Computing
 		while(true)
 		{
-//			doCompute(quotesContents, cascadesOnTwitterContents, quoteIdx, normalized, "Content");
+			doCompute(quotesContents, cascadesOnTwitterContents, quoteIdx, normalized, "Content");
 			doCompute(quotesUrls, cascadesOnTwitterUrls, quoteIdx, normalized, "Url");
 			cout << "\n\nPlease Enter Next Quote Index: ";
 			cin >> quoteIdx;
