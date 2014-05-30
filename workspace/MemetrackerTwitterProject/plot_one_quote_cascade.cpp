@@ -19,7 +19,7 @@ void doCompute(	THash< TStr , CascadeElementV > memes, THash< TUInt , TSecTmV > 
 	double* vol_tu;
 	TFltPrV volumes_memes;
 	TFltPrV volumes_twitter_urls;
-	uint period = 24 * 3600;   // days
+	uint period = 3600;   // hours
 	uint begin = TSecTm(2008,7,31,0,0,0).GetAbsSecs();
 	uint end = TSecTm(2009,10,1,0,0,0).GetAbsSecs();
 	bins = (end - begin) / period;
@@ -46,7 +46,7 @@ void doCompute(	THash< TStr , CascadeElementV > memes, THash< TUInt , TSecTmV > 
 				quoteIdx = 10600;
 
 				TGnuPlot plot;
-				plot.SetXYLabel("Time [days]", "Volume");
+				plot.SetXYLabel("Time [hours]", "Volume");
 				plot.SetTitle(memes.GetKey(quoteIdx).CStr());
 				printf("\nQuote(%d): %s\n\n",quoteIdx,memes.GetKey(quoteIdx).CStr());
 
@@ -85,7 +85,7 @@ void doCompute(	THash< TStr , CascadeElementV > memes, THash< TUInt , TSecTmV > 
 				plot.SaveEps(TStr::Fmt("MyResults/Quote%d-%s.eps",quoteIdx,name),true);
 
 				TGnuPlot pl;
-				pl.SetXYLabel("Time [days]", "Volume");
+				pl.SetXYLabel("Time [hours]", "Volume");
 				pl.SetTitle(memes.GetKey(quoteIdx).CStr());
 				pl.AddPlot(volumes_memes,gpwLinesPoints,"Memes");
 				pl.AddPlot(volumes_twitter_urls,gpwLinesPoints,"Urls on Twitter");
