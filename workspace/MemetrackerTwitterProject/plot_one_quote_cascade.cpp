@@ -101,9 +101,8 @@ void doCompute(	THash< TStr , CascadeElementV > memes, THash< TUInt , TSecTmV > 
 
 int main(int argc, char* argv[])
 {
-	Tools::loadQuotes("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED.rar");
-	return 0;
-
+//	Tools::loadQuotes("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED.rar");
+//	return 0;
 
 	THash< TStr , CascadeElementV > quotesUrls;
 	THash< TStr , CascadeElementV > quotesContents;
