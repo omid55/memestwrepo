@@ -10,8 +10,8 @@
 
 void doCompute(	THash< TStr , CascadeElementV > memes, THash< TUInt , TSecTmV > twitter, int quoteIdx, bool normalized, char* name)
 {
-	uint period = 24 * 3600;
-	char periodstr[] = "days";
+	uint period = 3600;
+	char periodstr[] = "hours";
 
 	int minlen = 10;
 	int mincascadelen = 10;
