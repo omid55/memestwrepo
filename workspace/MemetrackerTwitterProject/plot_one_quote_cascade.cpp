@@ -60,7 +60,7 @@ void doCompute(	THash< TStr , CascadeElementV > memes, THash< TUInt , TSecTmV > 
 					if((i - indexBegin) % dist == 0)
 					{
 						TSecTm newDate(begin + i * period);
-						xticsMemes += TStr::Fmt("\"%d/%02d/%02d %d:%02d\" %d, ", newDate.GetYearN(), newDate.GetMonthN(), newDate.GetDayN(), newDate.GetHourN(), newDate.GetMinN(), i);
+						xticsMemes += TStr::Fmt("\"%d/%02d/%02d-%d:%02d\" %d, ", newDate.GetYearN(), newDate.GetMonthN(), newDate.GetDayN(), newDate.GetHourN(), newDate.GetMinN(), i);
 					}
 
 //					if(vol_me[i]>0)
