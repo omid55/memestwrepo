@@ -851,7 +851,7 @@ void TGnuPlot::CreatePlotFile(const TStr& Comment, bool withPointsAndSmooth) {
   fprintf(F, "# %s (%s)\n", Comment.CStr(), TimeStr);
   fprintf(F, "#\n\n");
   if (! Title.Empty()) fprintf(F, "set title \"%s\"\n", Title.CStr());
-  fprintf(F, "set key left top\n");     //fprintf(F, "set key bottom right\n");   // Omid55
+  fprintf(F, "set key right top\n");     //fprintf(F, "set key bottom right\n");   // Omid55
   fprintf(F, "%s\n", GetScaleStr(ScaleTy).CStr());
   if (ScaleTy==gpsLog || ScaleTy==gpsLog10X || ScaleTy==gpsLog10XY) { 
     fprintf(F, "set format x \"10^{%%L}\"\n"); 
