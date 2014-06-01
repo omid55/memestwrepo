@@ -10,6 +10,7 @@
 
 void doCompute(	THash< TStr , CascadeElementV > memes, THash< TUInt , TSecTmV > twitter, int quoteIdx, bool normalized, char* name)
 {
+	int parts = 4;
 	uint period = 3600;
 	char periodstr[] = "hours";
 
@@ -55,11 +56,11 @@ void doCompute(	THash< TStr , CascadeElementV > memes, THash< TUInt , TSecTmV > 
 				TStr xticsMemes = "set xtics (", xticsTw = "set xtics (";;
 				for(i=indexBegin;i<=indexEnd;i++)
 				{
-					int parts = (indexEnd - indexBegin) / 5;
-					if((i - indexBegin) % parts == 0)
+					int dist = (indexEnd - indexBegin) / parts;
+					if((i - indexBegin) % dist == 0)
 					{
 						TSecTm newDate(begin + i * period);
-						xticsMemes += TStr::Fmt("\"%d/%d/%d %d:%d\" %d, ", newDate.GetYearN(), newDate.GetMonthN(), newDate.GetDayN(), newDate.GetHourN(), newDate.GetMinN(), i);
+						xticsMemes += TStr::Fmt("\"%d/%2d/%2d %d:%2d\" %d, ", newDate.GetYearN(), newDate.GetMonthN(), newDate.GetDayN(), newDate.GetHourN(), newDate.GetMinN(), i);
 					}
 
 //					if(vol_me[i]>0)
