@@ -19,34 +19,30 @@ void doCompute(	THash< TStr , CascadeElementV > memes, THash< TUInt , TSecTmV > 
 	double* vol_tu;
 	TFltPrV volumes_memes;
 	TFltPrV volumes_twitter_urls;
-	uint period = 3600;   // hours
+	uint period = 24 * 3600;   // days
 	uint begin = TSecTm(2008,7,31,0,0,0).GetAbsSecs();
 	uint end = TSecTm(2009,10,1,0,0,0).GetAbsSecs();
 	bins = (end - begin) / period;
 	int cnt = 0;
-
-	i = 10600;
-//	for(i=0;i<memes.Len();i++)
-//	{
-//		if(TStrUtil::CountWords(memes.GetKey(i)) >= minlen && memes[i].Len() >= mincascadelen && twitter[i].Len() >= mincascadelen)
-//		{
+	for(i=0;i<memes.Len();i++)
+	{
+		if(TStrUtil::CountWords(memes.GetKey(i)) >= minlen && memes[i].Len() >= mincascadelen && twitter[i].Len() >= mincascadelen)
+		{
 			// ---== Computation ==---
 			vol_me = Tools::calculateHistOfCascade(memes[i],begin,period,bins,normalized);
 			vol_tu = Tools::calculateHistOfCascade(twitter[i],begin,period,bins,normalized);
-//			if(Tools::countNoneZeros(vol_me,bins) < minlenhisted || Tools::countNoneZeros(vol_tu,bins) < minlenhisted)
-//			{
-//				delete[] vol_me;
-//				delete[] vol_tu;
-//				continue;
-//			}
-//
-//			if(cnt == quoteIdx)
-//			{
-//				quoteIdx = i;
-				quoteIdx = 10600;
+			if(Tools::countNoneZeros(vol_me,bins) < minlenhisted || Tools::countNoneZeros(vol_tu,bins) < minlenhisted)
+			{
+				delete[] vol_me;
+				delete[] vol_tu;
+				continue;
+			}
 
+			if(cnt == quoteIdx)
+			{
+				quoteIdx = i;
 				TGnuPlot plot;
-				plot.SetXYLabel("Time [hours]", "Volume");
+				plot.SetXYLabel("Time [days]", "Volume");
 				plot.SetTitle(memes.GetKey(quoteIdx).CStr());
 				printf("\nQuote(%d): %s\n\n",quoteIdx,memes.GetKey(quoteIdx).CStr());
 
@@ -85,7 +81,7 @@ void doCompute(	THash< TStr , CascadeElementV > memes, THash< TUInt , TSecTmV > 
 				plot.SaveEps(TStr::Fmt("MyResults/Quote%d-%s.eps",quoteIdx,name),true);
 
 				TGnuPlot pl;
-				pl.SetXYLabel("Time [hours]", "Volume");
+				pl.SetXYLabel("Time [days]", "Volume");
 				pl.SetTitle(memes.GetKey(quoteIdx).CStr());
 				pl.AddPlot(volumes_memes,gpwLinesPoints,"Memes");
 				pl.AddPlot(volumes_twitter_urls,gpwLinesPoints,"Urls on Twitter");
@@ -93,18 +89,22 @@ void doCompute(	THash< TStr , CascadeElementV > memes, THash< TUInt , TSecTmV > 
 				pl.SetDataPlotFNm(TStr::Fmt("MyResults/Quote%d-%s-Original.tab",quoteIdx,name), TStr::Fmt("MyResults/Quote%d-%s-Original.plt",quoteIdx,name));
 				pl.SaveEps(TStr::Fmt("MyResults/Quote%d-%s-Original.eps",quoteIdx,name));
 
-//				break;
-//			}
-//			delete[] vol_me;
-//			delete[] vol_tu;
-//			cnt++;
-//		}
-//	}
+				break;
+			}
+			delete[] vol_me;
+			delete[] vol_tu;
+			cnt++;
+		}
+	}
 }
 
 
 int main(int argc, char* argv[])
 {
+	Tools::loadQuotes("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED.rar");
+	return 0;
+
+
 	THash< TStr , CascadeElementV > quotesUrls;
 	THash< TStr , CascadeElementV > quotesContents;
 	THash< TUInt , TSecTmV > cascadesOnTwitterUrls;
@@ -147,7 +147,7 @@ int main(int argc, char* argv[])
 		// Computing
 		while(true)
 		{
-//			doCompute(quotesContents, cascadesOnTwitterContents, quoteIdx, normalized, "Content");
+			doCompute(quotesContents, cascadesOnTwitterContents, quoteIdx, normalized, "Content");
 			doCompute(quotesUrls, cascadesOnTwitterUrls, quoteIdx, normalized, "Url");
 			cout << "\n\nPlease Enter Next Quote Index: ";
 			cin >> quoteIdx;
