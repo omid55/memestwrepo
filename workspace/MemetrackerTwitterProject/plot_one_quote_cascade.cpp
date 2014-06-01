@@ -55,17 +55,20 @@ void doCompute(	THash< TStr , CascadeElementV > memes, THash< TUInt , TSecTmV > 
 				TStr xticsMemes = "set xtics (", xticsTw = "set xtics (";;
 				for(i=indexBegin;i<=indexEnd;i++)
 				{
+					int parts = (indexEnd - indexBegin) / 5;
+					if((i - indexBegin) % parts == 0)
+					{
+						TSecTm newDate(begin + i * period);
+						xticsMemes += TStr::Fmt("\"%d/%d/%d %d:%d\" %d, ", newDate.GetYearN(), newDate.GetMonthN(), newDate.GetDayN(), newDate.GetHourN(), newDate.GetMinN(), i);
+					}
+
 //					if(vol_me[i]>0)
 					{
 						volumes_memes.Add(TFltPr(i,vol_me[i]));
-						TSecTm newDate(begin + i * period);
-						xticsMemes += TStr::Fmt("\"%d/%d %d:%d\" %d, ", newDate.GetMonthN(), newDate.GetDayN(), newDate.GetHourN(), newDate.GetMinN(), i);
 					}
 //					if(vol_tu[i]>0)
 					{
 						volumes_twitter_urls.Add(TFltPr(i,vol_tu[i]));
-						TSecTm newDate(begin + i * period);
-						xticsTw += TStr::Fmt("\"%d/%d %d:%d\" %d, ", newDate.GetMonthN(), newDate.GetDayN(), newDate.GetHourN(), newDate.GetMinN(), i);
 					}
 				}
 				delete[] vol_me;
