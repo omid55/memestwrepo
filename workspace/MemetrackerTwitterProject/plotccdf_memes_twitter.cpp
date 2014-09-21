@@ -61,6 +61,7 @@ int main(int argc, char* argv[])
 		THash< TStr , CascadeElementV > q14 = Tools::loadQuotes("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTSBLOGS.rar");
 
 
+
 		printf("\n\nPRINTING those quotes which Twitter Has sooner start in:\n");
 		int limit = 100;
 		if(argc>1)
@@ -69,6 +70,8 @@ int main(int argc, char* argv[])
 		}
 		Tools::printTwitterHasSoonerStart(quotescont,cascadesOnTwitterContents,limit);
 		return 0;
+
+
 
 		// Plotting
 		printf("\n\nPlotting...\n");

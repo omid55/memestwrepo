@@ -134,7 +134,7 @@ int main(int argc, char* argv[])
 		// Loading trie model
 		TZipIn trieModel("QuotesTrieModel.rar");
 		trie.Load(trieModel);
-		printf("\nMin Len is: %d, Removing Numbers and Symbols: %d\n\n",trie.getMinLen().Val,trie.getDoRemoveSymbols());
+		printf("\nMin Len is: %d, Removing Numbers and Symbols: %d\n\n",trie.GetMinLen().Val,trie.GetDoRemoveSymbols());
 
 
 		// Requesting the database
@@ -171,7 +171,7 @@ int main(int argc, char* argv[])
 					tweet_date = TStr(PQgetvalue(res, row, 1)).GetFlt();
 					TweetStrLc = TweetStr.ToLc();
 
-					foundIds = trie.find(TweetStrLc);
+					foundIds = trie.FindSentence(TweetStrLc);
 					TSecTm td(tweet_date);
 					for(i=0;i<foundIds.Len();i++)
 					{

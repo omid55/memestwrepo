@@ -439,7 +439,7 @@ void Tools::printTwitterHasSoonerStart(THash<TStr,CascadeElementV> quotes, THash
 
 		if(quotes[i].Len() > 0 && twitter[i].Len() > 0)
 		{
-			if(cn++ < limit && (double)memesCascade[0].time.GetAbsSecs() > (double)twCascade[0].GetAbsSecs())
+			if(cn++ < limit && TStrUtil::CountWords(quotes.GetKey(i))>7 && (double)memesCascade[0].time.GetAbsSecs() > (double)twCascade[0].GetAbsSecs())
 			{
 				printf("Q%d(Tw: %s, Me: %s)-> %s\n",i,twCascade[0].GetYmdTmStr().CStr(),memesCascade[0].time.GetYmdTmStr().CStr(),quotes.GetKey(i).CStr());
 			}

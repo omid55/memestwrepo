@@ -11,172 +11,180 @@
 #include "TStrTrie.h"
 
 // ----------------------------------------------------
-// 				NODE IMPLEMENTATION
+// 				TTStrTrieNode IMPLEMENTATION
 // ----------------------------------------------------
-Node::Node()
+TTStrTrieNode::TTStrTrieNode()
 {
-	id = TInt(-1);
+	Id = TInt(-1);
 }
 
-Node::Node(TSIn& SIn)
+TTStrTrieNode::TTStrTrieNode(TSIn& SIn)
 {
 	Load(SIn);
 }
 
-Node::~Node()
+TTStrTrieNode::~TTStrTrieNode()
 {
-	data.Clr();
+	DataH.Clr();
 }
 
-TInt Node::getId() const
+TInt TTStrTrieNode::GetUId() const
 {
-	return id;
+	return Id;
 }
 
-void Node::setId(TInt id)
+void TTStrTrieNode::SetUId(TInt id)
 {
-	this->id = id;
+	this->Id = id;
 }
 
-THash<TStr,Node> Node::getData() const
+THash<TStr,TTStrTrieNode> TTStrTrieNode::GetDataH() const
 {
-	return data;
+	return DataH;
 }
 
-void Node::setData(THash<TStr,Node> data)
+void TTStrTrieNode::SetDataH(THash<TStr,TTStrTrieNode> DataH)
 {
-	this->data = data;
+	this->DataH = DataH;
 }
 
-void Node::Load(TSIn &SIn)
+void TTStrTrieNode::Load(TSIn &SIn)
 {
-	this->data.Load(SIn);
-	this->id.Load(SIn);
+	this->DataH.Load(SIn);
+	this->Id.Load(SIn);
 }
 
-void Node::Save(TSOut& SOut) const
+void TTStrTrieNode::Save(TSOut& SOut) const
 {
-	this->data.Save(SOut);
-	this->id.Save(SOut);
+	this->DataH.Save(SOut);
+	this->Id.Save(SOut);
 }
 
-void Node::Clr(const bool& DoDel, const int& NoDelLim, const bool& ResetDat)
+void TTStrTrieNode::Clr(const bool& DoDel, const int& NoDelLim, const bool& ResetDat)
 {
-	data.Clr();
+	DataH.Clr();
 }
 
-void Node::addWord(TStr word)
+void TTStrTrieNode::AddWord(TStr Word)
 {
-	data.AddDat(word,Node());
+	DataH.AddDat(Word,TTStrTrieNode());
 }
 
-bool Node::hasWord(TStr word) const
+bool TTStrTrieNode::HasWord(TStr Word) const
 {
-	return data.GetKeyId(word) != -1;
+	return DataH.GetKeyId(Word) != -1;
 }
 
-Node& Node::getNextNode(TStr word)
+TTStrTrieNode& TTStrTrieNode::GetNextNodePt(TStr Word)
 {
-	return data.GetDat(word);
+	return DataH.GetDat(Word);
 }
+
+
 
 // ----------------------------------------------------
 // 				TSTR TRIE IMPLEMENTATION
 // ----------------------------------------------------
 TStrTrie::TStrTrie()
 {
-	root = new Node();
-	minLen = 1000;
-	doRemoveSymbols = false;
+	RootPt = new TTStrTrieNode();
+	MinLen = 1000;
+	DoRemoveSymbols = false;
+}
+
+TStrTrie::TStrTrie(TInt MinLen, TBool DoRemoveSymbols)
+{
+	RootPt = new TTStrTrieNode();
+	this->MinLen = MinLen;
+	this->DoRemoveSymbols = DoRemoveSymbols;
 }
 
 TStrTrie::TStrTrie(TSIn& SIn)
 {
-	root = new Node();
+	RootPt = new TTStrTrieNode();
 	Load(SIn);
 }
 
-
 TStrTrie::~TStrTrie()
 {
-	delete root;
+	delete RootPt;
 }
 
 void TStrTrie::Clr(const bool& DoDel, const int& NoDelLim, const bool& ResetDat)
 {
-	root->Clr();
+	RootPt->Clr();
 }
 
 void TStrTrie::Load(TSIn &SIn)
 {
-	root->Load(SIn);
-	minLen.Load(SIn);
-	doRemoveSymbols.Load(SIn);
+	RootPt->Load(SIn);
+	MinLen.Load(SIn);
+	DoRemoveSymbols.Load(SIn);
 }
 
 void TStrTrie::Save(TSOut& SOut) const
 {
-	root->Save(SOut);
-	minLen.Save(SOut);
-	doRemoveSymbols.Save(SOut);
+	RootPt->Save(SOut);
+	MinLen.Save(SOut);
+	DoRemoveSymbols.Save(SOut);
 }
 
 
-TInt TStrTrie::getMinLen() const
+TInt TStrTrie::GetMinLen() const
 {
-	return minLen;
+	return MinLen;
 }
 
-bool TStrTrie::getDoRemoveSymbols() const
+bool TStrTrie::GetDoRemoveSymbols() const
 {
-	return doRemoveSymbols;
+	return DoRemoveSymbols;
 }
 
-void TStrTrie::setDoRemoveSymbols(bool d)
+void TStrTrie::SetDoRemoveSymbols(bool DoRemoveSymbols)
 {
-	doRemoveSymbols = d;
+	this->DoRemoveSymbols = DoRemoveSymbols;
 }
 
-void TStrTrie::add(char* sentence,TInt itsId)
+void TStrTrie::AddSentence(char* Sentence,TInt ItsId)
 {
-	TStr tmp(sentence);
-	add(tmp,itsId);
+	TStr tmp(Sentence);
+	AddSentence(tmp,ItsId);
 }
 
-void TStrTrie::add(TStr& sentence,TInt itsId)
+void TStrTrie::AddSentence(TStr& Sentence,TInt ItsId)
 {
-	if(doRemoveSymbols)
+	if(DoRemoveSymbols)
 	{
-		sentence = TStrTrie::RemoveSymbols(sentence);
+		Sentence = TStrTrie::RemoveSymbols(Sentence);
 	}
 
 	int i;
 	TStr word;
 	TStrV words;
-	Node* current = root;
-	sentence.SplitOnAllCh(' ',words,true);
-	minLen = min(minLen,TInt(words.Len()));
+	TTStrTrieNode* current = RootPt;
+	Sentence.SplitOnAllCh(' ',words,true);
+	MinLen = min(MinLen,TInt(words.Len()));
 	for(i=0;i<words.Len();i++)
 	{
 		word = words[i];
-		if(!current->hasWord(word))
+		if(!current->HasWord(word))
 		{
-			current->addWord(word);
+			current->AddWord(word);
 		}
-		current = &current->getNextNode(word);
+		current = &current->GetNextNodePt(word);
 	}
-	current->setId(itsId);
+	current->SetUId(ItsId);
 }
 
-TStr TStrTrie::RemoveSymbols(TStr& text)
+TStr TStrTrie::RemoveSymbols(TStr& Text)
 {
-////	cout << text.CStr() << endl;
+////	cout << Text.CStr() << endl;
 //	TStr res;
 //	char ch;
 //	int i;
-//	for(i=0;i<text.Len();i++)
+//	for(i=0;i<Text.Len();i++)
 //	{
-//		ch = text.GetCh(i);
+//		ch = Text.GetCh(i);
 //
 //		if('a'<=ch<='z' || '0'<=ch<='9')
 //		{
@@ -186,83 +194,83 @@ TStr TStrTrie::RemoveSymbols(TStr& text)
 ////	cout << res.CStr() << endl;
 
 	// Symbols
-	text.DelChAll('.');
-	text.DelChAll(':');
-	text.DelChAll('@');
-	text.DelChAll('?');
-	text.DelChAll('!');
-	text.DelChAll('(');
-	text.DelChAll(')');
-	text.DelChAll('[');
-	text.DelChAll(']');
-	text.DelChAll('-');
-	text.DelChAll('+');
-	text.DelChAll('*');
-	text.DelChAll('/');
-	text.DelChAll('\\');
-	text.DelChAll('~');
-	text.DelChAll('#');
-	text.DelChAll('$');
-	text.DelChAll('&');
-	text.DelChAll('=');
-	text.DelChAll('{');
-	text.DelChAll('}');
-	text.DelChAll('|');
-	text.DelChAll('"');
-	text.DelChAll('\'');
-	text.DelChAll(',');
-	text.DelChAll('`');
-	text.DelChAll('<');
-	text.DelChAll('>');
-	text.DelChAll('%');
-	text.DelChAll('^');
-	text.DelChAll('_');
-	text.DelChAll(';');
+	Text.DelChAll('.');
+	Text.DelChAll(':');
+	Text.DelChAll('@');
+	Text.DelChAll('?');
+	Text.DelChAll('!');
+	Text.DelChAll('(');
+	Text.DelChAll(')');
+	Text.DelChAll('[');
+	Text.DelChAll(']');
+	Text.DelChAll('-');
+	Text.DelChAll('+');
+	Text.DelChAll('*');
+	Text.DelChAll('/');
+	Text.DelChAll('\\');
+	Text.DelChAll('~');
+	Text.DelChAll('#');
+	Text.DelChAll('$');
+	Text.DelChAll('&');
+	Text.DelChAll('=');
+	Text.DelChAll('{');
+	Text.DelChAll('}');
+	Text.DelChAll('|');
+	Text.DelChAll('"');
+	Text.DelChAll('\'');
+	Text.DelChAll(',');
+	Text.DelChAll('`');
+	Text.DelChAll('<');
+	Text.DelChAll('>');
+	Text.DelChAll('%');
+	Text.DelChAll('^');
+	Text.DelChAll('_');
+	Text.DelChAll(';');
 
 	// Numbers
-	text.DelChAll('0');
-	text.DelChAll('1');
-	text.DelChAll('2');
-	text.DelChAll('3');
-	text.DelChAll('4');
-	text.DelChAll('5');
-	text.DelChAll('6');
-	text.DelChAll('7');
-	text.DelChAll('8');
-	text.DelChAll('9');
+	Text.DelChAll('0');
+	Text.DelChAll('1');
+	Text.DelChAll('2');
+	Text.DelChAll('3');
+	Text.DelChAll('4');
+	Text.DelChAll('5');
+	Text.DelChAll('6');
+	Text.DelChAll('7');
+	Text.DelChAll('8');
+	Text.DelChAll('9');
 
-	return text;
+	return Text;
 }
 
-TIntV TStrTrie::find(char* sentence) const
+TIntV TStrTrie::FindSentence(char* Sentence) const
 {
-	TStr tmp(sentence);
-	return find(tmp);
+	TStr tmp(Sentence);
+	return FindSentence(tmp);
 }
 
-TIntV TStrTrie::find(TStr& sentence) const
+TIntV TStrTrie::FindSentence(TStr& Sentence) const
 {
-	if(doRemoveSymbols)
+	if(DoRemoveSymbols)
 	{
-		sentence = TStrTrie::RemoveSymbols(sentence);
+		Sentence = TStrTrie::RemoveSymbols(Sentence);
 	}
 
 	TIntV result;
 	int i,j;
 	TStrV words;
-	Node* current;
-	sentence.SplitOnAllCh(' ',words,true);
-	for(i=0;i<words.Len()-getMinLen()+1;i++)
+	TTStrTrieNode* current;
+	Sentence.SplitOnAllCh(' ',words,true);
+	for(i=0;i<words.Len()-GetMinLen()+1;i++)
 	{
-		current = root;
+		current = RootPt;
 		for(j=i;j<words.Len();j++)
 		{
-			if(current->hasWord(words[j]))
+			if(current->HasWord(words[j]))
 			{
-				current = &current->getNextNode(words[j]);
-				if(current->getId() != -1)
+				current = &current->GetNextNodePt(words[j]);
+				if(current->GetUId() != -1)
 				{
-					result.Add(current->getId());
+					result.Add(current->GetUId());
 				}
 			}
 			else
