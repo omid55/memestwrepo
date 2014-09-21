@@ -6,14 +6,14 @@
  */
 #include "TStrTrie.h"
 
+TStrTrie trie;
+
 int main()
 {
-	TStrTrie trie;
 	TStr qu;
 	int q;
 	THash< TStr , CascadeElementV > quotes;
-	TZipIn ZquotesIn("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED.rar");
-	//TZipIn ZquotesIn("lastData/QuotesData.rar");
+	TZipIn ZquotesIn("lastData/QuotesData.rar");
 
 	printf("TestTrieLargely starts ...\n\n");
 	trie.SetDoRemoveSymbols(true);
@@ -34,6 +34,7 @@ int main()
 	TZipOut outModel("TESTQuotesTrieModel.rar");
 	trie.Save(outModel);
 	printf("TStr Trie Created and Saved Successfully.\n");
+
 	return 0;
 }
 
