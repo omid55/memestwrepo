@@ -23,6 +23,14 @@ int main()
 	printf("Creating Quotes TStr Trie ...\n");
 	for(q=0;q<quotes.Len();q++)
 	{
+		if(q == 4370794)
+		{
+			printf("Saving The Trie till 4370794 ...\n");
+			TZipOut outModel("TESTQuotesTrieModel4370794.rar");
+			trie.Save(outModel);
+			printf("TStrTrie4370794 Created and Saved Successfully.\n");
+		}
+
 		printf("%d\n",q);
 		qu = quotes.GetKey(q);
 		qu = qu.ToLc();
