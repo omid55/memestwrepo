@@ -59,6 +59,12 @@ public:
 
 	static THash<TStr,CascadeElementV> loadQuotes(char* name);
 	static THash<TUInt,TSecTmV> loadTwitter(char* name);
+
+	// TEST
+	// TEST
+	static void printTwitterHasSoonerStart(THash<TStr,CascadeElementV> quotes, THash<TUInt,TSecTmV> twitter);
+	// TEST
+	// TEST
 };
 
 #endif /* TOOLS_H_ */

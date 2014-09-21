@@ -61,6 +61,9 @@ int main(int argc, char* argv[])
 		THash< TStr , CascadeElementV > q14 = Tools::loadQuotes("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY_FINALFILTERED_FIRSTSBLOGS.rar");
 
 
+		Tools::printTwitterHasSoonerStart(quotesurl,cascadesOnTwitterUrls);
+		return 0;
+
 		// Plotting
 		printf("\n\nPlotting...\n");
 		Tools::plotCCDFStartMedianEnd(quotesurl,cascadesOnTwitterUrls,"Urls", "Memes");

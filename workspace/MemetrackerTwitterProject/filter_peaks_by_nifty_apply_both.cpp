@@ -62,8 +62,7 @@ void applyFilter(THash< TStr , CascadeElementV >& quotes,THash< TUInt , TSecTmV 
 				peakCnt++;
 			}
 		}
-		// if there is more than 5 peaks ignore this quote, since it is not a meme
-		if(peakCnt > 5)
+		if(peakCnt > 5) // if there is more than 5 peaks ignore this quote, since it is not a meme
 		{
 			delete[] vol_me;
 			continue;

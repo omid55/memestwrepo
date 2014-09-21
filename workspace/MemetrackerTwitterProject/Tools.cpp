@@ -426,6 +426,31 @@ bool Tools::fileExists(TStr filepath)
 	return true;
 }
 
+// TEST TEST TEST
+// TEST TEST TEST
+// TEST TEST TEST
+void Tools::printTwitterHasSoonerStart(THash<TStr,CascadeElementV> quotes, THash<TUInt,TSecTmV> twitter)
+{
+	int cn = 0;
+	int limit = 10;
+	for(int i=0;i<twitter.Len();i++)
+	{
+		CascadeElementV memesCascade = quotes[i];
+		TSecTmV twCascade = twitter[i];
+
+		if(quotes[i].Len() > 0 && twitter[i].Len() > 0)
+		{
+			if(cn++ < limit && (double)memesCascade[0].time.GetAbsSecs() > (double)twCascade[0].GetAbsSecs())
+			{
+				printf("%d: %s\n",i,quotes.GetKey(i).CStr());
+			}
+		}
+	}
+}
+// TEST TEST TEST
+// TEST TEST TEST
+// TEST TEST TEST
+
 // CCDF
 void Tools::myPrivatePlotCCDF_PrintPosNeg(double* arr, int leng, char* name, char* xlabel)
 {

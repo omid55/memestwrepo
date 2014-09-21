@@ -75,14 +75,12 @@ int main(int argc, char* argv[])
 		for(int i=0;i<quotes.Len();i++)
 		{
 			wordsCount.AddDat(i,TStrUtil::CountWords(quotes.GetKey(i)));
-			//wordsCount.AddDat(i,quotes.GetKey(i).CountCh(' ',0) + 1);
 		}
 
 		// Sites saving
 		for(int i=0;i<posts.Len();i++)
 		{
 			sites.AddDat(i,TStrUtil::GetWebsiteNm(posts.GetKey(i)));
-			//sites.AddDat(i,getWebsite(posts.GetKey(i)));
 		}
 
 		SaveAll();
