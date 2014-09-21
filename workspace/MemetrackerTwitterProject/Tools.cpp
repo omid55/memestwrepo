@@ -429,10 +429,9 @@ bool Tools::fileExists(TStr filepath)
 // TEST TEST TEST
 // TEST TEST TEST
 // TEST TEST TEST
-void Tools::printTwitterHasSoonerStart(THash<TStr,CascadeElementV> quotes, THash<TUInt,TSecTmV> twitter)
+void Tools::printTwitterHasSoonerStart(THash<TStr,CascadeElementV> quotes, THash<TUInt,TSecTmV> twitter, int limit)
 {
 	int cn = 0;
-	int limit = 10;
 	for(int i=0;i<twitter.Len();i++)
 	{
 		CascadeElementV memesCascade = quotes[i];

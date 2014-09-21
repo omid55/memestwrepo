@@ -62,7 +62,7 @@ public:
 
 	// TEST
 	// TEST
-	static void printTwitterHasSoonerStart(THash<TStr,CascadeElementV> quotes, THash<TUInt,TSecTmV> twitter);
+	static void printTwitterHasSoonerStart(THash<TStr,CascadeElementV> quotes, THash<TUInt,TSecTmV> twitter, int limit);
 	// TEST
 	// TEST
 };

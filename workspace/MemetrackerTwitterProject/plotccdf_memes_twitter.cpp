@@ -62,7 +62,12 @@ int main(int argc, char* argv[])
 
 
 		printf("\n\nPRINTING those quotes which Twitter Has sooner start in:\n");
-		Tools::printTwitterHasSoonerStart(quotescont,cascadesOnTwitterContents);
+		int limit = 100;
+		if(argc>1)
+		{
+			limit = atoi(argv[1]);
+		}
+		Tools::printTwitterHasSoonerStart(quotescont,cascadesOnTwitterContents,limit);
 		return 0;
 
 		// Plotting
