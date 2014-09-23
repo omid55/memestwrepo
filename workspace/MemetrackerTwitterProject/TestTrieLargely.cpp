@@ -15,7 +15,7 @@ int main()
 	THash< TStr , CascadeElementV > quotes;
 	TZipIn ZquotesIn("lastData/QuotesData.rar");
 
-	printf("TestTrieLargely starts ...\n\n");
+	printf("My Test Trie Largely starts running ***\n\n");
 	trie.SetDoRemoveSymbols(true);
 	quotes.Load(ZquotesIn);
 	printf("QuotesData loading done, it contains %d quotes.\n",quotes.Len());
@@ -33,7 +33,7 @@ int main()
 
 		if(q > 4370790)
 		{
-			printf("%d\n",q);
+			printf("q%d\n",q);
 		}
 
 		qu = quotes.GetKey(q);
