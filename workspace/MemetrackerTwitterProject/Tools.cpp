@@ -34,23 +34,125 @@ double* Tools::calculateHistOfCascade(TSecTmV& cascade,int rbegin, uint rperiod,
 	}
 	if(normalized)
 	{
-		double max = 0;
+		// NORMALAZING BASED ON MAX VALUE OF PEAK
+		//		double max = 0;
+		//		for(i=0;i<length;i++)
+		//		{
+		//			if(vols[i] > max)
+		//			{
+		//				max = vols[i];
+		//			}
+		//		}
+		//		if(max != 0)
+		//		{
+		//			for(i=0;i<length;i++)
+		//			{
+		//				vols[i] /= max;
+		//			}
+		//		}
+
+		// NORMALIZING BASED ON THE NUMBER OF MENTIONS
 		for(i=0;i<length;i++)
 		{
-			if(volz[i] > max)
-			{
-				max = volz[i];
-			}
-		}
-		if(max != 0)
-		{
-			for(i=0;i<length;i++)
-			{
-				volz[i] /= max;
-			}
+			vols[i] /= cascade.Len();
 		}
 	}
 	return volz;
+}
+
+double* Tools::calculateHistOfCascade(TIntV& cascade, int rbegin, uint rperiod, int length, bool normalized)
+{
+	int i,index;
+	double* vols = new double[length];
+	for(i=0;i<length;i++)
+	{
+		vols[i] = 0;
+	}
+	for(i=0;i<cascade.Len();i++)
+	{
+		index = floor(((double)cascade[i] - (double)rbegin) / rperiod);
+		if(index >= length || index < 0)
+		{
+			continue;
+		}
+		vols[index]++;
+	}
+	if(normalized)
+	{
+		// NORMALAZING BASED ON MAX VALUE OF PEAK
+		//		double max = 0;
+		//		for(i=0;i<length;i++)
+		//		{
+		//			if(vols[i] > max)
+		//			{
+		//				max = vols[i];
+		//			}
+		//		}
+		//		if(max != 0)
+		//		{
+		//			for(i=0;i<length;i++)
+		//			{
+		//				vols[i] /= max;
+		//			}
+		//		}
+
+		// NORMALIZING BASED ON THE NUMBER OF MENTIONS
+		for(i=0;i<length;i++)
+		{
+			vols[i] /= cascade.Len();
+		}
+	}
+	return vols;
+}
+
+double* Tools::calculateHistOfCascade(CascadeElementV& cascade, int rbegin, uint rperiod, int length, bool normalized)
+{
+	int i,index;
+	double* vols = new double[length];
+	for(i=0;i<length;i++)
+	{
+		vols[i] = 0;
+	}
+	for(i=0;i<cascade.Len();i++)
+	{
+		index = Tools::getTheBinIndex(cascade[i].time.GetAbsSecs(),rbegin,rperiod);
+		if(index >= length || index < 0)
+		{
+			continue;
+		}
+		vols[index]++;
+	}
+	if(normalized)
+	{
+		// NORMALAZING BASED ON MAX VALUE OF PEAK
+//		double max = 0;
+//		for(i=0;i<length;i++)
+//		{
+//			if(vols[i] > max)
+//			{
+//				max = vols[i];
+//			}
+//		}
+//		if(max != 0)
+//		{
+//			for(i=0;i<length;i++)
+//			{
+//				vols[i] /= max;
+//			}
+//		}
+
+		// NORMALIZING BASED ON THE NUMBER OF MENTIONS
+		for(i=0;i<length;i++)
+		{
+			vols[i] /= cascade.Len();
+		}
+	}
+	return vols;
+}
+
+int Tools::getTheBinIndex(int x, int rbegin, uint rperiod)
+{
+	return floor(((double)x - (double)rbegin) / (double)rperiod);
 }
 
 void Tools::separateTimestepsOfQuotesInBlogsNews(THash< TStr,CascadeElementV >& quotes, THash<TStr,TUInt>& newsMedia, THash<TChA,TUInt>& posts, THash<TStr,CascadeElementV>& newsQuotesOutput, THash<TStr,CascadeElementV>& blogsQuotesOutput)
@@ -110,87 +212,6 @@ int Tools::countNoneZeros(double* v, int len)
 		}
 	}
 	return cnt;
-}
-
-double* Tools::calculateHistOfCascade(TIntV& cascade, int rbegin, uint rperiod, int length, bool normalized)
-{
-	int i,index;
-	double* vols = new double[length];
-	for(i=0;i<length;i++)
-	{
-		vols[i] = 0;
-	}
-	for(i=0;i<cascade.Len();i++)
-	{
-		index = floor(((double)cascade[i] - (double)rbegin) / rperiod);
-		if(index >= length || index < 0)
-		{
-			continue;
-		}
-		vols[index]++;
-	}
-	if(normalized)
-	{
-		double max = 0;
-		for(i=0;i<length;i++)
-		{
-			if(vols[i] > max)
-			{
-				max = vols[i];
-			}
-		}
-		if(max != 0)
-		{
-			for(i=0;i<length;i++)
-			{
-				vols[i] /= max;
-			}
-		}
-	}
-	return vols;
-}
-
-int Tools::getTheBinIndex(int x, int rbegin, uint rperiod)
-{
-	return floor(((double)x - (double)rbegin) / (double)rperiod);
-}
-
-double* Tools::calculateHistOfCascade(CascadeElementV& cascade, int rbegin, uint rperiod, int length, bool normalized)
-{
-	int i,index;
-	double* vols = new double[length];
-	for(i=0;i<length;i++)
-	{
-		vols[i] = 0;
-	}
-	for(i=0;i<cascade.Len();i++)
-	{
-		index = Tools::getTheBinIndex(cascade[i].time.GetAbsSecs(),rbegin,rperiod);
-		if(index >= length || index < 0)
-		{
-			continue;
-		}
-		vols[index]++;
-	}
-	if(normalized)
-	{
-		double max = 0;
-		for(i=0;i<length;i++)
-		{
-			if(vols[i] > max)
-			{
-				max = vols[i];
-			}
-		}
-		if(max != 0)
-		{
-			for(i=0;i<length;i++)
-			{
-				vols[i] /= max;
-			}
-		}
-	}
-	return vols;
 }
 
 int Tools::getMaxIndex(double* d,int len)

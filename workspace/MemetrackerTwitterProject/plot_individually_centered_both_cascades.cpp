@@ -121,18 +121,18 @@ int main(int argc, char* argv[])
 		printf("\n\n\nPlotting ...\n");
 		int status = system("mkdir -p MyResults/Individual/Urls/; mkdir -p MyResults/Individual/Contents/");
 
-		Tools::plotTwoIndividuallyShift(quotes1,twitter1,period,periodstr,"Individual/Urls/IndividualUrls");
-		Tools::plotTwoIndividuallyShift(quotes2,twitter2,period,periodstr,"Individual/Contents/IndividualContents");
-		Tools::plotTwoIndividuallyShift(q1,twitter1,period,periodstr,"Individual/Urls/IndividualUrls_NEWS");
-		Tools::plotTwoIndividuallyShift(q2,twitter2,period,periodstr,"Individual/Contents/IndividualContents_NEWS");
-		Tools::plotTwoIndividuallyShift(q3,twitter1,period,periodstr,"Individual/Urls/IndividualUrls_BLOGS");
-		Tools::plotTwoIndividuallyShift(q4,twitter2,period,periodstr,"Individual/Contents/IndividualContents_BLOGS");
-		Tools::plotTwoIndividuallyShift(q5,twitter1,period,periodstr,"Individual/Urls/IndividualUrls_FIRSTS");
-		Tools::plotTwoIndividuallyShift(q6,twitter2,period,periodstr,"Individual/Contents/IndividualContents_FIRSTS");
-		Tools::plotTwoIndividuallyShift(q7,twitter1,period,periodstr,"Individual/Urls/IndividualUrls_FIRSTSNEWS");
-		Tools::plotTwoIndividuallyShift(q8,twitter2,period,periodstr,"Individual/Contents/IndividualContents_FIRSTSNEWS");
-		Tools::plotTwoIndividuallyShift(q9,twitter1,period,periodstr,"Individual/Urls/IndividualUrls_FIRSTSBLOGS");
-		Tools::plotTwoIndividuallyShift(q10,twitter2,period,periodstr,"Individual/Contents/IndividualContents_FIRSTSBLOGS");
+		Tools::plotTwoIndividuallyShift(quotes1,twitter1,period,periodstr,"Individual/Urls/IndividualUrls_NormWithMentions");
+		Tools::plotTwoIndividuallyShift(quotes2,twitter2,period,periodstr,"Individual/Contents/IndividualContents_NormWithMentions");
+		Tools::plotTwoIndividuallyShift(q1,twitter1,period,periodstr,"Individual/Urls/IndividualUrls_NEWS_NormWithMentions");
+		Tools::plotTwoIndividuallyShift(q2,twitter2,period,periodstr,"Individual/Contents/IndividualContents_NEWS_NormWithMentions");
+		Tools::plotTwoIndividuallyShift(q3,twitter1,period,periodstr,"Individual/Urls/IndividualUrls_BLOGS_NormWithMentions");
+		Tools::plotTwoIndividuallyShift(q4,twitter2,period,periodstr,"Individual/Contents/IndividualContents_BLOGS_NormWithMentions");
+		Tools::plotTwoIndividuallyShift(q5,twitter1,period,periodstr,"Individual/Urls/IndividualUrls_FIRSTS_NormWithMentions");
+		Tools::plotTwoIndividuallyShift(q6,twitter2,period,periodstr,"Individual/Contents/IndividualContents_FIRSTS_NormWithMentions");
+		Tools::plotTwoIndividuallyShift(q7,twitter1,period,periodstr,"Individual/Urls/IndividualUrls_FIRSTSNEWS_NormWithMentions");
+		Tools::plotTwoIndividuallyShift(q8,twitter2,period,periodstr,"Individual/Contents/IndividualContents_FIRSTSNEWS_NormWithMentions");
+		Tools::plotTwoIndividuallyShift(q9,twitter1,period,periodstr,"Individual/Urls/IndividualUrls_FIRSTSBLOGS_NormWithMentions");
+		Tools::plotTwoIndividuallyShift(q10,twitter2,period,periodstr,"Individual/Contents/IndividualContents_FIRSTSBLOGS_NormWithMentions");
 
 
 		printf("\nPlots had been drawn successfully.");
