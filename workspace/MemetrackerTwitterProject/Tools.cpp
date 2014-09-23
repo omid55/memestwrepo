@@ -18,10 +18,10 @@ static int end = TSecTm(2009,10,1,0,0,0).GetAbsSecs();
 double* Tools::calculateHistOfCascade(TSecTmV& cascade,int rbegin, uint rperiod, int length, bool normalized)
 {
 	int i,index;
-	double* volz = new double[length];
+	double* vols = new double[length];
 	for(i=0;i<length;i++)
 	{
-		volz[i] = 0;
+		vols[i] = 0;
 	}
 	for(i=0;i<cascade.Len();i++)
 	{
@@ -30,7 +30,7 @@ double* Tools::calculateHistOfCascade(TSecTmV& cascade,int rbegin, uint rperiod,
 		{
 			continue;
 		}
-		volz[index]++;
+		vols[index]++;
 	}
 	if(normalized)
 	{
@@ -57,7 +57,7 @@ double* Tools::calculateHistOfCascade(TSecTmV& cascade,int rbegin, uint rperiod,
 			vols[i] /= cascade.Len();
 		}
 	}
-	return volz;
+	return vols;
 }
 
 double* Tools::calculateHistOfCascade(TIntV& cascade, int rbegin, uint rperiod, int length, bool normalized)
