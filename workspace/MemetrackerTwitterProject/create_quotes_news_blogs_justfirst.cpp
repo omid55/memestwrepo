@@ -11,7 +11,7 @@
 void createNewsBlogsFirsts(char* filename, THash<TChA,TUInt> posts, THash<TStr,TUInt> newsMediaHashtbl)
 {
 	THash< TStr , CascadeElementV > quotes;
-	TZipIn ZquotesIn(TStr::Fmt("/agbs/cluster/oaskaris/DATA/%s.rar",filename));
+	TZipIn ZquotesIn(TStr::Fmt("/NS/twitter-5/work/oaskaris/DATA/%s.rar",filename));
 	quotes.Load(ZquotesIn);
 	printf("Loaded %s has instances: %d\n\n\n",filename,quotes.Len());
 
@@ -52,22 +52,22 @@ void createNewsBlogsFirsts(char* filename, THash<TChA,TUInt> posts, THash<TStr,T
 int main(int argc, char* argv[])
 {
 //	THash< TStr , CascadeElementV > quotes;
-//	TZipIn ZquotesIn2("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_FINALFILTERED.rar");
+//	TZipIn ZquotesIn2("/NS/twitter-5/work/oaskaris/DATA/QuotesPreprocessedData_FINALFILTERED.rar");
 //	quotes.Load(ZquotesIn2);
 //	printf("Loaded QuotesPreprocessedData_FINALFILTERED has instances: %d\n\n\n",quotes.Len());
 //
 //	THash< TStr , CascadeElementV > newsQuotes;
-//	TZipIn zin2("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_FINALFILTERED_NEWS.rar");
+//	TZipIn zin2("/NS/twitter-5/work/oaskaris/DATA/QuotesPreprocessedData_FINALFILTERED_NEWS.rar");
 //	newsQuotes.Load(zin2);
 //	printf(TStr::Fmt("%s_NEWS loading done, it contains %d posts.\n",newsQuotes.Len());
 //
 //	THash< TStr , CascadeElementV > blogsQuotes;
-//	TZipIn zin3("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_FINALFILTERED_BLOGS.rar");
+//	TZipIn zin3("/NS/twitter-5/work/oaskaris/DATA/QuotesPreprocessedData_FINALFILTERED_BLOGS.rar");
 //	blogsQuotes.Load(zin3);
 //	printf(TStr::Fmt("%s_BLOGS loading done, it contains %d posts.\n",blogsQuotes.Len());
 //
 //	THash< TStr , CascadeElementV > firstMentionsquotes;
-//	TZipIn zin4("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_FINALFILTERED_FIRSTS.rar");
+//	TZipIn zin4("/NS/twitter-5/work/oaskaris/DATA/QuotesPreprocessedData_FINALFILTERED_FIRSTS.rar");
 //	firstMentionsquotes.Load(zin4);
 //	printf(TStr::Fmt("%s_FIRSTS saving done, it contains %d posts.\n",firstMentionsquotes.Len());
 //
@@ -97,7 +97,7 @@ int main(int argc, char* argv[])
 //	return 0;
 
 //	THash<TChA,TUInt> posts;
-//	TZipIn ZpostsIn("/agbs/cluster/oaskaris/DATA/PostsData.rar");
+//	TZipIn ZpostsIn("/NS/twitter-5/work/oaskaris/DATA/PostsData.rar");
 //	posts.Load(ZpostsIn);
 //	printf("PostsData loading done, it contains %d posts.\n",posts.Len());
 //
@@ -153,9 +153,9 @@ int main(int argc, char* argv[])
 
 		// Create and save news media hashtable
 		THash<TStr,TUInt> newsMediaHashtbl;
-		if(!Tools::fileExists("/agbs/cluster/oaskaris/DATA/NewsMedia.rar"))
+		if(!Tools::fileExists("/NS/twitter-5/work/oaskaris/DATA/NewsMedia.rar"))
 		{
-			ifstream f("/agbs/cluster/oaskaris/DATA/news_media.txt",ios::in);
+			ifstream f("/NS/twitter-5/work/oaskaris/DATA/news_media.txt",ios::in);
 			while(f)
 			{
 				string line;
@@ -168,13 +168,13 @@ int main(int argc, char* argv[])
 		}
 		else
 		{
-			TZipIn newsIn("/agbs/cluster/oaskaris/DATA/NewsMedia.rar");
+			TZipIn newsIn("/NS/twitter-5/work/oaskaris/DATA/NewsMedia.rar");
 			newsMediaHashtbl.Load(newsIn);
 			printf("Loaded NewsMedia has %d items.\n\n\n",newsMediaHashtbl.Len());
 		}
 
 		THash<TChA,TUInt> posts;
-		TZipIn ZpostsIn("/agbs/cluster/oaskaris/DATA/PostsData.rar");
+		TZipIn ZpostsIn("/NS/twitter-5/work/oaskaris/DATA/PostsData.rar");
 		posts.Load(ZpostsIn);
 		printf("PostsData loading done, it contains %d posts.\n",posts.Len());
 

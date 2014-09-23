@@ -176,18 +176,18 @@ int main(int argc, char* argv[])
 		Env.PrepArgs(TStr::Fmt("\nFiltering Memes Cascades. build: %s, %s. Time: %s", __TIME__, __DATE__, TExeTm::GetCurTm()));
 
 		// ---== Loading Data ==---
-		TZipIn ZquotesIn("QuotesPreprocessedData_NIFTY_RANGEFIXED.rar");		///("/agbs/cluster/oaskaris/DATA/QuotesPreprocessedData_NIFTY.rar");
+		TZipIn ZquotesIn("QuotesPreprocessedData_NIFTY_RANGEFIXED.rar");		///("/NS/twitter-5/work/oaskaris/DATA/QuotesPreprocessedData_NIFTY.rar");
 		THash< TStr , CascadeElementV > quotes;
 		quotes.Load(ZquotesIn);
 		printf("Loaded QuotesPreprocessedData_NIFTY_RANGEFIXED has instances: %d\n\n\n",quotes.Len());
 
-		TZipIn ZcascadesOnTwitterIn("/agbs/cluster/oaskaris/DATA/CascadesFullUrlsOnTwitterData.rar");
+		TZipIn ZcascadesOnTwitterIn("/NS/twitter-5/work/oaskaris/DATA/CascadesFullUrlsOnTwitterData.rar");
 		//TZipIn ZcascadesOnTwitterIn("CascadesFullUrlsOnTwitterData.rar");
 		THash< TUInt , TSecTmV > cascadesOnTwitterUrls;
 		cascadesOnTwitterUrls.Load(ZcascadesOnTwitterIn);
 		printf("Loaded CascadesFullUrlsOnTwitterData has instances: %d\n\n\n",cascadesOnTwitterUrls.Len());
 
-		TZipIn ZIn("/agbs/cluster/oaskaris/DATA/CascadesOnTwitterData.rar");
+		TZipIn ZIn("/NS/twitter-5/work/oaskaris/DATA/CascadesOnTwitterData.rar");
 		THash< TUInt , TSecTmV > cascadesOnTwitterContents;
 		cascadesOnTwitterContents.Load(ZIn);
 		printf("Loaded CascadesOnTwitterData has instances: %d\n\n\n",cascadesOnTwitterContents.Len());
