@@ -21,7 +21,7 @@ omid_opt_linux: $(MAIN) plot_hist_centered_memes_cascades create_quotes_news_blo
 
 sws: CXXFLAGS += -O4
 sws: LDFLAGS += -lrt -O4     # -ggdb
-sws: $(MAIN) justchecktweettimes find_cascades_of_quotes add_novisited_real_urls find_cascades_of_quotes_with_trie find_cascades_of_quotes_separately find_tweet_raw_urls find_posts_propagated_over_twitter save_all_urls_separately check_tweets_length create_network
+sws: $(MAIN) filter_peaks_by_nifty_apply_both create_quotes_news_blogs_justfirst plotccdf_memes_twitter			justchecktweettimes find_cascades_of_quotes add_novisited_real_urls find_cascades_of_quotes_with_trie find_cascades_of_quotes_separately find_tweet_raw_urls find_posts_propagated_over_twitter save_all_urls_separately check_tweets_length create_network
 
 
 mpi: CXXFLAGS += -O4

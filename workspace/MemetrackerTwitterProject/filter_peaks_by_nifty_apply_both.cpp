@@ -216,12 +216,12 @@ int main(int argc, char* argv[])
 			}
 		}
 
-		double percentage = (double)ln/twUrl.Len();
+		double percentage = 100 * (double)ln/twUrl.Len();
 		printf("\n\nPercentage of Urls having Contents cascaded over Twitter as well: %f\n\n",percentage);
 
-		TStr quotesName = "QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_HAVINGBOTH";
-		TStr twNameUrl = "CascadesFullUrlsOnTwitterData_FINALFILTERED_HAVINGBOTH";
-		TStr twNameCon = "CascadesOnTwitterData_FINALFILTERED_HAVINGBOTH";
+		TStr quotesName = "QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_HAVINGBOTH.rar";
+		TStr twNameUrl = "CascadesFullUrlsOnTwitterData_FINALFILTERED_HAVINGBOTH.rar";
+		TStr twNameCon = "CascadesOnTwitterData_FINALFILTERED_HAVINGBOTH.rar";
 
 		TZipOut mout(quotesName);
 		quotesResult.Save(mout);
