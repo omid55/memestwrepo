@@ -218,6 +218,7 @@ int main(int argc, char* argv[])
 
 		double percentage = 100 * (double)ln/twUrl.Len();
 		printf("\n\nPercentage of Urls having Contents cascaded over Twitter as well: %f\n\n",percentage);
+		return 0;
 
 		TStr quotesName = "QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_HAVINGBOTH.rar";
 		TStr twNameUrl = "CascadesFullUrlsOnTwitterData_FINALFILTERED_HAVINGBOTH.rar";
