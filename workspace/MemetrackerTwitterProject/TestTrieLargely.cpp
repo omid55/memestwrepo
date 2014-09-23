@@ -23,6 +23,7 @@ int main()
 	printf("Creating Quotes TStr Trie ...\n");
 	for(q=0;q<quotes.Len();q++)
 	{
+				2108016
 		if(q == 4370794)
 		{
 			printf("Saving The Trie till 4370794 ...\n");

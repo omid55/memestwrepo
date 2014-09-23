@@ -176,7 +176,7 @@ int main(int argc, char* argv[])
 		Env.PrepArgs(TStr::Fmt("\nFiltering Memes Cascades. build: %s, %s. Time: %s", __TIME__, __DATE__, TExeTm::GetCurTm()));
 
 		// ---== Loading Data ==---
-		TZipIn ZquotesIn("QuotesPreprocessedData_NIFTY_RANGEFIXED.rar");		///("/NS/twitter-5/work/oaskaris/DATA/QuotesPreprocessedData_NIFTY.rar");
+		TZipIn ZquotesIn("/NS/twitter-5/work/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED.rar");		///("/NS/twitter-5/work/oaskaris/DATA/QuotesPreprocessedData_NIFTY.rar");
 		THash< TStr , CascadeElementV > quotes;
 		quotes.Load(ZquotesIn);
 		printf("Loaded QuotesPreprocessedData_NIFTY_RANGEFIXED has instances: %d\n\n\n",quotes.Len());
