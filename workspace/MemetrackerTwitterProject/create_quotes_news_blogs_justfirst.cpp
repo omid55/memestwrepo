@@ -180,9 +180,13 @@ int main(int argc, char* argv[])
 
 
 		// Create news and blogs and firsts
-		createNewsBlogsFirsts("QuotesPreprocessedData_NIFTY_FINALFILTERED",posts,newsMediaHashtbl);
-		createNewsBlogsFirsts("QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS",posts,newsMediaHashtbl);
-		createNewsBlogsFirsts("QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents",posts,newsMediaHashtbl);
+//		createNewsBlogsFirsts("QuotesPreprocessedData_NIFTY_FINALFILTERED",posts,newsMediaHashtbl);
+//		createNewsBlogsFirsts("QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS",posts,newsMediaHashtbl);
+//		createNewsBlogsFirsts("QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents",posts,newsMediaHashtbl);
+
+		// For BOTH TOGETHER
+		createNewsBlogsFirsts("QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_HAVINGBOTH",posts,newsMediaHashtbl);
+		// For BOTH TOGETHER
 
 		printf("\n\nDONE\n\n");
 	}
