@@ -23,7 +23,7 @@ int main()
 	printf("Creating Quotes TStr Trie ...\n");
 	for(q=0;q<quotes.Len();q++)
 	{
-		if(q == 4370794)
+		if(q == 4370794)   // 100G -> 4370794 , 80G-> 2108016
 		{
 			printf("Saving The Trie till 4370794 ...\n");
 			TZipOut outModel("TESTQuotesTrieModel4370794.rar");
@@ -49,4 +49,3 @@ int main()
 
 	return 0;
 }
-
