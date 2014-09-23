@@ -8,7 +8,9 @@
 // Omid55
 #include "stdafx.h"
 
-void createNewsBlogsFirsts(char* filename, THash<TChA,TUInt> posts, THash<TStr,TUInt> newsMediaHashtbl)
+THash<TChA,TUInt> posts;
+
+void createNewsBlogsFirsts(char* filename, THash<TStr,TUInt> newsMediaHashtbl)
 {
 	THash< TStr , CascadeElementV > quotes;
 	TZipIn ZquotesIn(TStr::Fmt("/NS/twitter-5/work/oaskaris/DATA/%s.rar",filename));
@@ -173,11 +175,9 @@ int main(int argc, char* argv[])
 			printf("Loaded NewsMedia has %d items.\n\n\n",newsMediaHashtbl.Len());
 		}
 
-		THash<TChA,TUInt> posts;
 		TZipIn ZpostsIn("/NS/twitter-5/work/oaskaris/DATA/PostsData.rar");
 		posts.Load(ZpostsIn);
 		printf("PostsData loading done, it contains %d posts.\n",posts.Len());
-
 
 		// Create news and blogs and firsts
 //		createNewsBlogsFirsts("QuotesPreprocessedData_NIFTY_FINALFILTERED",posts,newsMediaHashtbl);
@@ -185,7 +185,7 @@ int main(int argc, char* argv[])
 //		createNewsBlogsFirsts("QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents",posts,newsMediaHashtbl);
 
 		// For BOTH TOGETHER
-		createNewsBlogsFirsts("QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_HAVINGBOTH",posts,newsMediaHashtbl);
+		createNewsBlogsFirsts("QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_HAVINGBOTH",newsMediaHashtbl);
 		// For BOTH TOGETHER
 
 		printf("\n\nDONE\n\n");

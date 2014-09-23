@@ -94,7 +94,7 @@ int main(int argc, char* argv[])
 
 		// For BOTH TOGETHER
 		THash< TStr , CascadeElementV > quotesBOTH = Tools::loadQuotes("/NS/twitter-5/work/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_HAVINGBOTH.rar");
-		THash< TStr , CascadeElementV > quotesBOTHFirst = Tools::loadQuotes("/NS/twitter-5/work/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_HAVINGBOTH_Firsts.rar");
+		THash< TStr , CascadeElementV > quotesBOTHFirst = Tools::loadQuotes("/NS/twitter-5/work/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_HAVINGBOTH_FIRSTS.rar");
 		THash< TUInt , TSecTmV > cascadesOnTwitterUrlsBOTH;
 		THash< TUInt , TSecTmV > cascadesOnTwitterContentsBOTH;
 
