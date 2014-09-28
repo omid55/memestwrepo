@@ -32,8 +32,8 @@ void doCompute(	THash< TStr , CascadeElementV > memes, THash< TUInt , TSecTmV > 
 		if(TStrUtil::CountWords(memes.GetKey(i)) >= minlen && memes[i].Len() >= mincascadelen && twitter[i].Len() >= mincascadelen)
 		{
 			// ---== Computation ==---
-			vol_me = Tools::calculateHistOfCascade(memes[i],begin,period,bins,normalized);
-			vol_tu = Tools::calculateHistOfCascade(twitter[i],begin,period,bins,normalized);
+			vol_me = Tools::calculateHistOfCascade(memes[i],begin,period,normalized);
+			vol_tu = Tools::calculateHistOfCascade(twitter[i],begin,period,normalized);
 			if(Tools::countNoneZeros(vol_me,bins) < minlenhisted || Tools::countNoneZeros(vol_tu,bins) < minlenhisted)
 			{
 				delete[] vol_me;

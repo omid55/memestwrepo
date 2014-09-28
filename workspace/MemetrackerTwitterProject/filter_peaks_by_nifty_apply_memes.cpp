@@ -41,7 +41,7 @@ int main(int argc, char* argv[])
 			{
 				memesTimes.Add(quotes[c][i].time);
 			}
-			vol_me = Tools::calculateHistOfCascade(memesTimes,begin,period,bins,false);
+			vol_me = Tools::calculateHistOfCascade(memesTimes,begin,period,false);
 
 			// calculating mean and standard deviation
 			double mean = 0;

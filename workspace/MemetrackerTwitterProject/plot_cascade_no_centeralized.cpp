@@ -95,8 +95,8 @@ int main(int argc, char* argv[])
 			{
 				ti.Add(quotes[c][i].time);   ///ti.Add(quotes[quoteIndex][i].time);
 			}
-			vol_me = Tools::calculateHistOfCascade(ti,begin,period,bins,true);
-			vol_tu = Tools::calculateHistOfCascade(cascadesOnTwitterUrls.GetDat(quoteIndex),begin,period,bins,true);
+			vol_me = Tools::calculateHistOfCascade(ti,begin,period,true);
+			vol_tu = Tools::calculateHistOfCascade(cascadesOnTwitterUrls.GetDat(quoteIndex),begin,period,true);
 
 			for(i=0;i<bins;i++)
 			{

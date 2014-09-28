@@ -121,8 +121,8 @@ int main(int argc, char* argv[])
 		for(c=0;c<cascadesOnTwitterUrls.Len();c++)
 		{
 			quoteIndex = cascadesOnTwitterUrls.GetKey(c);
-			vol_me = Tools::calculateHistOfCascade(quotes[c],begin,period,bins,true);
-			vol_tu = Tools::calculateHistOfCascade(cascadesOnTwitterUrls.GetDat(quoteIndex),begin,period,bins,true);
+			vol_me = Tools::calculateHistOfCascade(quotes[c],begin,period,true);
+			vol_tu = Tools::calculateHistOfCascade(cascadesOnTwitterUrls.GetDat(quoteIndex),begin,period,true);
 
 			ind1 = Tools::getMaxIndex(vol_me,bins);
 			ind2 = Tools::getMaxIndex(vol_tu,bins);

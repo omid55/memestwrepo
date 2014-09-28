@@ -34,8 +34,8 @@ void applyFilter(THash< TStr , CascadeElementV >& quotes,THash< TUInt , TSecTmV 
 		*/
 
 		// === FINAL PHASE of NIFTY (REMOVING WITH MULTIPLE PEAKS) ===
-		double* vol_me = Tools::calculateHistOfCascade(quotes[quoteIndex],begin,period,bins,false);
-		double* vol_tu = Tools::calculateHistOfCascade(twitter.GetDat(quoteIndex),begin,period,bins,false);
+		double* vol_me = Tools::calculateHistOfCascade(quotes[quoteIndex],begin,period,false);
+		double* vol_tu = Tools::calculateHistOfCascade(twitter.GetDat(quoteIndex),begin,period,false);
 
 		// calculating mean and standard deviation
 		double mean = 0;
@@ -115,7 +115,7 @@ THash< TUInt , TSecTmV > getFiltereds(THash< TStr , CascadeElementV >& quotes,TH
 		*/
 
 		// === FINAL PHASE of NIFTY (REMOVING WITH MULTIPLE PEAKS) ===
-		double* vol_me = Tools::calculateHistOfCascade(quotes[quoteIndex],begin,period,bins,false);
+		double* vol_me = Tools::calculateHistOfCascade(quotes[quoteIndex],begin,period,false);
 
 		// calculating mean and standard deviation
 		double mean = 0;

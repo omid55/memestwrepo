@@ -15,9 +15,10 @@ static int end = TSecTm(2009,10,1,0,0,0).GetAbsSecs();
 // Global Variables
 
 
-double* Tools::calculateHistOfCascade(TSecTmV& cascade,int rbegin, uint rperiod, int length, bool normalized)
+double* Tools::calculateHistOfCascade(TSecTmV& cascade, double rbegin, uint rperiod, bool normalized)
 {
 	int i,index;
+	int length = -rbegin * 2 / rperiod;
 	double* vols = new double[length];
 	for(i=0;i<length;i++)
 	{
@@ -25,7 +26,7 @@ double* Tools::calculateHistOfCascade(TSecTmV& cascade,int rbegin, uint rperiod,
 	}
 	for(i=0;i<cascade.Len();i++)
 	{
-		index = floor(((double)cascade[i].GetAbsSecs() - (double)rbegin) / (double)rperiod);
+		index = getTheBinIndex(cascade[i].GetAbsSecs(), rbegin,rperiod);
 		if(index >= length || index < 0)
 		{
 			continue;
@@ -60,9 +61,10 @@ double* Tools::calculateHistOfCascade(TSecTmV& cascade,int rbegin, uint rperiod,
 	return vols;
 }
 
-double* Tools::calculateHistOfCascade(TIntV& cascade, int rbegin, uint rperiod, int length, bool normalized)
+double* Tools::calculateHistOfCascade(TIntV& cascade, double rbegin, uint rperiod, bool normalized)
 {
-	int i,index;
+	int i,index, centerIndex;
+	int length = -rbegin * 2 / rperiod;
 	double* vols = new double[length];
 	for(i=0;i<length;i++)
 	{
@@ -70,7 +72,7 @@ double* Tools::calculateHistOfCascade(TIntV& cascade, int rbegin, uint rperiod, 
 	}
 	for(i=0;i<cascade.Len();i++)
 	{
-		index = floor(((double)cascade[i] - (double)rbegin) / rperiod);
+		index = getTheBinIndex(cascade[i], rbegin,rperiod);
 		if(index >= length || index < 0)
 		{
 			continue;
@@ -79,22 +81,22 @@ double* Tools::calculateHistOfCascade(TIntV& cascade, int rbegin, uint rperiod, 
 	}
 	if(normalized)
 	{
-		// NORMALAZING BASED ON MAX VALUE OF PEAK
-		//		double max = 0;
-		//		for(i=0;i<length;i++)
-		//		{
-		//			if(vols[i] > max)
-		//			{
-		//				max = vols[i];
-		//			}
-		//		}
-		//		if(max != 0)
-		//		{
-		//			for(i=0;i<length;i++)
-		//			{
-		//				vols[i] /= max;
-		//			}
-		//		}
+//		// NORMALAZING BASED ON MAX VALUE OF PEAK
+//		double max = 0;
+//		for(i=0;i<length;i++)
+//		{
+//			if(vols[i] > max)
+//			{
+//				max = vols[i];
+//			}
+//		}
+//		if(max != 0)
+//		{
+//			for(i=0;i<length;i++)
+//			{
+//				vols[i] /= max;
+//			}
+//		}
 
 		// NORMALIZING BASED ON THE NUMBER OF MENTIONS
 		for(i=0;i<length;i++)
@@ -105,9 +107,10 @@ double* Tools::calculateHistOfCascade(TIntV& cascade, int rbegin, uint rperiod, 
 	return vols;
 }
 
-double* Tools::calculateHistOfCascade(CascadeElementV& cascade, int rbegin, uint rperiod, int length, bool normalized)
+double* Tools::calculateHistOfCascade(CascadeElementV& cascade, double rbegin, uint rperiod, bool normalized)
 {
 	int i,index;
+	int length = -rbegin * 2 / rperiod;
 	double* vols = new double[length];
 	for(i=0;i<length;i++)
 	{
@@ -150,9 +153,9 @@ double* Tools::calculateHistOfCascade(CascadeElementV& cascade, int rbegin, uint
 	return vols;
 }
 
-int Tools::getTheBinIndex(int x, int rbegin, uint rperiod)
+int Tools::getTheBinIndex(double x, double rbegin, uint rperiod)
 {
-	return floor(((double)x - (double)rbegin) / (double)rperiod);
+	return floor((x - rbegin) / (double)rperiod);
 }
 
 void Tools::separateTimestepsOfQuotesInBlogsNews(THash< TStr,CascadeElementV >& quotes, THash<TStr,TUInt>& newsMedia, THash<TChA,TUInt>& posts, THash<TStr,CascadeElementV>& newsQuotesOutput, THash<TStr,CascadeElementV>& blogsQuotesOutput)
@@ -569,7 +572,7 @@ void Tools::plotCCDFStartMedianEnd(THash<TStr,CascadeElementV> quotes, THash<TUI
 
 		if(quotes[i].Len() > 0 && twitter[i].Len() > 0)
 		{
-			medianDifference[c] = (double)memesCascade[memesCascade.Len()/2].time.GetAbsSecs() - (double)twCascade[twCascade.Len()/2].GetAbsSecs();
+			medianDifference[c] = (double)memesCascade[(memesCascade.Len()-1)/2].time.GetAbsSecs() - (double)twCascade[(twCascade.Len()-1)/2].GetAbsSecs();
 			mean += medianDifference[c];
 			startDifference[c] = (double)memesCascade[0].time.GetAbsSecs() - (double)twCascade[0].GetAbsSecs();
 			endDifference[c++] = (double)memesCascade[memesCascade.Len()-1].time.GetAbsSecs() - (double)twCascade[twCascade.Len()-1].GetAbsSecs();
@@ -590,8 +593,8 @@ void Tools::plotCCDFStartMedianEnd(THash<TStr,CascadeElementV> quotes, THash<TUI
 
 	// Plot Drawing
 	Tools::myPrivatePlotCCDF_PrintPosNeg(medianDifference,len,TStr::Fmt("%sMedianDifferenceCCDF",name).CStr(),TStr::Fmt("d [(%s median - Twitter median) of cascade's times]",legendname1).CStr());
-	Tools::myPrivatePlotCCDF_PrintPosNeg(startDifference,len,TStr::Fmt("%sStartDifferenceCCDF",name).CStr(),TStr::Fmt("d [(%s start - Twitter start) of cascade's times]",legendname1).CStr());
-	Tools::myPrivatePlotCCDF_PrintPosNeg(endDifference,len,TStr::Fmt("%sEndDifferenceCCDF",name).CStr(),TStr::Fmt("d [(%s end - Twitter end) of cascade's times]",legendname1).CStr());
+	///Tools::myPrivatePlotCCDF_PrintPosNeg(startDifference,len,TStr::Fmt("%sStartDifferenceCCDF",name).CStr(),TStr::Fmt("d [(%s start - Twitter start) of cascade's times]",legendname1).CStr());
+	///Tools::myPrivatePlotCCDF_PrintPosNeg(endDifference,len,TStr::Fmt("%sEndDifferenceCCDF",name).CStr(),TStr::Fmt("d [(%s end - Twitter end) of cascade's times]",legendname1).CStr());
 }
 
 void Tools::plotCCDFStartMedianEnd(THash<TStr,CascadeElementV> q1, THash<TStr,CascadeElementV> q2, char* name, char* legendname1, char* legendname2)
@@ -617,7 +620,7 @@ void Tools::plotCCDFStartMedianEnd(THash<TStr,CascadeElementV> q1, THash<TStr,Ca
 
 		if(q1Cascade.Len() > 0 && q2Cascade.Len() > 0)
 		{
-			medianDifference[c] = (double)q1Cascade[q1Cascade.Len()/2].time.GetAbsSecs() - (double)q2Cascade[q2Cascade.Len()/2].time.GetAbsSecs();
+			medianDifference[c] = (double)q1Cascade[(q1Cascade.Len()-1)/2].time.GetAbsSecs() - (double)q2Cascade[(q2Cascade.Len()-1)/2].time.GetAbsSecs();
 			mean += medianDifference[c];
 			startDifference[c] = (double)q1Cascade[0].time.GetAbsSecs() - (double)q2Cascade[0].time.GetAbsSecs();
 			endDifference[c++] = (double)q1Cascade[q1Cascade.Len()-1].time.GetAbsSecs() - (double)q2Cascade[q2Cascade.Len()-1].time.GetAbsSecs();
@@ -679,7 +682,8 @@ void Tools::plotOneIndividuallyShift(THash<TStr,CascadeElementV>& quotes, char* 
 	}
 
 	int c = 0;
-	int beginShifted = begin - end;
+	double beginShifted = period * (0.5 + floor((end - begin) / period)) * -1.0;
+
 	for(q=0;q<Q;q++)
 	{
 		if(DesiredCascadesCount!=0 && quotes[q].Len() < minLen)
@@ -692,13 +696,14 @@ void Tools::plotOneIndividuallyShift(THash<TStr,CascadeElementV>& quotes, char* 
 			continue;
 		}
 
-		int medVal = (int)quotes[q][quotes[q].Len()/2].time.GetAbsSecs();
+		int medIndex = (quotes[q].Len()-1)/2;
+		int medVal = (int)quotes[q][medIndex].time.GetAbsSecs();
 		TIntV casc;
 		for(i=0;i<quotes[q].Len();i++)
 		{
 			casc.Add((int)quotes[q][i].time.GetAbsSecs() - medVal);
 		}
-		vol = Tools::calculateHistOfCascade(casc, beginShifted, period, lengt, true);
+		vol = Tools::calculateHistOfCascade(casc,beginShifted,period,true);
 		for(i=0;i<lengt;i++)
 		{
 			vols[i] += vol[i];
@@ -731,7 +736,7 @@ void Tools::plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& quotes, THash<
 {
 	int bins = (end - begin) / period;
 	int lengt = 2 * bins + 1;
-	int center = (lengt - 1) / 2;
+	int center = bins;   //(lengt - 1) / 2;
 	double* memeVolumes = new double[lengt];
 	double* twitterVolumes = new double[lengt];
 	for(int i=0;i<lengt;i++)
@@ -753,7 +758,8 @@ void Tools::plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& quotes, THash<
 			integratedTimestamps[quotes[q].Len()+i] = twitter[q][i].GetAbsSecs();
 		}
 		sort(integratedTimestamps,integratedTimestamps+leng);
-		int integratedMedianValue = integratedTimestamps[leng/2];
+		int medIndex = (leng-1)/2;
+		int integratedMedianValue = integratedTimestamps[medIndex];
 		delete[] integratedTimestamps;
 
 		TIntV memeCascade;
@@ -766,9 +772,9 @@ void Tools::plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& quotes, THash<
 		{
 			twitterCascade.Add((int)twitter[q][i].GetAbsSecs() - integratedMedianValue);
 		}
-		int beginShifted = begin - end;
+		double beginShifted = period * (0.5 + floor((end - begin) / period)) * -1.0;
 
-		double* memeVol = Tools::calculateHistOfCascade(memeCascade,beginShifted,period,lengt,true);
+		double* memeVol = Tools::calculateHistOfCascade(memeCascade,beginShifted,period,true);
 		memeCascade.Clr();
 		for(int i=0;i<lengt;i++)
 		{
@@ -776,7 +782,7 @@ void Tools::plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& quotes, THash<
 		}
 		delete[] memeVol;
 
-		double* twitterVol = Tools::calculateHistOfCascade(twitterCascade,beginShifted,period,lengt,true);
+		double* twitterVol = Tools::calculateHistOfCascade(twitterCascade,beginShifted,period,true);
 		twitterCascade.Clr();
 		for(int i=0;i<lengt;i++)
 		{
@@ -788,7 +794,7 @@ void Tools::plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& quotes, THash<
 	printf("\n\nPlotting ...\n");
 	TFltPrV memeVolumes4Plot;
 	TFltPrV twitterVolumes4Plot;
-	IAssert(center-myrange>0 && center+myrange<lengt);
+	IAssert(center-myrange>=0 && center+myrange<lengt);
 	for(int i=center-myrange;i<=center+myrange;i++)
 //	for(int i=0;i<lengt;i++)
 	{
@@ -873,7 +879,8 @@ void Tools::plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& q1, THash<TStr
 			integratedTimestamps[q1[q].Len()+i] = q2[q][i].time.GetAbsSecs();
 		}
 		sort(integratedTimestamps,integratedTimestamps+leng);
-		int integratedMedianValue = integratedTimestamps[leng/2];
+		int medIndex = (leng-1)/2;
+		int integratedMedianValue = integratedTimestamps[medIndex];
 		delete[] integratedTimestamps;
 
 		TIntV q1Cascade;
@@ -886,9 +893,9 @@ void Tools::plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& q1, THash<TStr
 		{
 			q2Cascade.Add((int)q2[q][i].time.GetAbsSecs() - integratedMedianValue);
 		}
-		int beginShifted = begin - end;
+		double beginShifted = period * (0.5 + floor((end - begin) / period)) * -1.0;
 
-		double* q1Vol = Tools::calculateHistOfCascade(q1Cascade,beginShifted,period,lengt,true);
+		double* q1Vol = Tools::calculateHistOfCascade(q1Cascade,beginShifted,period,true);
 		q1Cascade.Clr();
 		for(int i=0;i<lengt;i++)
 		{
@@ -896,7 +903,7 @@ void Tools::plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& q1, THash<TStr
 		}
 		delete[] q1Vol;
 
-		double* q2Vol = Tools::calculateHistOfCascade(q2Cascade,beginShifted,period,lengt,true);
+		double* q2Vol = Tools::calculateHistOfCascade(q2Cascade,beginShifted,period,true);
 		q2Cascade.Clr();
 		for(int i=0;i<lengt;i++)
 		{
@@ -987,7 +994,7 @@ void Tools::plotOneHistShift(THash<TStr,CascadeElementV>& quotes, char* name, ui
 			smalls++;
 			continue;
 		}
-		vol = Tools::calculateHistOfCascade(quotes[q],begin,period,bins,true);
+		vol = Tools::calculateHistOfCascade(quotes[q],begin,period,true);
 		if(mode == MAX)
 		{
 			index = Tools::getMaxIndex(vol,bins);
@@ -1000,7 +1007,7 @@ void Tools::plotOneHistShift(THash<TStr,CascadeElementV>& quotes, char* name, ui
 			{
 				continue;
 			}
-			index = Tools::getTheBinIndex(quotes[q][quotes[q].Len()/2].time.GetAbsSecs(),begin,period);
+			index = Tools::getTheBinIndex(quotes[q][(quotes[q].Len()-1)/2].time.GetAbsSecs(),begin,period);
 		}
 		if(index == -1)    // we have a larger timeseries in meme tracker than twitter then there are some cascades which they have nothing in the desired range (then we will discard them)
 		{
@@ -1061,8 +1068,8 @@ void Tools::plotTwoHistShift(THash<TStr,CascadeElementV>& quotes, THash<TUInt,TS
 	for(c=0;c<twitter.Len();c++)
 	{
 //		quoteIndex = twitter.GetKey(c);
-		vol_me = Tools::calculateHistOfCascade(quotes[c],begin,period,bins,true);
-		vol_tu = Tools::calculateHistOfCascade(twitter[c],begin,period,bins,true);   //.GetDat(quoteIndex)
+		vol_me = Tools::calculateHistOfCascade(quotes[c],begin,period,true);
+		vol_tu = Tools::calculateHistOfCascade(twitter[c],begin,period,true);   //.GetDat(quoteIndex)
 
 		if(mode == MEDIAN)
 		{
@@ -1073,8 +1080,8 @@ void Tools::plotTwoHistShift(THash<TStr,CascadeElementV>& quotes, THash<TUInt,TS
 			{
 				continue;
 			}
-			ind1 = Tools::getTheBinIndex(quotes[c][quotes[c].Len()/2].time.GetAbsSecs(),begin,period);
-			ind2 = Tools::getTheBinIndex(twitter[c][twitter[c].Len()/2].GetAbsSecs(),begin,period);
+			ind1 = Tools::getTheBinIndex(quotes[c][(quotes[c].Len()-1)/2].time.GetAbsSecs(),begin,period);
+			ind2 = Tools::getTheBinIndex(twitter[c][(twitter[c].Len()-1)/2].GetAbsSecs(),begin,period);
 		}
 		if(mode == MAX)
 		{
@@ -1147,8 +1154,8 @@ void Tools::plotTwoHistShift(THash<TStr,CascadeElementV>& q1, THash<TStr,Cascade
 	validCascadesCnt = 0;
 	for(c=0;c<q2.Len();c++)
 	{
-		vol_me = Tools::calculateHistOfCascade(q1[c],begin,period,bins,true);
-		vol_tu = Tools::calculateHistOfCascade(q2[c],begin,period,bins,true);
+		vol_me = Tools::calculateHistOfCascade(q1[c],begin,period,true);
+		vol_tu = Tools::calculateHistOfCascade(q2[c],begin,period,true);
 
 		if(mode == MEDIAN)
 		{
@@ -1159,8 +1166,8 @@ void Tools::plotTwoHistShift(THash<TStr,CascadeElementV>& q1, THash<TStr,Cascade
 			{
 				continue;
 			}
-			ind1 = Tools::getTheBinIndex(q1[c][q1[c].Len()/2].time.GetAbsSecs(),begin,period);
-			ind2 = Tools::getTheBinIndex(q2[c][q2[c].Len()/2].time.GetAbsSecs(),begin,period);
+			ind1 = Tools::getTheBinIndex(q1[c][(q1[c].Len()-1)/2].time.GetAbsSecs(),begin,period);
+			ind2 = Tools::getTheBinIndex(q2[c][(q2[c].Len()-1)/2].time.GetAbsSecs(),begin,period);
 		}
 		if(mode == MAX)
 		{

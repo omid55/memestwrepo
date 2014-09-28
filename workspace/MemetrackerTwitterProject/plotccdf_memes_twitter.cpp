@@ -93,16 +93,16 @@ int main(int argc, char* argv[])
 
 
 		// For BOTH TOGETHER
-		THash< TStr , CascadeElementV > quotesBOTH = Tools::loadQuotes("/NS/twitter-5/work/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_HAVINGBOTH.rar");
-		THash< TStr , CascadeElementV > quotesBOTHFirst = Tools::loadQuotes("/NS/twitter-5/work/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_HAVINGBOTH_FIRSTS.rar");
+		THash< TStr , CascadeElementV > quotesBOTH = Tools::loadQuotes("DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_HAVINGBOTH.rar");
+		THash< TStr , CascadeElementV > quotesBOTHFirst = Tools::loadQuotes("DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_HAVINGBOTH_FIRSTS.rar");
 		THash< TUInt , TSecTmV > cascadesOnTwitterUrlsBOTH;
 		THash< TUInt , TSecTmV > cascadesOnTwitterContentsBOTH;
 
-		TZipIn z1("/NS/twitter-5/work/oaskaris/DATA/CascadesFullUrlsOnTwitterData_FINALFILTERED_HAVINGBOTH.rar");		//("/agbs/cluster/oaskaris/Data_Preparing_Codes/RESULTS/CascadesFullUrlsOnTwitterData.rar");   //("CascadesFullUrlsOnTwitterData_FILTERED.rar");
+		TZipIn z1("DATA/CascadesFullUrlsOnTwitterData_FINALFILTERED_HAVINGBOTH.rar");		//("/agbs/cluster/oaskaris/Data_Preparing_Codes/RESULTS/CascadesFullUrlsOnTwitterData.rar");   //("CascadesFullUrlsOnTwitterData_FILTERED.rar");
 		cascadesOnTwitterUrlsBOTH.Load(z1);
 		printf("Loaded CascadesFullUrlsOnTwitterData_FINALFILTERED_HAVINGBOTH has instances: %d\n\n\n",cascadesOnTwitterUrlsBOTH.Len());
 
-		TZipIn z2("/NS/twitter-5/work/oaskaris/DATA/CascadesOnTwitterData_FINALFILTERED_HAVINGBOTH.rar"); 				//("/agbs/cluster/oaskaris/Data_Preparing_Codes/RESULTS/CascadesOnTwitterData.rar");
+		TZipIn z2("DATA/CascadesOnTwitterData_FINALFILTERED_HAVINGBOTH.rar"); 				//("/agbs/cluster/oaskaris/Data_Preparing_Codes/RESULTS/CascadesOnTwitterData.rar");
 		cascadesOnTwitterContentsBOTH.Load(z2);
 		printf("Loaded CascadesOnTwitterData_FINALFILTERED_HAVINGBOTH has instances: %d\n\n\n",cascadesOnTwitterContentsBOTH.Len());
 

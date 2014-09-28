@@ -123,8 +123,8 @@ int main(int argc, char* argv[])
 //			cout << "q" << c << ": " << quotes.GetKey(c).CStr() << endl;
 
 			quoteIndex = cascadesOnTwitterContents.GetKey(c);
-			vol_me = Tools::calculateHistOfCascade(quotes[c],begin,period,bins,true);
-			vol_tc = Tools::calculateHistOfCascade(cascadesOnTwitterContents.GetDat(quoteIndex),begin,period,bins,true);
+			vol_me = Tools::calculateHistOfCascade(quotes[c],begin,period,true);
+			vol_tc = Tools::calculateHistOfCascade(cascadesOnTwitterContents.GetDat(quoteIndex),begin,period,true);
 
 			ind1 = Tools::getMaxIndex(vol_me,bins);
 			ind2 = Tools::getMaxIndex(vol_tc,bins);

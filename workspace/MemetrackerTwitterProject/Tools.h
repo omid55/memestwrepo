@@ -20,10 +20,10 @@ enum Mode
 class Tools
 {
 public:
-	static int getTheBinIndex(int x, int rbegin, uint rperiod);
-	static double* calculateHistOfCascade(TIntV& cascade, int rbegin, uint rperiod, int length, bool normalized);
-	static double* calculateHistOfCascade(TSecTmV& cascade, int rbegin, uint rperiod, int length, bool normalized);
-	static double* calculateHistOfCascade(CascadeElementV& cascade, int rbegin, uint rperiod, int length, bool normalized);
+	static int getTheBinIndex(double x, double rbegin, uint rperiod);
+	static double* calculateHistOfCascade(TSecTmV& cascade, double rbegin, uint rperiod, bool normalized);
+	static double* calculateHistOfCascade(TIntV& cascade, double rbegin, uint rperiod, bool normalized);
+	static double* calculateHistOfCascade(CascadeElementV& cascade, double rbegin, uint rperiod, bool normalized);
 	static int getMaxIndex(double* d,int len);
 //	static int getMedianIndex(double* d,int len);
 	static TPair<TInt,TInt> findRangeWithValues(double* d,int len);
