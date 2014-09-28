@@ -471,7 +471,8 @@ int main(int argc, char* argv[])
 		int status = system("mkdir -p MyResults/Individual/Urls/; mkdir -p MyResults/Individual/Contents/");
 
 
-		period = 100;
+		period = atoi(argv[1]);
+		printf("\nFIRST PERIOD IS: %d\n\n\n", period);
 		while(!myPlotTwoIndividuallyShift(quotes2,twitter2,period,periodstr,"Individual/Contents/IndividualContents_NormWithMentions"))
 		{
 			printf("%d\n",period);
