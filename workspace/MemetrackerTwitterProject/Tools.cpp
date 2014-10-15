@@ -676,7 +676,7 @@ void Tools::printTwitterHasSoonerStart(THash<TStr,CascadeElementV> quotes, THash
 // TEST TEST TEST
 
 // CCDF
-void Tools::myPrivatePlotCCDF_PrintPosNeg(double* arr, int leng, char* name, char* xlabel)
+void Tools::myPrivatePlotCCDF_PrintPosNeg(double* arr, int leng, char* name, char* xlabel, bool withCommand)
 {
 	TGnuPlot plot;
 	TFltPrV middle;
@@ -731,12 +731,15 @@ void Tools::myPrivatePlotCCDF_PrintPosNeg(double* arr, int leng, char* name, cha
 	{
 		x = arr[i];
 
-		// only for rangeBegin to rangeEnd hours
-		if(x>(rangeEnd+3)*3600 || x<(rangeBegin-3)*3600)
+		if(withCommand)
 		{
-			continue;
+			// only for rangeBegin to rangeEnd hours
+			if(x>(rangeEnd+3)*3600 || x<(rangeBegin-3)*3600)
+			{
+				continue;
+			}
+			// only for rangeBegin to rangeEnd hours
 		}
-		// only for rangeBegin to rangeEnd hours
 
 		y = 1.0 - (1.0/leng)*i;
 		points.Add(TFltPr(x,y));
@@ -757,18 +760,63 @@ void Tools::myPrivatePlotCCDF_PrintPosNeg(double* arr, int leng, char* name, cha
 	plot.AddPlot(middle,gpwPoints);
 	plot.AddCmd("set tics scale 2");
 //	TStr cmd = TStr::Fmt("set xtics (\"%d\" %d",rangeBegin-3,(rangeBegin-3)*3600);
-	TStr cmd = "set xtics (";
-	for(int i=rangeBegin;i<=rangeEnd;i+=steps)
+	if(withCommand)
 	{
-		if(i!=rangeBegin)
+		TStr cmd = "set xtics (";
+		for(int i=rangeBegin;i<=rangeEnd;i+=steps)
 		{
-			cmd += ",";
+			if(i!=rangeBegin)
+			{
+				cmd += ",";
+			}
+			cmd += TStr::Fmt("\"%d\" %d",i,i*3600);
 		}
-		cmd += TStr::Fmt("\"%d\" %d",i,i*3600);
+		cmd += ")";
+	//	cmd += TStr::Fmt(",\"%d\" %d)",rangeEnd+3,(rangeEnd+3)*3600);
+		plot.AddCmd(cmd);
 	}
-	cmd += ")";
-//	cmd += TStr::Fmt(",\"%d\" %d)",rangeEnd+3,(rangeEnd+3)*3600);
-	plot.AddCmd(cmd);
+	plot.AddCmd("set terminal postscript enhanced eps 30 color");
+	plot.SetDataPlotFNm(TStr::Fmt("MyResults/%s.tab",name), TStr::Fmt("MyResults/%s.plt",name));
+	plot.SaveEps(TStr::Fmt("MyResults/%s.eps",name));
+	printf("%s had been drawn successfully.\n\n",name);
+}
+
+TFltPrV Tools::getCCDFYAxis(double* arr1, int leng1)
+{
+	int i;
+	bool firstFound = false;
+	double x1,y1,x2,y2,x,y;
+	TFltPrV points1;
+	sort(arr1,arr1+leng1);
+	for(i=0;i<leng1;i++)
+	{
+		x = arr1[i];
+
+		y = 1.0 - (1.0/leng1)*i;
+		points1.Add(TFltPr(x,y));
+		if(x > 0 && !firstFound)
+		{
+			firstFound = true;
+			x1 = arr1[i-1];
+			y1 =  1.0 - (1.0/leng1) * (i-1);
+			x2 = x;
+			y2 = y;
+		}
+	}
+	return points1;
+}
+
+void Tools::plotSimpleCCDF(double* arr1, int leng1, double* arr2, int leng2, char* name, char* legendname1)
+{
+	TGnuPlot plot;
+	TFltPrV points1 = getCCDFYAxis(arr1, leng1);
+	TFltPrV points2 = getCCDFYAxis(arr2, leng2);
+
+	printf("%s Drawing:\n",TStr::Fmt("%sCCDF",name).CStr());
+	plot.SetXYLabel(legendname1, "P(X>d)");
+
+	plot.AddPlot(points1,gpwLines);
+	plot.AddPlot(points2,gpwLines);
 	plot.AddCmd("set terminal postscript enhanced eps 30 color");
 	plot.SetDataPlotFNm(TStr::Fmt("MyResults/%s.tab",name), TStr::Fmt("MyResults/%s.plt",name));
 	plot.SaveEps(TStr::Fmt("MyResults/%s.eps",name));

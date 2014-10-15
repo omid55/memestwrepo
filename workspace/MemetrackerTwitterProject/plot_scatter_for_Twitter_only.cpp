@@ -30,12 +30,19 @@ int main(int argc, char* argv[])
 		Env = TEnv(argc, argv, TNotify::StdNotify);
 		Env.PrepArgs(TStr::Fmt("\nPlotting Scatter For Twitter Cascades. build: %s, %s. Time: %s", __TIME__, __DATE__, TExeTm::GetCurTm()));
 
+//		THash< TUInt , TSecTmV > twitterUrls = Tools::loadTwitter("DATA/CascadesFullUrlsOnTwitterData_FINALFILTERED_HAVINGBOTH.rar");
+//		THash< TUInt , TSecTmV > twitterContents = Tools::loadTwitter("DATA/CascadesOnTwitterData_FINALFILTERED_HAVINGBOTH.rar");
 		THash< TUInt , TSecTmV > twitterUrls = Tools::loadTwitter("/NS/twitter-5/work/oaskaris/DATA/CascadesFullUrlsOnTwitterData_FINALFILTERED_HAVINGBOTH.rar");     // CascadesFullUrlsOnTwitterData_FINALFILTERED
 		THash< TUInt , TSecTmV > twitterContents = Tools::loadTwitter("/NS/twitter-5/work/oaskaris/DATA/CascadesOnTwitterData_FINALFILTERED_HAVINGBOTH.rar");    // CascadesOnTwitterData_FINALFILTERED
 
 		THash< TUInt , TSecTmV > full_twitterUrls = Tools::loadTwitter("/NS/twitter-5/work/oaskaris/DATA/CascadesFullUrlsOnTwitterData_FINALFILTERED.rar");
 		THash< TUInt , TSecTmV > full_twitterContents = Tools::loadTwitter("/NS/twitter-5/work/oaskaris/DATA/CascadesOnTwitterData_FINALFILTERED.rar");
 
+
+		// Scatter plot
+		plotScatterLengthOfEachCascade(twitterUrls,twitterContents);
+
+		// Percentage computation
 		double cnt = 0;
 		for(int i=0;i<full_twitterUrls.Len();i++)
 		{
@@ -44,7 +51,7 @@ int main(int argc, char* argv[])
 				cnt++;
 			}
 		}
-		cnt /= full_twitterUrls.Len();
+		cnt /= full_twitterUrls.Len();    // twitterUrls.Len() / full_twitterUrls.Len()
 		printf("The percentage of Urls of quotes which have contents as well: %f\n", 100 * cnt);
 
 		cnt = 0;
@@ -58,7 +65,6 @@ int main(int argc, char* argv[])
 		cnt /= full_twitterContents.Len();
 		printf("The percentage of Contents of quotes which have urls as well: %f\n", 100 * cnt);
 
-		plotScatterLengthOfEachCascade(twitterUrls,twitterContents);
 		printf("\nScatter Plot had been drawn successfully.");
 	}
 	catch(exception& ex)

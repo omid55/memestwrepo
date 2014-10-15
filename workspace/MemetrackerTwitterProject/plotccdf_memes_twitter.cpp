@@ -92,25 +92,57 @@ int main(int argc, char* argv[])
 
 
 
-		// For BOTH TOGETHER
-		THash< TStr , CascadeElementV > quotesBOTH = Tools::loadQuotes("DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_HAVINGBOTH.rar");
-		THash< TStr , CascadeElementV > quotesBOTHFirst = Tools::loadQuotes("DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_HAVINGBOTH_FIRSTS.rar");
-		THash< TUInt , TSecTmV > cascadesOnTwitterUrlsBOTH;
-		THash< TUInt , TSecTmV > cascadesOnTwitterContentsBOTH;
+//		// For BOTH TOGETHER
+//		THash< TStr , CascadeElementV > quotesBOTH = Tools::loadQuotes("DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_HAVINGBOTH.rar");
+//		THash< TStr , CascadeElementV > quotesBOTHFirst = Tools::loadQuotes("DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_HAVINGBOTH_FIRSTS.rar");
+//		THash< TUInt , TSecTmV > cascadesOnTwitterUrlsBOTH;
+//		THash< TUInt , TSecTmV > cascadesOnTwitterContentsBOTH;
+//
+//		TZipIn z1("DATA/CascadesFullUrlsOnTwitterData_FINALFILTERED_HAVINGBOTH.rar");		//("/agbs/cluster/oaskaris/Data_Preparing_Codes/RESULTS/CascadesFullUrlsOnTwitterData.rar");   //("CascadesFullUrlsOnTwitterData_FILTERED.rar");
+//		cascadesOnTwitterUrlsBOTH.Load(z1);
+//		printf("Loaded CascadesFullUrlsOnTwitterData_FINALFILTERED_HAVINGBOTH has instances: %d\n\n\n",cascadesOnTwitterUrlsBOTH.Len());
+//
+//		TZipIn z2("DATA/CascadesOnTwitterData_FINALFILTERED_HAVINGBOTH.rar"); 				//("/agbs/cluster/oaskaris/Data_Preparing_Codes/RESULTS/CascadesOnTwitterData.rar");
+//		cascadesOnTwitterContentsBOTH.Load(z2);
+//		printf("Loaded CascadesOnTwitterData_FINALFILTERED_HAVINGBOTH has instances: %d\n\n\n",cascadesOnTwitterContentsBOTH.Len());
+//
+//		Tools::plotCCDFStartMedianEnd(quotesBOTH, cascadesOnTwitterUrlsBOTH, "MemesUrlsBOTH", "Memes");
+//		Tools::plotCCDFStartMedianEnd(quotesBOTH, cascadesOnTwitterContentsBOTH, "MemesContentsBOTH", "Memes");
+//		Tools::plotCCDFStartMedianEnd(quotesBOTHFirst, cascadesOnTwitterUrlsBOTH, "MemesUrlsBOTH_Firsts", "Memes");
+//		Tools::plotCCDFStartMedianEnd(quotesBOTHFirst, cascadesOnTwitterContentsBOTH, "MemesContentsBOTH_Firsts", "Memes");
+//		// For BOTH TOGETHER
 
-		TZipIn z1("DATA/CascadesFullUrlsOnTwitterData_FINALFILTERED_HAVINGBOTH.rar");		//("/agbs/cluster/oaskaris/Data_Preparing_Codes/RESULTS/CascadesFullUrlsOnTwitterData.rar");   //("CascadesFullUrlsOnTwitterData_FILTERED.rar");
-		cascadesOnTwitterUrlsBOTH.Load(z1);
-		printf("Loaded CascadesFullUrlsOnTwitterData_FINALFILTERED_HAVINGBOTH has instances: %d\n\n\n",cascadesOnTwitterUrlsBOTH.Len());
 
-		TZipIn z2("DATA/CascadesOnTwitterData_FINALFILTERED_HAVINGBOTH.rar"); 				//("/agbs/cluster/oaskaris/Data_Preparing_Codes/RESULTS/CascadesOnTwitterData.rar");
-		cascadesOnTwitterContentsBOTH.Load(z2);
-		printf("Loaded CascadesOnTwitterData_FINALFILTERED_HAVINGBOTH has instances: %d\n\n\n",cascadesOnTwitterContentsBOTH.Len());
+		// --------------------------------------------------------------------------------------------------------------------------
+		// --------------------------------------------------------------------------------------------------------------------------
+		// CCDF of cascade sizes for blogs/news media, twitter	mentions and twitter links for the 65,140 quote dataset
+		printf("\n\n\nCCDF of cascade sizes for blogs/news media, twitter	mentions and twitter links ...\n");
+		THash< TStr , CascadeElementV  > quotesurl, quotescont;
+		THash< TUInt , TSecTmV > cascadesOnTwitterUrls, cascadesOnTwitterContents;
+		TZipIn ZquotesIn1("/NS/twitter-5/work/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS.rar");		//("/agbs/cluster/oaskaris/Data_Preparing_Codes/RESULTS/QuotesPreprocessedData_NIFTY.rar");   //("QuotesPreprocessedData_NIFTY_RANGEFIXED_FILTERED.rar");
+		quotesurl.Load(ZquotesIn1);
+		printf("Loaded QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS has instances: %d\n\n\n",quotesurl.Len());
 
-		Tools::plotCCDFStartMedianEnd(quotesBOTH, cascadesOnTwitterUrlsBOTH, "MemesUrlsBOTH", "Memes");
-		Tools::plotCCDFStartMedianEnd(quotesBOTH, cascadesOnTwitterContentsBOTH, "MemesContentsBOTH", "Memes");
-		Tools::plotCCDFStartMedianEnd(quotesBOTHFirst, cascadesOnTwitterUrlsBOTH, "MemesUrlsBOTH_Firsts", "Memes");
-		Tools::plotCCDFStartMedianEnd(quotesBOTHFirst, cascadesOnTwitterContentsBOTH, "MemesContentsBOTH_Firsts", "Memes");
-		// For BOTH TOGETHER
+		TZipIn ZcascadesOnTwitterIn1("/NS/twitter-5/work/oaskaris/DATA/CascadesFullUrlsOnTwitterData_FINALFILTERED.rar");		//("/agbs/cluster/oaskaris/Data_Preparing_Codes/RESULTS/CascadesFullUrlsOnTwitterData.rar");   //("CascadesFullUrlsOnTwitterData_FILTERED.rar");
+		cascadesOnTwitterUrls.Load(ZcascadesOnTwitterIn1);
+		printf("Loaded CascadesFullUrlsOnTwitterData_FINALFILTERED has instances: %d\n\n\n",cascadesOnTwitterUrls.Len());
+
+		TZipIn ZquotesIn2("/NS/twitter-5/work/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents.rar");		//("/agbs/cluster/oaskaris/Data_Preparing_Codes/RESULTS/QuotesPreprocessedData_NIFTY.rar");   //("QuotesPreprocessedData_NIFTY_RANGEFIXED_FILTERED.rar");
+		quotescont.Load(ZquotesIn2);
+		printf("Loaded QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents has instances: %d\n\n\n",quotescont.Len());
+
+		TZipIn ZcascadesOnTwitterIn2("/NS/twitter-5/work/oaskaris/DATA/CascadesOnTwitterData_FINALFILTERED.rar"); 		//("/agbs/cluster/oaskaris/Data_Preparing_Codes/RESULTS/CascadesOnTwitterData.rar");
+		cascadesOnTwitterContents.Load(ZcascadesOnTwitterIn2);
+		printf("Loaded CascadesOnTwitterData_FINALFILTERED has instances: %d\n\n\n",cascadesOnTwitterContents.Len());
+
+		double* c1 = new double[quotesurl.Len()];
+		double* c2 = new double[cascadesOnTwitterUrls.Len()];
+		for(int i=0;i<quotesurl.Len();i++)
+		{
+			c1[i] = quotesurl[i].Len();
+			c2[i] = cascadesOnTwitterUrls[i].Len();
+		}
+		Tools::plotSimpleCCDF(c1,quotesurl.Len(),c2,cascadesOnTwitterUrls.Len(),"Blogs-News","Cascade Length in Blogs/News");
 	}
 	catch(exception& ex)
 	{

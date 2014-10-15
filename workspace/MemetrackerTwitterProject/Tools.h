@@ -60,9 +60,11 @@ public:
 	// Plotting methods
 	// CCDF
 private:
-	static void myPrivatePlotCCDF_PrintPosNeg(double* arr, int leng, char* name, char* xlabel);
+	static void myPrivatePlotCCDF_PrintPosNeg(double* arr, int leng, char* name, char* xlabel, bool withCommand=true);
+	static TFltPrV getCCDFYAxis(double* arr1, int leng1);
 
 public:
+	static void plotSimpleCCDF(double* arr1, int leng1, double* arr2, int leng2, char* name, char* legendname1);
 	static void plotCCDFPairArray(TFltPrV data, char* name, char* legendname1, char* legendname2);
 	static double computeCorrelation(TFltPrV data, CorrelationType type);
 	static void plotTwoIndividuallyShiftProportionVolume(THash<TStr,CascadeElementV>& quotes, THash<TUInt,TSecTmV>& twitter, int period, char* periodstr, char* name, char* which, int index);
