@@ -15,6 +15,203 @@ static int end = TSecTm(2009,10,1,0,0,0).GetAbsSecs();
 // Global Variables
 
 
+SortItem::SortItem(int index, double value)
+{
+	this->index = index;
+	this->value = value;
+}
+
+bool SortItem::operator <(const SortItem& o) const
+{
+	return value < o.value;
+}
+
+int SortItem::getIndex() const
+{
+	return index;
+}
+
+double Tools::computeCorrelation(TFltPrV data, CorrelationType type)
+{
+	int i, n = data.Len();
+	double corr, nd, mean1 = 0, mean2 = 0, tmp, r1 = 0, r2 = 0, r3 = 0;
+	double* rank1 = new double[n];
+	double* rank2 = new double[n];
+	std::vector<SortItem> s1,s2;
+
+	switch(type)
+	{
+		case Pearson:
+			for(i=0;i<n;i++)
+			{
+				mean1 += data[i].Val1;
+				mean2 += data[i].Val2;
+			}
+			mean1 /= n;
+			mean2 /= n;
+			for(i=0;i<n;i++)
+			{
+				r1 += (data[i].Val1-mean1)*(data[i].Val2-mean2);
+				r2 += (data[i].Val1-mean1)*(data[i].Val1-mean1);
+				r3 += (data[i].Val2-mean2)*(data[i].Val2-mean2);
+			}
+			corr = r1 / (sqrt(r2)*sqrt(r3));
+			break;
+
+		case Spearman:
+			for(i=0;i<n;i++)
+			{
+				s1.push_back(SortItem(i,data[i].Val1));
+				s2.push_back(SortItem(i,data[i].Val2));
+			}
+			std::sort(s1.begin(),s1.end());
+			std::sort(s2.begin(),s2.end());
+
+
+			for(i=0;i<n;i++)
+			{
+				rank1[s1[i].getIndex()] = i;
+				rank2[s2[i].getIndex()] = i;
+			}
+
+			tmp = 0;
+			for(i=0;i<n;i++)
+			{
+				tmp += (rank1[i]-rank2[i]) * (rank1[i]-rank2[i]);
+			}
+			nd = n;
+			corr = 1 - 6 * tmp/(nd*(nd*nd-1));
+			break;
+
+		default:
+			corr = -10;  // means error
+	}
+	return corr;
+
+}
+
+void Tools::plotScatter(TFltPrV plotdata, char* name, char* legendname1, char* legendname2)
+{
+	TGnuPlot plot;
+	plot.SetTitle(TStr::Fmt("Pearson: %f, Spearman: %f",computeCorrelation(plotdata,Pearson),computeCorrelation(plotdata,Spearman)));
+	plot.SetXYLabel(legendname1,legendname2);
+	plot.AddPlot(plotdata,gpwPoints);
+	plot.SetDataPlotFNm(TStr::Fmt("MyResults/ScatterPlot%s.tab",name), TStr::Fmt("MyResults/ScatterPlot%s.plt",name));
+	plot.SaveEps(TStr::Fmt("MyResults/ScatterPlot%s.eps",name),false);
+
+	printf("Plot %s is done.\n",name);
+}
+
+void Tools::plotTwoIndividuallyShiftProportionVolume(THash<TStr,CascadeElementV>& quotes, THash<TUInt,TSecTmV>& twitter, int period, char* periodstr, char* name, char* which, int index)    // index: which proportion would you like this function to show
+{
+	int bins = (end - begin) / period;
+	int lengt = 2 * bins + 1;
+	int center = bins;   //(lengt - 1) / 2;
+	double* memeProportion = new double[lengt];
+	double* twProportion = new double[lengt];
+	for(int i=0;i<lengt;i++)
+	{
+		memeProportion[i] = 0;
+		twProportion[i] = 0;
+	}
+
+	int* size = new int[lengt];
+	for(int i=0;i<lengt;i++)
+	{
+		size[i] = 0;
+	}
+
+	for(int q=0;q<quotes.Len();q++)
+	{
+		int leng = quotes[q].Len() + twitter[q].Len();
+		int* integratedTimestamps = new int[leng];
+		for(int i=0;i<quotes[q].Len();i++)
+		{
+			integratedTimestamps[i] = quotes[q][i].time.GetAbsSecs();
+		}
+		for(int i=0;i<twitter[q].Len();i++)
+		{
+			integratedTimestamps[quotes[q].Len()+i] = twitter[q][i].GetAbsSecs();
+		}
+		sort(integratedTimestamps,integratedTimestamps+leng);
+		int medIndex = (leng-1)/2;
+		int integratedMedianValue = integratedTimestamps[medIndex];
+		delete[] integratedTimestamps;
+
+		TIntV memeCascade;
+		for(int i=0;i<quotes[q].Len();i++)
+		{
+			memeCascade.Add((int)quotes[q][i].time.GetAbsSecs() - integratedMedianValue);
+		}
+		TIntV twitterCascade;
+		for(int i=0;i<twitter[q].Len();i++)
+		{
+			twitterCascade.Add((int)twitter[q][i].GetAbsSecs() - integratedMedianValue);
+		}
+		double beginShifted = period * (0.5 + floor((end - begin) / period)) * -1.0;
+
+		int length = -beginShifted * 2 / period;
+		double* memeVol = Tools::calculateHistOfCascade(memeCascade,beginShifted,period,false);
+		memeCascade.Clr();
+		double* twitterVol = Tools::calculateHistOfCascade(twitterCascade,beginShifted,period,false);
+		twitterCascade.Clr();
+
+		for(int i=0;i<lengt;i++)
+		{
+			if(memeVol[i] + twitterVol[i] != 0)
+			{
+				memeProportion[i] +=  (memeVol[i] / (memeVol[i] + twitterVol[i]));
+				twProportion[i] += (twitterVol[i] / (memeVol[i] + twitterVol[i]));
+			}
+			else
+			{
+				size[i]++;
+			}
+		}
+		delete[] memeVol;
+		delete[] twitterVol;
+	}
+
+	printf("\n\nComputing ...\n");
+	TFltPrV memeVolumes4Plot;
+	IAssert(center-myrange>=0 && center+myrange<lengt);
+	for(int i=center-myrange;i<=center+myrange;i++)
+	{
+//		memeProportion[i] /= quotes.Len();
+		memeProportion[i] /= (quotes.Len()-size[i]);
+//		twProportion[i] /= quotes.Len();
+		twProportion[i] /= (quotes.Len()-size[i]);
+		TFltPr elem1;
+		elem1.Val1 = -center + i;
+		if(index == 0)   // index: which proportion would you like this function to show
+		{
+			elem1.Val2 = memeProportion[i];
+		}
+		else
+		{
+			elem1.Val2 = twProportion[i];
+		}
+		memeVolumes4Plot.Add(elem1);
+	}
+	delete[] memeProportion;
+	delete[] twProportion;
+
+	TGnuPlot plot;
+	if(index == 0)
+	{
+		plot.SetXYLabel(TStr::Fmt("Time[%s]",periodstr), TStr::Fmt("Blogs/News Proportion (%s)",which));
+	}
+	else
+	{
+		plot.SetXYLabel(TStr::Fmt("Time[%s]",periodstr), "Twitter Proportion");
+	}
+	plot.AddPlot(memeVolumes4Plot,gpwPoints);
+	plot.SetDataPlotFNm(TStr::Fmt("MyResults/%s%d.tab",name,index), TStr::Fmt("MyResults/%s%d.plt",name,index));
+	plot.SaveEps(TStr::Fmt("MyResults/%s%d.eps",name,index),true);
+
+	printf("Plot %s is done.\n",name);
+}
+
 double* Tools::calculateHistOfCascade(TSecTmV& cascade, double rbegin, uint rperiod, bool normalized)
 {
 	int i,index;
@@ -508,25 +705,39 @@ void Tools::myPrivatePlotCCDF_PrintPosNeg(double* arr, int leng, char* name, cha
 	mean /= leng;
 
 	printf("Positive Ratio: %f, Negative Ratio: %f\n",posRatio,negRatio);
-	if(posRatio > 0.5)
-	{
-		printf("{{{Twitter is sooner.}}}\n");
-	}
-	else if(negRatio > 0.5)
-	{
-		printf("{{{Memes is sooner.}}}\n");
-	}
-	else
-	{
-		printf("{{{They are equal!!!}}}\n");
-	}
+//	if(posRatio > 0.5)
+//	{
+//		printf("{{{Twitter is sooner.}}}\n");
+//	}
+//	else if(negRatio > 0.5)
+//	{
+//		printf("{{{Memes is sooner.}}}\n");
+//	}
+//	else
+//	{
+//		printf("{{{They are equal!!!}}}\n");
+//	}
 	printf("Mean: %f\n",mean);
+
+	// --== RANGE ==--
+	int rangeBegin = -25;
+	int rangeEnd = 25;
+	int steps = 5;
+	// --== RANGE ==--
 
 	// Ploting CCDF
 	sort(arr,arr+leng);
 	for(i=0;i<leng;i++)
 	{
 		x = arr[i];
+
+		// only for rangeBegin to rangeEnd hours
+		if(x>(rangeEnd+3)*3600 || x<(rangeBegin-3)*3600)
+		{
+			continue;
+		}
+		// only for rangeBegin to rangeEnd hours
+
 		y = 1.0 - (1.0/leng)*i;
 		points.Add(TFltPr(x,y));
 		if(x > 0 && !firstFound)
@@ -544,6 +755,21 @@ void Tools::myPrivatePlotCCDF_PrintPosNeg(double* arr, int leng, char* name, cha
 	middle.Add(TFltPr(0,middleY));
 	plot.AddPlot(points,gpwLines);
 	plot.AddPlot(middle,gpwPoints);
+	plot.AddCmd("set tics scale 2");
+//	TStr cmd = TStr::Fmt("set xtics (\"%d\" %d",rangeBegin-3,(rangeBegin-3)*3600);
+	TStr cmd = "set xtics (";
+	for(int i=rangeBegin;i<=rangeEnd;i+=steps)
+	{
+		if(i!=rangeBegin)
+		{
+			cmd += ",";
+		}
+		cmd += TStr::Fmt("\"%d\" %d",i,i*3600);
+	}
+	cmd += ")";
+//	cmd += TStr::Fmt(",\"%d\" %d)",rangeEnd+3,(rangeEnd+3)*3600);
+	plot.AddCmd(cmd);
+	plot.AddCmd("set terminal postscript enhanced eps 30 color");
 	plot.SetDataPlotFNm(TStr::Fmt("MyResults/%s.tab",name), TStr::Fmt("MyResults/%s.plt",name));
 	plot.SaveEps(TStr::Fmt("MyResults/%s.eps",name));
 	printf("%s had been drawn successfully.\n\n",name);
@@ -592,9 +818,21 @@ void Tools::plotCCDFStartMedianEnd(THash<TStr,CascadeElementV> quotes, THash<TUI
 	printf("\n\nRESULTMEAN=> days: %f, hours: %f, minutes: %f, %s %s.\n", (mean/(3600*24)), (mean/3600), (mean/60), legendname1, rz.CStr());
 
 	// Plot Drawing
-	Tools::myPrivatePlotCCDF_PrintPosNeg(medianDifference,len,TStr::Fmt("%sMedianDifferenceCCDF",name).CStr(),TStr::Fmt("d [(%s median - Twitter median) of cascade's times]",legendname1).CStr());
-	///Tools::myPrivatePlotCCDF_PrintPosNeg(startDifference,len,TStr::Fmt("%sStartDifferenceCCDF",name).CStr(),TStr::Fmt("d [(%s start - Twitter start) of cascade's times]",legendname1).CStr());
-	///Tools::myPrivatePlotCCDF_PrintPosNeg(endDifference,len,TStr::Fmt("%sEndDifferenceCCDF",name).CStr(),TStr::Fmt("d [(%s end - Twitter end) of cascade's times]",legendname1).CStr());
+	Tools::myPrivatePlotCCDF_PrintPosNeg(medianDifference,len,TStr::Fmt("%sMedianDifferenceCCDF",name).CStr(),TStr::Fmt("Median d[%s - Twitter](hours)",legendname1).CStr());
+	///Tools::myPrivatePlotCCDF_PrintPosNeg(startDifference,len,TStr::Fmt("%sStartDifferenceCCDF",name).CStr(),TStr::Fmt("Start d[%s - Twitter](hours)",legendname1).CStr());
+	///Tools::myPrivatePlotCCDF_PrintPosNeg(endDifference,len,TStr::Fmt("%sEndDifferenceCCDF",name).CStr(),TStr::Fmt("End d[%s - Twitter](hours)",legendname1).CStr());
+}
+
+void Tools::plotCCDFPairArray(TFltPrV data, char* name, char* legendname1, char* legendname2)
+{
+	double* difference = new double[data.Len()];
+	for(int i=0;i<data.Len();i++)
+	{
+		difference[i] = (data[i].Val1.Val - data[i].Val2.Val); // / (data[i].Val1.Val + data[i].Val2.Val);
+	}
+
+	// Plot Drawing
+	Tools::myPrivatePlotCCDF_PrintPosNeg(difference,data.Len(),TStr::Fmt("%sCCDF",name).CStr(),TStr::Fmt("d [%s - %s] (%s)",legendname1,legendname2,name).CStr());
 }
 
 void Tools::plotCCDFStartMedianEnd(THash<TStr,CascadeElementV> q1, THash<TStr,CascadeElementV> q2, char* name, char* legendname1, char* legendname2)
@@ -646,9 +884,8 @@ void Tools::plotCCDFStartMedianEnd(THash<TStr,CascadeElementV> q1, THash<TStr,Ca
 	Tools::myPrivatePlotCCDF_PrintPosNeg(endDifference,len,TStr::Fmt("%sEndDifferenceCCDF",name).CStr(),TStr::Fmt("d [%s end - %s end]",legendname1,legendname2).CStr());
 }
 
-
 // Individually
-void Tools::plotOneIndividuallyShift(THash<TStr,CascadeElementV>& quotes, char* name, uint period, char* periodstr, int DesiredCascadesCount)
+void Tools::plotOneIndividuallyShift(THash<TStr,CascadeElementV>& quotes, char* name, int period, char* periodstr, int DesiredCascadesCount)
 {
 	int bins,i,q,index,center,Q,lengt,minLen;
 	double* vols;
@@ -732,7 +969,7 @@ void Tools::plotOneIndividuallyShift(THash<TStr,CascadeElementV>& quotes, char* 
 	printf("Plot %s is done.\n",name);
 }
 
-void Tools::plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& quotes, THash<TUInt,TSecTmV>& twitter, uint period, char* periodstr, char* name)
+void Tools::plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& quotes, THash<TUInt,TSecTmV>& twitter, int period, char* periodstr, char* name)
 {
 	int bins = (end - begin) / period;
 	int lengt = 2 * bins + 1;
@@ -746,6 +983,105 @@ void Tools::plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& quotes, THash<
 	}
 
 	for(int q=0;q<quotes.Len();q++)
+	{
+		int leng = quotes[q].Len() + twitter[q].Len();
+		int* integratedTimestamps = new int[leng];
+		for(int i=0;i<quotes[q].Len();i++)
+		{
+			integratedTimestamps[i] = quotes[q][i].time.GetAbsSecs();
+		}
+		for(int i=0;i<twitter[q].Len();i++)
+		{
+			integratedTimestamps[quotes[q].Len()+i] = twitter[q][i].GetAbsSecs();
+		}
+		sort(integratedTimestamps,integratedTimestamps+leng);
+		int medIndex = (leng-1)/2;
+		int integratedMedianValue = integratedTimestamps[medIndex];
+		delete[] integratedTimestamps;
+
+		TIntV memeCascade;
+		for(int i=0;i<quotes[q].Len();i++)
+		{
+			memeCascade.Add((int)quotes[q][i].time.GetAbsSecs() - integratedMedianValue);
+		}
+		TIntV twitterCascade;
+		for(int i=0;i<twitter[q].Len();i++)
+		{
+			twitterCascade.Add((int)twitter[q][i].GetAbsSecs() - integratedMedianValue);
+		}
+		double beginShifted = period * (0.5 + floor((end - begin) / period)) * -1.0;
+
+		double* memeVol = Tools::calculateHistOfCascade(memeCascade,beginShifted,period,true);
+		memeCascade.Clr();
+		for(int i=0;i<lengt;i++)
+		{
+			memeVolumes[i] += memeVol[i];
+		}
+		delete[] memeVol;
+
+		double* twitterVol = Tools::calculateHistOfCascade(twitterCascade,beginShifted,period,true);
+		twitterCascade.Clr();
+		for(int i=0;i<lengt;i++)
+		{
+			twitterVolumes[i] += twitterVol[i];
+		}
+		delete[] twitterVol;
+	}
+
+	printf("\n\nPlotting ...\n");
+	TFltPrV memeVolumes4Plot;
+	TFltPrV twitterVolumes4Plot;
+	IAssert(center-myrange>=0 && center+myrange<lengt);
+	for(int i=center-myrange;i<=center+myrange;i++)
+//	for(int i=0;i<lengt;i++)
+	{
+		memeVolumes[i] /= quotes.Len();
+		twitterVolumes[i] /= quotes.Len();
+		TFltPr elem1;
+		elem1.Val1 = period * (-center + i);
+		elem1.Val2 = memeVolumes[i];
+		memeVolumes4Plot.Add(elem1);
+
+		TFltPr elem2;
+		elem2.Val1 = period * (-center + i);
+		elem2.Val2 = twitterVolumes[i];
+		twitterVolumes4Plot.Add(elem2);
+	}
+	delete[] memeVolumes;
+	delete[] twitterVolumes;
+
+	// Plotting
+//	TGnuPlot plot1;
+//	plot1.SetXYLabel("Time[hours]", "Volume");
+//	plot1.AddPlot(memeVolumes4Plot,gpwLinesPoints,"Memes");
+//	plot1.AddPlot(twitterVolumes4Plot,gpwLinesPoints,"Twitter");
+//	plot1.SetDataPlotFNm(TStr::Fmt("MyResults/%s-Original.tab",name), TStr::Fmt("MyResults/%s-Original.plt",name));
+//	plot1.SaveEps(TStr::Fmt("MyResults/%s-Original.eps",name));
+
+	TGnuPlot plot2;
+	plot2.SetXYLabel(TStr::Fmt("Time[%s]",periodstr), "Volume");
+	plot2.AddPlot(memeVolumes4Plot,gpwPoints,"Memes");
+	plot2.AddPlot(twitterVolumes4Plot,gpwPoints,"Twitter");
+	plot2.SetDataPlotFNm(TStr::Fmt("MyResults/%s.tab",name), TStr::Fmt("MyResults/%s.plt",name));
+	plot2.SaveEps(TStr::Fmt("MyResults/%s.eps",name),true);
+
+	printf("Plot %s is done.\n",name);
+}
+
+void Tools::plotTwoIndividuallyShiftLimited(THash<TStr,CascadeElementV>& quotes, THash<TUInt,TSecTmV>& twitter, int period, char* periodstr, char* name, int limitedLeng)
+{
+	int bins = (end - begin) / period;
+	int lengt = 2 * bins + 1;
+	int center = bins;   //(lengt - 1) / 2;
+	double* memeVolumes = new double[lengt];
+	double* twitterVolumes = new double[lengt];
+	for(int i=0;i<lengt;i++)
+	{
+		memeVolumes[i] = 0;
+		twitterVolumes[i] = 0;
+	}
+
+	for(int q=0;q<min(quotes.Len(),limitedLeng);q++)
 	{
 		int leng = quotes[q].Len() + twitter[q].Len();
 		int* integratedTimestamps = new int[leng];
@@ -831,7 +1167,7 @@ void Tools::plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& quotes, THash<
 	printf("Plot %s is done.\n",name);
 }
 
-void Tools::plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& q1, THash<TStr,CascadeElementV>& q2, uint period, char* periodstr, char* name, char* s1, char* s2, int DesiredCascadesCount)
+void Tools::plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& q1, THash<TStr,CascadeElementV>& q2, int period, char* periodstr, char* name, char* s1, char* s2, int DesiredCascadesCount)
 {
 	int minLen;
 	int bins = (end - begin) / period;
@@ -955,7 +1291,7 @@ void Tools::plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& q1, THash<TStr
 
 
 // Hists
-void Tools::plotOneHistShift(THash<TStr,CascadeElementV>& quotes, char* name, uint period, char* periodstr, Mode mode, int DesiredCascadesCount)
+void Tools::plotOneHistShift(THash<TStr,CascadeElementV>& quotes, char* name, int period, char* periodstr, Mode mode, int DesiredCascadesCount)
 {
 	int bins,i,q,index,center,dif,Q,lengt,discards,minLen,smalls;
 	double* vols;
@@ -1038,7 +1374,7 @@ void Tools::plotOneHistShift(THash<TStr,CascadeElementV>& quotes, char* name, ui
 	delete[] vols;
 }
 
-void Tools::plotTwoHistShift(THash<TStr,CascadeElementV>& quotes, THash<TUInt,TSecTmV>& twitter, uint period, char* periodstr, char* name, Mode mode, char* s1, char* s2)
+void Tools::plotTwoHistShift(THash<TStr,CascadeElementV>& quotes, THash<TUInt,TSecTmV>& twitter, int period, char* periodstr, char* name, Mode mode, char* s1, char* s2)
 {
 	int bins,i,c,index,center,dif,lengt,validCascadesCnt,minLen,quoteIndex,ind1,ind2;
 	double* vols_memes;
@@ -1125,7 +1461,7 @@ void Tools::plotTwoHistShift(THash<TStr,CascadeElementV>& quotes, THash<TUInt,TS
 	delete[] vols_twitter_contents;
 }
 
-void Tools::plotTwoHistShift(THash<TStr,CascadeElementV>& q1, THash<TStr,CascadeElementV>& q2, uint period, char* periodstr, char* name, Mode mode, char* s1, char* s2)
+void Tools::plotTwoHistShift(THash<TStr,CascadeElementV>& q1, THash<TStr,CascadeElementV>& q2, int period, char* periodstr, char* name, Mode mode, char* s1, char* s2)
 {
 	int bins,i,c,index,center,dif,lengt,validCascadesCnt,minLen,ind1,ind2;
 	double* vols_memes;

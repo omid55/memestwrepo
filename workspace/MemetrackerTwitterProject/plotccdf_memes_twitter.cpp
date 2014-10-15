@@ -106,10 +106,10 @@ int main(int argc, char* argv[])
 		cascadesOnTwitterContentsBOTH.Load(z2);
 		printf("Loaded CascadesOnTwitterData_FINALFILTERED_HAVINGBOTH has instances: %d\n\n\n",cascadesOnTwitterContentsBOTH.Len());
 
-		Tools::plotCCDFStartMedianEnd(quotesBOTH, cascadesOnTwitterUrlsBOTH, "MemesUrlsBOTH", "MemesBOTH");
-		Tools::plotCCDFStartMedianEnd(quotesBOTH, cascadesOnTwitterContentsBOTH, "MemesContentsBOTH", "MemesBOTH");
-		Tools::plotCCDFStartMedianEnd(quotesBOTHFirst, cascadesOnTwitterUrlsBOTH, "MemesUrlsBOTH_Firsts", "MemesBOTH");
-		Tools::plotCCDFStartMedianEnd(quotesBOTHFirst, cascadesOnTwitterContentsBOTH, "MemesContentsBOTH_Firsts", "MemesBOTH");
+		Tools::plotCCDFStartMedianEnd(quotesBOTH, cascadesOnTwitterUrlsBOTH, "MemesUrlsBOTH", "Memes");
+		Tools::plotCCDFStartMedianEnd(quotesBOTH, cascadesOnTwitterContentsBOTH, "MemesContentsBOTH", "Memes");
+		Tools::plotCCDFStartMedianEnd(quotesBOTHFirst, cascadesOnTwitterUrlsBOTH, "MemesUrlsBOTH_Firsts", "Memes");
+		Tools::plotCCDFStartMedianEnd(quotesBOTHFirst, cascadesOnTwitterContentsBOTH, "MemesContentsBOTH_Firsts", "Memes");
 		// For BOTH TOGETHER
 	}
 	catch(exception& ex)

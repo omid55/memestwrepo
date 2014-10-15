@@ -17,6 +17,24 @@ enum Mode
 	MAX
 };
 
+enum CorrelationType
+{
+	Pearson,
+	Spearman
+};
+
+class SortItem
+{
+private:
+	int index;
+	double value;
+
+public:
+	SortItem(int index, double value);
+	bool operator <(const SortItem& o) const;
+	int getIndex() const;
+};
+
 class Tools
 {
 public:
@@ -43,19 +61,25 @@ public:
 	// CCDF
 private:
 	static void myPrivatePlotCCDF_PrintPosNeg(double* arr, int leng, char* name, char* xlabel);
+
 public:
+	static void plotCCDFPairArray(TFltPrV data, char* name, char* legendname1, char* legendname2);
+	static double computeCorrelation(TFltPrV data, CorrelationType type);
+	static void plotTwoIndividuallyShiftProportionVolume(THash<TStr,CascadeElementV>& quotes, THash<TUInt,TSecTmV>& twitter, int period, char* periodstr, char* name, char* which, int index);
+	static void plotScatter(TFltPrV plotdata, char* name, char* legendname1, char* legendname2);
 	static void plotCCDFStartMedianEnd(THash<TStr,CascadeElementV> quotes, THash<TUInt,TSecTmV> twitter, char* name, char* legendname1);
 	static void plotCCDFStartMedianEnd(THash<TStr,CascadeElementV> q1, THash<TStr,CascadeElementV> q2, char* name, char* legendname1, char* legendname2);
 
 	// Individually shift centralization
-	static void plotOneIndividuallyShift(THash<TStr,CascadeElementV>& quotes, char* name, uint period, char* periodstr, int DesiredCascadesCount=0);
-	static void plotTwoIndividuallyShift(THash< TStr,CascadeElementV >& quotes, THash<TUInt,TSecTmV>& twitter, uint period, char* periodstr, char* name);
-	static void plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& q1, THash<TStr,CascadeElementV>& q2, uint period, char* periodstr, char* name, char* s1, char* s2, int DesiredCascadesCount=0);
+	static void plotOneIndividuallyShift(THash<TStr,CascadeElementV>& quotes, char* name, int period, char* periodstr, int DesiredCascadesCount=0);
+	static void plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& quotes, THash<TUInt,TSecTmV>& twitter, int period, char* periodstr, char* name);
+	static void plotTwoIndividuallyShift(THash<TStr,CascadeElementV>& q1, THash<TStr,CascadeElementV>& q2, int period, char* periodstr, char* name, char* s1, char* s2, int DesiredCascadesCount=0);
+	static void plotTwoIndividuallyShiftLimited(THash<TStr,CascadeElementV>& quotes, THash<TUInt,TSecTmV>& twitter, int period, char* periodstr, char* name, int limitedLeng);
 
 	// Hist shift centralization
-	static void plotOneHistShift(THash<TStr,CascadeElementV>& quotes, char* name, uint period, char* periodstr, Mode mode, int DesiredCascadesCount=0);
-	static void plotTwoHistShift(THash<TStr,CascadeElementV>& quotes, THash<TUInt,TSecTmV>& twitter, uint period, char* periodstr, char* name, Mode mode, char* s1, char* s2);
-	static void plotTwoHistShift(THash<TStr,CascadeElementV>& q1, THash<TStr,CascadeElementV>& q2, uint period, char* periodstr, char* name, Mode mode, char* s1, char* s2);
+	static void plotOneHistShift(THash<TStr,CascadeElementV>& quotes, char* name, int period, char* periodstr, Mode mode, int DesiredCascadesCount=0);
+	static void plotTwoHistShift(THash<TStr,CascadeElementV>& quotes, THash<TUInt,TSecTmV>& twitter, int period, char* periodstr, char* name, Mode mode, char* s1, char* s2);
+	static void plotTwoHistShift(THash<TStr,CascadeElementV>& q1, THash<TStr,CascadeElementV>& q2, int period, char* periodstr, char* name, Mode mode, char* s1, char* s2);
 
 	static THash<TStr,CascadeElementV> loadQuotes(char* name);
 	static THash<TUInt,TSecTmV> loadTwitter(char* name);

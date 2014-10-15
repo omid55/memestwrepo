@@ -16,12 +16,12 @@ MAIN = find_all_memes_cascades
 
 omid_opt_linux: CXXFLAGS += -O4
 omid_opt_linux: LDFLAGS += -lrt -O4     # -ggdb 	 # for enabling the debugging mode in Eclipse
-omid_opt_linux: $(MAIN) plot_hist_centered_memes_cascades create_quotes_news_blogs_justfirst justchecktweettimes add_novisited_real_urls plot_individually_centered_memes_cascade plot_individually_centered_both_cascades filter_peaks_by_nifty_apply_both search_post_in_memetracker_files plot_cascade_no_centeralized plot_one_quote_cascade plot_hist_centered_both_cascades filter_peaks_by_nifty_apply_memes set_range_for_quotes_cascades plotccdf_memes_twittercontents_withhist plotccdf_memes_twitterurls_withhist plotccdf_memes_twitter select_and_save_quotes_cascaded_both plot_centered_memes_cascade save_cascades_for_matlab find_cascades_of_quotes_with_trie TestTrieLargely mytrie_testing find_cascades_of_quotes_in_urls find_posts_propagated_over_twitter pack_twitter_real_urls separate_raw_urls_print_statistics separate_raw_urls save_all_urls_separately find_cascades_of_quotes find_cascades_of_quotes_separately check_tweets_length create_network find_tweet_raw_urls separately_search_quotes_content_over_twitter_files separate_quotes_contents preprocessing_quotes splitup_quotes creating_other_infos find_all_memes_cascades insert_memes_quotes_cascade_intodb subseting_quotes_cascades
+omid_opt_linux: $(MAIN) plot_scatter_for_Twitter_only plot_percentage_of_first_end plot_scatter plot_proportion_volume plot_hist_centered_memes_cascades create_quotes_news_blogs_justfirst justchecktweettimes add_novisited_real_urls plot_individually_centered_memes_cascade plot_individually_centered_both_cascades filter_peaks_by_nifty_apply_both search_post_in_memetracker_files plot_cascade_no_centeralized plot_one_quote_cascade plot_hist_centered_both_cascades filter_peaks_by_nifty_apply_memes set_range_for_quotes_cascades plotccdf_memes_twittercontents_withhist plotccdf_memes_twitterurls_withhist plotccdf_memes_twitter select_and_save_quotes_cascaded_both plot_centered_memes_cascade save_cascades_for_matlab find_cascades_of_quotes_with_trie TestTrieLargely mytrie_testing find_cascades_of_quotes_in_urls find_posts_propagated_over_twitter pack_twitter_real_urls separate_raw_urls_print_statistics separate_raw_urls save_all_urls_separately find_cascades_of_quotes find_cascades_of_quotes_separately check_tweets_length create_network find_tweet_raw_urls separately_search_quotes_content_over_twitter_files separate_quotes_contents preprocessing_quotes splitup_quotes creating_other_infos find_all_memes_cascades insert_memes_quotes_cascade_intodb subseting_quotes_cascades
 
 
 sws: CXXFLAGS += -O4
 sws: LDFLAGS += -lrt -O4     # -ggdb
-sws: $(MAIN) justchecktweettimes find_cascades_of_quotes add_novisited_real_urls find_cascades_of_quotes_with_trie find_cascades_of_quotes_separately find_tweet_raw_urls find_posts_propagated_over_twitter save_all_urls_separately check_tweets_length create_network
+sws: $(MAIN) plot_scatter_for_Twitter_only plot_percentage_of_first_end plot_scatter plot_proportion_volume justchecktweettimes find_cascades_of_quotes add_novisited_real_urls find_cascades_of_quotes_with_trie find_cascades_of_quotes_separately find_tweet_raw_urls find_posts_propagated_over_twitter save_all_urls_separately check_tweets_length create_network
 
 
 mpi: CXXFLAGS += -O4
@@ -29,6 +29,17 @@ mpi: LDFLAGS += -lrt -O4     # -ggdb
 mpi: $(MAIN) plot_individually_centered_both_cascades filter_peaks_by_nifty_apply_both create_quotes_news_blogs_justfirst TestTrieLargely plotccdf_memes_twitter plotccdf_memes_twitter plot_hist_centered_memes_cascades plot_individually_centered_memes_cascade find_all_memes_cascades search_post_in_memetracker_files plot_cascade_no_centeralized plot_one_quote_cascade plot_hist_centered_both_cascades filter_peaks_by_nifty_apply_memes set_range_for_quotes_cascades plotccdf_memes_twittercontents_withhist plotccdf_memes_twitterurls_withhist select_and_save_quotes_cascaded_both plot_centered_memes_cascade save_cascades_for_matlab mytrie_testing find_cascades_of_quotes_in_urls pack_twitter_real_urls separate_raw_urls_print_statistics separate_raw_urls separately_search_quotes_content_over_twitter_files separate_quotes_contents preprocessing_quotes splitup_quotes creating_other_infos insert_memes_quotes_cascade_intodb subseting_quotes_cascades 	# create_network
 
 # COMPILE
+plot_scatter_for_Twitter_only: plot_scatter_for_Twitter_only.cpp TwitterUrl.cpp CascadeElement.cpp Tools.cpp Snap.o 
+	g++ -o plot_scatter_for_Twitter_only plot_scatter_for_Twitter_only.cpp TwitterUrl.cpp CascadeElement.cpp Tools.cpp Snap.o -I./glib -I./snap -L/usr/lib/x86_64-linux-gnu,-Bsymbolic-functions -Wl,-z,relro -Wno-write-strings $(LDFLAGS)
+
+plot_percentage_of_first_end: plot_percentage_of_first_end.cpp TwitterUrl.cpp CascadeElement.cpp Tools.cpp Snap.o 
+	g++ -o plot_percentage_of_first_end plot_percentage_of_first_end.cpp TwitterUrl.cpp CascadeElement.cpp Tools.cpp Snap.o -I./glib -I./snap -L/usr/lib/x86_64-linux-gnu,-Bsymbolic-functions -Wl,-z,relro -Wno-write-strings $(LDFLAGS)
+
+plot_scatter: plot_scatter.cpp TwitterUrl.cpp CascadeElement.cpp Tools.cpp Snap.o 
+	g++ -o plot_scatter plot_scatter.cpp TwitterUrl.cpp CascadeElement.cpp Tools.cpp Snap.o -I./glib -I./snap -L/usr/lib/x86_64-linux-gnu,-Bsymbolic-functions -Wl,-z,relro -Wno-write-strings $(LDFLAGS)
+
+plot_proportion_volume: plot_proportion_volume.cpp TwitterUrl.cpp CascadeElement.cpp Tools.cpp Snap.o 
+	g++ -o plot_proportion_volume plot_proportion_volume.cpp TwitterUrl.cpp CascadeElement.cpp Tools.cpp Snap.o -I./glib -I./snap -L/usr/lib/x86_64-linux-gnu,-Bsymbolic-functions -Wl,-z,relro -Wno-write-strings $(LDFLAGS)
 
 justchecktweettimes: justchecktweettimes.cpp Snap.o 
 	g++ -o justchecktweettimes justchecktweettimes.cpp Snap.o -I./glib -I./snap -L/usr/lib/x86_64-linux-gnu -Wl,-Bsymbolic-functions -Wl,-z,relro -I/usr/include/postgresql -lsqlite3 -lpq -Wno-write-strings $(LDFLAGS)

@@ -162,187 +162,201 @@
 //}
 
 
-// DELETE IT
-static int myrange = 24;
-static int begin = TSecTm(2008,7,31,0,0,0).GetAbsSecs();
-static int end = TSecTm(2009,10,1,0,0,0).GetAbsSecs();
-bool myPlotTwoIndividuallyShift(THash<TStr,CascadeElementV>& quotes, THash<TUInt,TSecTmV>& twitter, uint period, char* periodstr, char* name)
-{
-	int bins = (end - begin) / period;
-	///cout << "BINS: " << bins << ", Memetracker Len: " << quotes.Len() << ", Twitter Len: " << twitter.Len() << endl << endl;
-	int lengt = 2 * bins + 1;
-	int center = bins;   //(lengt - 1) / 2;
-	double* memeVolumes = new double[lengt];
-	double* twitterVolumes = new double[lengt];
-	for(int i=0;i<lengt;i++)
-	{
-		memeVolumes[i] = 0;
-		twitterVolumes[i] = 0;
-	}
-
-	for(int q=0;q<quotes.Len();q++)
-	{
-		int leng = quotes[q].Len() + twitter[q].Len();
-		int* integratedTimestamps = new int[leng];
-		for(int i=0;i<quotes[q].Len();i++)
-		{
-			integratedTimestamps[i] = quotes[q][i].time.GetAbsSecs();
-		}
-		for(int i=0;i<twitter[q].Len();i++)
-		{
-			integratedTimestamps[quotes[q].Len()+i] = twitter[q][i].GetAbsSecs();
-		}
-		sort(integratedTimestamps,integratedTimestamps+leng);
-		int medIndex = (leng-1)/2;
-		int integratedMedianValue = integratedTimestamps[medIndex];
-		delete[] integratedTimestamps;
-
-		TIntV memeCascade;
-		for(int i=0;i<quotes[q].Len();i++)
-		{
-			memeCascade.Add((int)quotes[q][i].time.GetAbsSecs() - integratedMedianValue);
-		}
-		TIntV twitterCascade;
-		for(int i=0;i<twitter[q].Len();i++)
-		{
-			twitterCascade.Add((int)twitter[q][i].GetAbsSecs() - integratedMedianValue);
-		}
-		double beginShifted = period * (0.5 + floor((end - begin) / period)) * -1.0;
-
-		double* memeVol = Tools::calculateHistOfCascade(memeCascade,beginShifted,period,true);
-		memeCascade.Clr();
-		for(int i=0;i<lengt;i++)
-		{
-			memeVolumes[i] += memeVol[i];
-		}
-		delete[] memeVol;
-
-		double* twitterVol = Tools::calculateHistOfCascade(twitterCascade,beginShifted,period,true);
-		twitterCascade.Clr();
-		for(int i=0;i<lengt;i++)
-		{
-			twitterVolumes[i] += twitterVol[i];
-		}
-		delete[] twitterVol;
-	}
-
-	// Finding max indices
-	double maxm = 0;
-	int memeMaxId = -1;
-	for(int i=0;i<lengt;i++)
-	{
-		if(maxm < memeVolumes[i])
-		{
-			maxm = memeVolumes[i];
-			memeMaxId = i;
-		}
-	}
-	double maxt = 0;
-	int twMaxId = -1;
-	for(int i=0;i<lengt;i++)
-	{
-		if(maxt < twitterVolumes[i])
-		{
-			maxt = twitterVolumes[i];
-			twMaxId = i;
-		}
-	}
-	///cout << "\n\nMemeMaxId: " << memeMaxId << ", value: " << maxm << endl;
-	///cout << "TwMaxId: " << twMaxId << ", value: " << maxt << endl << endl;
-
-	if(twMaxId == memeMaxId)
-	{
-		return false;
-	}
-
-	cout << "\n\nMemeMaxId: " << memeMaxId << ", value: " << maxm << endl;
-	cout << "TwMaxId: " << twMaxId << ", value: " << maxt << endl << endl;
-
-	printf("\n\nPlotting ...\n");
-	TFltPrV memeVolumes4Plot;
-	TFltPrV twitterVolumes4Plot;
-	IAssert(center-myrange>=0 && center+myrange<lengt);
-	for(int i=center-myrange;i<=center+myrange;i++)
+//// DELETE IT
+//static int myrange = 3;
+//static int begin = TSecTm(2008,7,31,0,0,0).GetAbsSecs();
+//static int end = TSecTm(2009,10,1,0,0,0).GetAbsSecs();
+//bool myPlotTwoIndividuallyShift(THash<TStr,CascadeElementV>& quotes, THash<TUInt,TSecTmV>& twitter, uint period, char* periodstr, char* name)
+//{
+//	int bins = (end - begin) / period;
+//	///cout << "BINS: " << bins << ", Memetracker Len: " << quotes.Len() << ", Twitter Len: " << twitter.Len() << endl << endl;
+//	int lengt = 2 * bins + 1;
+//	int center = bins;   //(lengt - 1) / 2;
+//	double* memeVolumes = new double[lengt];
+//	double* twitterVolumes = new double[lengt];
 //	for(int i=0;i<lengt;i++)
-	{
-		memeVolumes[i] /= quotes.Len();
-		twitterVolumes[i] /= quotes.Len();
-		TFltPr elem1;
-		elem1.Val1 = -center + i;
-		elem1.Val2 = memeVolumes[i];
-//		cout << "memeVolumes[" << i << "]: " << memeVolumes[i] << endl;
-		memeVolumes4Plot.Add(elem1);
-
-		TFltPr elem2;
-		elem2.Val1 = -center + i;
-		elem2.Val2 = twitterVolumes[i];
-//		cout << "twitterVolumes[" << i << "]: " << twitterVolumes[i] << endl;
-		twitterVolumes4Plot.Add(elem2);
-	}
-	delete[] memeVolumes;
-	delete[] twitterVolumes;
-
-	// Plotting
-//	TGnuPlot plot1;
-//	plot1.SetXYLabel("Time[hours]", "Volume");
-//	plot1.AddPlot(memeVolumes4Plot,gpwLinesPoints,"Memes");
-//	plot1.AddPlot(twitterVolumes4Plot,gpwLinesPoints,"Twitter");
-//	plot1.SetDataPlotFNm(TStr::Fmt("MyResults/%s-Original.tab",name), TStr::Fmt("MyResults/%s-Original.plt",name));
-//	plot1.SaveEps(TStr::Fmt("MyResults/%s-Original.eps",name));
-
-	TGnuPlot plot2;
-	plot2.SetXYLabel(TStr::Fmt("Time[%s]",periodstr), "Volume");
-	plot2.AddPlot(memeVolumes4Plot,gpwPoints,"Memes");
-	plot2.AddPlot(twitterVolumes4Plot,gpwPoints,"Twitter");
-	plot2.SetDataPlotFNm(TStr::Fmt("MyResults/%s.tab",name), TStr::Fmt("MyResults/%s.plt",name));
-	plot2.SaveEps(TStr::Fmt("MyResults/%s.eps",name),true);
-
-	printf("Plot %s is done.\n",name);
-	return true;
-}
-// DELETE IT
+//	{
+//		memeVolumes[i] = 0;
+//		twitterVolumes[i] = 0;
+//	}
+//
+//	for(int q=0;q<quotes.Len();q++)
+//	{
+//		int leng = quotes[q].Len() + twitter[q].Len();
+//		int* integratedTimestamps = new int[leng];
+//		for(int i=0;i<quotes[q].Len();i++)
+//		{
+//			integratedTimestamps[i] = quotes[q][i].time.GetAbsSecs();
+//		}
+//		for(int i=0;i<twitter[q].Len();i++)
+//		{
+//			integratedTimestamps[quotes[q].Len()+i] = twitter[q][i].GetAbsSecs();
+//		}
+//		sort(integratedTimestamps,integratedTimestamps+leng);
+//		int medIndex = (leng-1)/2;
+//		int integratedMedianValue = integratedTimestamps[medIndex];
+//		delete[] integratedTimestamps;
+//
+//		TIntV memeCascade;
+//		for(int i=0;i<quotes[q].Len();i++)
+//		{
+//			memeCascade.Add((int)quotes[q][i].time.GetAbsSecs() - integratedMedianValue);
+//		}
+//		TIntV twitterCascade;
+//		for(int i=0;i<twitter[q].Len();i++)
+//		{
+//			twitterCascade.Add((int)twitter[q][i].GetAbsSecs() - integratedMedianValue);
+//		}
+//		double beginShifted = period * (0.5 + floor((end - begin) / period)) * -1.0;
+//
+//		double* memeVol = Tools::calculateHistOfCascade(memeCascade,beginShifted,period,false);
+//		memeCascade.Clr();
+//		for(int i=0;i<lengt;i++)
+//		{
+//			memeVolumes[i] += memeVol[i];
+//		}
+//		delete[] memeVol;
+//
+//		double* twitterVol = Tools::calculateHistOfCascade(twitterCascade,beginShifted,period,false);
+//		twitterCascade.Clr();
+//		for(int i=0;i<lengt;i++)
+//		{
+//			twitterVolumes[i] += twitterVol[i];
+//		}
+//		delete[] twitterVol;
+//	}
+//
+//	// Finding max indices
+//	double maxm = 0;
+//	int memeMaxId = -1;
+//	for(int i=0;i<lengt;i++)
+//	{
+//		if(maxm < memeVolumes[i])
+//		{
+//			maxm = memeVolumes[i];
+//			memeMaxId = i;
+//		}
+//	}
+//	double maxt = 0;
+//	int twMaxId = -1;
+//	for(int i=0;i<lengt;i++)
+//	{
+//		if(maxt < twitterVolumes[i])
+//		{
+//			maxt = twitterVolumes[i];
+//			twMaxId = i;
+//		}
+//	}
+//	///cout << "\n\nMemeMaxId: " << memeMaxId << ", value: " << maxm << endl;
+//	///cout << "TwMaxId: " << twMaxId << ", value: " << maxt << endl << endl;
+//
+//	if(twMaxId == memeMaxId)
+//	{
+//		return false;
+//	}
+//
+//	cout << "\n\nMemeMaxId: " << memeMaxId << ", value: " << maxm << endl;
+//	cout << "TwMaxId: " << twMaxId << ", value: " << maxt << endl << endl;
+//
+//	printf("\n\nPlotting ...\n");
+//	TFltPrV memeVolumes4Plot;
+//	TFltPrV twitterVolumes4Plot;
+//	IAssert(center-myrange>=0 && center+myrange<lengt);
+//	for(int i=center-myrange;i<=center+myrange;i++)
+////	for(int i=0;i<lengt;i++)
+//	{
+//		memeVolumes[i] /= quotes.Len();
+//		twitterVolumes[i] /= quotes.Len();
+//		TFltPr elem1;
+//		elem1.Val1 = -center + i;
+//		elem1.Val2 = memeVolumes[i];
+////		cout << "memeVolumes[" << i << "]: " << memeVolumes[i] << endl;
+//		memeVolumes4Plot.Add(elem1);
+//
+//		TFltPr elem2;
+//		elem2.Val1 = -center + i;
+//		elem2.Val2 = twitterVolumes[i];
+////		cout << "twitterVolumes[" << i << "]: " << twitterVolumes[i] << endl;
+//		twitterVolumes4Plot.Add(elem2);
+//	}
+//	delete[] memeVolumes;
+//	delete[] twitterVolumes;
+//
+//	// Plotting
+////	TGnuPlot plot1;
+////	plot1.SetXYLabel("Time[hours]", "Volume");
+////	plot1.AddPlot(memeVolumes4Plot,gpwLinesPoints,"Memes");
+////	plot1.AddPlot(twitterVolumes4Plot,gpwLinesPoints,"Twitter");
+////	plot1.SetDataPlotFNm(TStr::Fmt("MyResults/%s-Original.tab",name), TStr::Fmt("MyResults/%s-Original.plt",name));
+////	plot1.SaveEps(TStr::Fmt("MyResults/%s-Original.eps",name));
+//
+//	TGnuPlot plot2;
+//	plot2.SetXYLabel(TStr::Fmt("Time[%s]",periodstr), "Volume");
+//	plot2.AddPlot(memeVolumes4Plot,gpwPoints,"Memes");
+//	plot2.AddPlot(twitterVolumes4Plot,gpwPoints,"Twitter");
+//	plot2.SetDataPlotFNm(TStr::Fmt("MyResults/%s.tab",name), TStr::Fmt("MyResults/%s.plt",name));
+//	plot2.SaveEps(TStr::Fmt("MyResults/%s.eps",name),true);
+//
+//	printf("Plot %s is done.\n",name);
+//	return true;
+//}
+//// DELETE IT
 
 
 
 int main(int argc, char* argv[])
 {
-//	// test with toy example with small numbers
-//	cout << "TESTING:\n\n\n";
-//	THash< TStr , CascadeElementV > qq1;
-//	THash< TUInt , TSecTmV > tt1;
-//	TStr emp("55");
-//	CascadeElementV v;
-//	TSecTm t1(uint(3));
-//	TSecTm t2(uint(5));
-//	TSecTm t3(uint(6));
-//	TSecTm t4(uint(7));
-//	TSecTm t5(uint(7));
-//	TSecTm t6(uint(8));
-//	TSecTm t7(uint(11));
-//	v.Add(CascadeElement(t1));
-//	v.Add(CascadeElement(t2));
-//	v.Add(CascadeElement(t3));
-//	v.Add(CascadeElement(t4));
-//	v.Add(CascadeElement(t5));
-//	v.Add(CascadeElement(t6));
-//	v.Add(CascadeElement(t7));
-//	qq1.AddDat(emp,v);
-//
-//	TSecTmV v2;
-//	v2.Add(TSecTm(uint(2)));
-//	v2.Add(TSecTm(uint(4)));
-//	v2.Add(TSecTm(uint(6)));
-//	v2.Add(TSecTm(uint(8)));
-//	tt1.AddDat(0,v2);
-//
-//	uint per = 4;
-//	char pst[] = "4 unit";
-//
-//	Tools::plotTwoIndividuallyShift(qq1,tt1,per,pst,"MY-TOY-TEST");
-//	Tools::plotCCDFStartMedianEnd(qq1,tt1,"MemesTOY","Memes");
-//	Tools::plotTwoHistShift(qq1,tt1,per,pst,"HistMedian",MEDIAN,"Memes","Twitter");
-//	return 0;
-//	//// ----------------------------------------
+	// test with toy example with small numbers
+	cout << "TESTING:\n\n\n";
+	THash< TStr , CascadeElementV > qq1;
+	THash< TUInt , TSecTmV > tt1;
+	CascadeElementV v1;
+	TSecTm t1(uint(3));
+	TSecTm t2(uint(5));
+	TSecTm t3(uint(6));
+	TSecTm t4(uint(7));
+	TSecTm t5(uint(7));
+	TSecTm t6(uint(8));
+	TSecTm t7(uint(11));
+	v1.Add(CascadeElement(t1));
+	v1.Add(CascadeElement(t2));
+	v1.Add(CascadeElement(t3));
+	v1.Add(CascadeElement(t4));
+	v1.Add(CascadeElement(t5));
+	v1.Add(CascadeElement(t6));
+	v1.Add(CascadeElement(t7));
+	qq1.AddDat("o1",v1);
+//	CascadeElementV v2;
+//	TSecTm t12(uint(2));
+//	TSecTm t22(uint(3));
+//	TSecTm t32(uint(3));
+//	TSecTm t42(uint(5));
+//	v2.Add(CascadeElement(t12));
+//	v2.Add(CascadeElement(t22));
+//	v2.Add(CascadeElement(t32));
+//	v2.Add(CascadeElement(t42));
+//	qq1.AddDat("o2",v2);
+
+	TSecTmV v3;
+	v3.Add(TSecTm(uint(2)));
+	v3.Add(TSecTm(uint(4)));
+	v3.Add(TSecTm(uint(6)));
+	v3.Add(TSecTm(uint(8)));
+	tt1.AddDat(0,v3);
+//	TSecTmV v4;
+//	v4.Add(TSecTm(uint(2)));
+//	v4.Add(TSecTm(uint(4)));
+//	v4.Add(TSecTm(uint(11)));
+//	tt1.AddDat(1,v4);
+
+	uint per = 2;
+	printf("\nInputed period: %d\n\n", per);
+	char pst[] = "units";
+
+	Tools::plotTwoIndividuallyShift(qq1,tt1,per,pst,"MY-TOY-TEST");
+//	Tools::plotCCDFStartMedianEnd(qq1,tt1,"Memes","Twitter");
+	return 0;
+	//// ----------------------------------------
 
 //	// test with toy example with small numbers
 //	THash< TStr , CascadeElementV > qq1;
@@ -426,12 +440,12 @@ int main(int argc, char* argv[])
 		Env.PrepArgs(TStr::Fmt("\nPlotting Individually Memes-Twitter Cascades. build: %s, %s. Time: %s", __TIME__, __DATE__, TExeTm::GetCurTm()));
 
 		// URLS
-		THash< TStr , CascadeElementV > quotes1 = Tools::loadQuotes("/NS/twitter-5/work/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_HAVINGBOTH.rar");    // QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS
-		THash< TUInt , TSecTmV > twitter1 = Tools::loadTwitter("/NS/twitter-5/work/oaskaris/DATA/CascadesFullUrlsOnTwitterData_FINALFILTERED_HAVINGBOTH.rar");     // CascadesFullUrlsOnTwitterData_FINALFILTERED
+		THash< TStr , CascadeElementV > quotes1 = Tools::loadQuotes("DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_HAVINGBOTH.rar");    // QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS
+		THash< TUInt , TSecTmV > twitter1 = Tools::loadTwitter("DATA/CascadesFullUrlsOnTwitterData_FINALFILTERED_HAVINGBOTH.rar");     // CascadesFullUrlsOnTwitterData_FINALFILTERED
 
 		// CONTENTS
-		THash< TStr , CascadeElementV > quotes2 = Tools::loadQuotes("/NS/twitter-5/work/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_HAVINGBOTH.rar");    // QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents
-		THash< TUInt , TSecTmV > twitter2 = Tools::loadTwitter("/NS/twitter-5/work/oaskaris/DATA/CascadesOnTwitterData_FINALFILTERED_HAVINGBOTH.rar");    // CascadesOnTwitterData_FINALFILTERED
+		THash< TStr , CascadeElementV > quotes2 = Tools::loadQuotes("DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_HAVINGBOTH.rar");    // QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents
+		THash< TUInt , TSecTmV > twitter2 = Tools::loadTwitter("DATA/CascadesOnTwitterData_FINALFILTERED_HAVINGBOTH.rar");    // CascadesOnTwitterData_FINALFILTERED
 
 //		// News vs Blogs
 //		THash< TStr , CascadeElementV > q1 = Tools::loadQuotes("QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS_NEWS.rar");
@@ -452,17 +466,17 @@ int main(int argc, char* argv[])
 
 //		/////
 //		// URLS
-//		THash< TStr , CascadeElementV > quotes1; // = Tools::loadQuotes("/NS/twitter-5/work/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_HAVINGBOTH.rar");    // QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS
-//		quotes1.AddDat(Tools::loadQuotes("/NS/twitter-5/work/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_HAVINGBOTH.rar").GetKey(0),Tools::loadQuotes("/NS/twitter-5/work/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_HAVINGBOTH.rar")[0]);    // CascadesOnTwitterData_FINALFILTERED
-//		THash< TUInt , TSecTmV > twitter1; // = Tools::loadTwitter("/NS/twitter-5/work/oaskaris/DATA/CascadesFullUrlsOnTwitterData_FINALFILTERED_HAVINGBOTH.rar");     // CascadesFullUrlsOnTwitterData_FINALFILTERED
-//		twitter1.AddDat(Tools::loadTwitter("/NS/twitter-5/work/oaskaris/DATA/CascadesFullUrlsOnTwitterData_FINALFILTERED_HAVINGBOTH.rar").GetKey(0),Tools::loadTwitter("/NS/twitter-5/work/oaskaris/DATA/CascadesFullUrlsOnTwitterData_FINALFILTERED_HAVINGBOTH.rar")[0]);    // CascadesOnTwitterData_FINALFILTERED
+//		THash< TStr , CascadeElementV > quotes1; // = Tools::loadQuotes("DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_HAVINGBOTH.rar");    // QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4URLS
+//		quotes1.AddDat(Tools::loadQuotes("DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_HAVINGBOTH.rar").GetKey(0),Tools::loadQuotes("DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_HAVINGBOTH.rar")[0]);    // CascadesOnTwitterData_FINALFILTERED
+//		THash< TUInt , TSecTmV > twitter1; // = Tools::loadTwitter("DATA/CascadesFullUrlsOnTwitterData_FINALFILTERED_HAVINGBOTH.rar");     // CascadesFullUrlsOnTwitterData_FINALFILTERED
+//		twitter1.AddDat(Tools::loadTwitter("DATA/CascadesFullUrlsOnTwitterData_FINALFILTERED_HAVINGBOTH.rar").GetKey(0),Tools::loadTwitter("DATA/CascadesFullUrlsOnTwitterData_FINALFILTERED_HAVINGBOTH.rar")[0]);    // CascadesOnTwitterData_FINALFILTERED
 //
 //
 //		// CONTENTS
-//		THash< TStr , CascadeElementV > quotes2; // = Tools::loadQuotes("/NS/twitter-5/work/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_HAVINGBOTH.rar");    // QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents
-//		quotes2.AddDat(Tools::loadQuotes("/NS/twitter-5/work/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_HAVINGBOTH.rar").GetKey(0),Tools::loadQuotes("/NS/twitter-5/work/oaskaris/DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_HAVINGBOTH.rar")[0]);    // CascadesOnTwitterData_FINALFILTERED
-//		THash< TUInt , TSecTmV > twitter2;   // = Tools::loadTwitter("/NS/twitter-5/work/oaskaris/DATA/CascadesOnTwitterData_FINALFILTERED_HAVINGBOTH.rar");
-//		twitter2.AddDat(Tools::loadTwitter("/NS/twitter-5/work/oaskaris/DATA/CascadesOnTwitterData_FINALFILTERED_HAVINGBOTH.rar").GetKey(0),Tools::loadTwitter("/NS/twitter-5/work/oaskaris/DATA/CascadesOnTwitterData_FINALFILTERED_HAVINGBOTH.rar")[0]);    // CascadesOnTwitterData_FINALFILTERED
+//		THash< TStr , CascadeElementV > quotes2; // = Tools::loadQuotes("DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_HAVINGBOTH.rar");    // QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_4Contents
+//		quotes2.AddDat(Tools::loadQuotes("DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_HAVINGBOTH.rar").GetKey(0),Tools::loadQuotes("DATA/QuotesPreprocessedData_NIFTY_RANGEFIXED_FINALFILTERED_HAVINGBOTH.rar")[0]);    // CascadesOnTwitterData_FINALFILTERED
+//		THash< TUInt , TSecTmV > twitter2;   // = Tools::loadTwitter("DATA/CascadesOnTwitterData_FINALFILTERED_HAVINGBOTH.rar");
+//		twitter2.AddDat(Tools::loadTwitter("DATA/CascadesOnTwitterData_FINALFILTERED_HAVINGBOTH.rar").GetKey(0),Tools::loadTwitter("DATA/CascadesOnTwitterData_FINALFILTERED_HAVINGBOTH.rar")[0]);    // CascadesOnTwitterData_FINALFILTERED
 //		/////
 
 
@@ -471,20 +485,20 @@ int main(int argc, char* argv[])
 		int status = system("mkdir -p MyResults/Individual/Urls/; mkdir -p MyResults/Individual/Contents/");
 
 
-		period = atoi(argv[1]);
-		printf("\nFIRST PERIOD IS: %d\n\n\n", period);
-		while(!myPlotTwoIndividuallyShift(quotes2,twitter2,period,periodstr,"Individual/Contents/IndividualContents_NormWithMentions"))
-		{
-			printf("%d\n",period);
-			period++;
-		}
-		cout << "\n\nDDDDDOOOONNNNEEE" << endl;
+//		period = atoi(argv[1]);
+//		printf("\nFIRST PERIOD IS: %d\n\n\n", period);
+//		while(!myPlotTwoIndividuallyShift(quotes2,twitter2,period,periodstr,"Individual/Contents/IndividualContents_NormWithMentions"))
+//		{
+//			printf("%d\n",period);
+//			period++;
+//		}
+//		cout << "\n\nDDDDDOOOONNNNEEE" << endl;
 
 
-
-		///myPlotTwoIndividuallyShift(quotes1,twitter1,period,periodstr,"Individual/Urls/IndividualUrls_NormWithMentions");
-		///myPlotTwoIndividuallyShift(quotes2,twitter2,period,periodstr,"Individual/Contents/IndividualContents_NormWithMentions");
-		///Tools::plotCCDFStartMedianEnd(quotes2, twitter2, "MemesContentsBOTH", "MemesBOTH");
+		int num = atoi(argv[1]);
+		Tools::plotTwoIndividuallyShiftLimited(quotes1,twitter1,period,periodstr,"Individual/Urls/IndividualUrls_NormWithMentions",num);
+		Tools::plotTwoIndividuallyShiftLimited(quotes2,twitter2,period,periodstr,"Individual/Contents/IndividualContents_NormWithMentions",num);
+		Tools::plotCCDFStartMedianEnd(quotes2, twitter2, "MemesContentsBOTH", "MemesBOTH");
 
 //		Tools::plotTwoIndividuallyShift(q1,twitter1,period,periodstr,"Individual/Urls/IndividualUrls_NEWS_NormWithMentions");
 //		Tools::plotTwoIndividuallyShift(q2,twitter2,period,periodstr,"Individual/Contents/IndividualContents_NEWS_NormWithMentions");
