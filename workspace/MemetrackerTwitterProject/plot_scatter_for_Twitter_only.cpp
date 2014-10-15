@@ -36,10 +36,29 @@ int main(int argc, char* argv[])
 		THash< TUInt , TSecTmV > full_twitterUrls = Tools::loadTwitter("/NS/twitter-5/work/oaskaris/DATA/CascadesFullUrlsOnTwitterData_FINALFILTERED.rar");
 		THash< TUInt , TSecTmV > full_twitterContents = Tools::loadTwitter("/NS/twitter-5/work/oaskaris/DATA/CascadesOnTwitterData_FINALFILTERED.rar");
 
+		double cnt = 0;
+		for(int i=0;i<full_twitterUrls.Len();i++)
+		{
+			if(full_twitterContents.GetKeyId(full_twitterUrls.GetKey(i)) != -1)
+			{
+				cnt++;
+			}
+		}
+		cnt /= full_twitterUrls.Len();
+		printf("The percentage of Urls of quotes which have contents as well: %f\n", 100 * cnt);
 
+		cnt = 0;
+		for(int i=0;i<full_twitterContents.Len();i++)
+		{
+			if(full_twitterUrls.GetKeyId(full_twitterContents.GetKey(i)) != -1)
+			{
+				cnt++;
+			}
+		}
+		cnt /= full_twitterContents.Len();
+		printf("The percentage of Contents of quotes which have urls as well: %f\n", 100 * cnt);
 
 		plotScatterLengthOfEachCascade(twitterUrls,twitterContents);
-
 		printf("\nScatter Plot had been drawn successfully.");
 	}
 	catch(exception& ex)
