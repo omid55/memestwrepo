@@ -142,17 +142,17 @@ int main(int argc, char* argv[])
 			c2[i] = cascadesOnTwitterUrls[i].Len();
 		}
 
-		double* c3 = new double[quotescont.Len()];
-		double* c4 = new double[cascadesOnTwitterContents.Len()];
-		for(int i=0;i<quotescont.Len();i++)
-		{
-			c1[i] = quotescont[i].Len();
-			c2[i] = cascadesOnTwitterContents[i].Len();
-		}
+//		double* c3 = new double[quotescont.Len()];
+//		double* c4 = new double[cascadesOnTwitterContents.Len()];
+//		for(int i=0;i<quotescont.Len();i++)
+//		{
+//			c3[i] = quotescont[i].Len();
+//			c4[i] = cascadesOnTwitterContents[i].Len();
+//		}
 
 
 		Tools::plotSimpleCCDF(c1,quotesurl.Len(),c2,cascadesOnTwitterUrls.Len(),"Blogs-News","Urls","Cascade Length");
-		Tools::plotSimpleCCDF(c1,quotescont.Len(),c2,cascadesOnTwitterContents.Len(),"Blogs-News","Contents","Cascade Length");
+//		Tools::plotSimpleCCDF(c3,quotescont.Len(),c4,cascadesOnTwitterContents.Len(),"Blogs-News","Contents","Cascade Length");
 	}
 	catch(exception& ex)
 	{
