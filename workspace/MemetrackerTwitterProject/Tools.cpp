@@ -812,15 +812,15 @@ void Tools::plotSimpleCCDF(double* arr1, int leng1, double* arr2, int leng2, cha
 	TFltPrV points1 = getCCDFYAxis(arr1, leng1);
 	TFltPrV points2 = getCCDFYAxis(arr2, leng2);
 
-	char* name = TStr::Fmt("CCDF_%s_%s",legend1,legend2).CStr();
-	printf("%s Drawing:\n",name);
+	TStr name = TStr::Fmt("CCDF_%s_%s",legend1,legend2);
+	printf("%s Drawing:\n",name.CStr());
 	plot.SetXYLabel(xlabel, "P(X>d)");
 	plot.AddPlot(points1,gpwLines,legend1);
 	plot.AddPlot(points2,gpwLines,TStr::Fmt("%s on Twitter",legend2));
 	plot.AddCmd("set terminal postscript enhanced eps 30 color");
-	plot.SetDataPlotFNm(TStr::Fmt("MyResults/%s.tab",name), TStr::Fmt("MyResults/%s.plt",name));
-	plot.SaveEps(TStr::Fmt("MyResults/%s.eps",name));
-	printf("%s had been drawn successfully.\n\n",name);
+	plot.SetDataPlotFNm(TStr::Fmt("MyResults/%s.tab",name.CStr()), TStr::Fmt("MyResults/%s.plt",name.CStr()));
+	plot.SaveEps(TStr::Fmt("MyResults/%s.eps",name.CStr()));
+	printf("%s had been drawn successfully.\n\n",name.CStr());
 }
 
 void Tools::plotCCDFStartMedianEnd(THash<TStr,CascadeElementV> quotes, THash<TUInt,TSecTmV> twitter, char* name, char* legendname1)

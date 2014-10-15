@@ -9,7 +9,6 @@
 
 #include "stdafx.h"
 
-
 int main(int argc, char* argv[])
 {
 	TExeTm ExeTm;
@@ -150,8 +149,10 @@ int main(int argc, char* argv[])
 			c1[i] = quotescont[i].Len();
 			c2[i] = cascadesOnTwitterContents[i].Len();
 		}
-		Tools::plotSimpleCCDF(c1,quotesurl.Len(),c2,cascadesOnTwitterUrls.Len(),"Blogs-News","urls","Cascade Length");
-		Tools::plotSimpleCCDF(c1,quotescont.Len(),c2,cascadesOnTwitterContents.Len(),"Blogs-News","contents","Cascade Length");
+
+
+		Tools::plotSimpleCCDF(c1,quotesurl.Len(),c2,cascadesOnTwitterUrls.Len(),"Blogs-News","Urls","Cascade Length");
+		Tools::plotSimpleCCDF(c1,quotescont.Len(),c2,cascadesOnTwitterContents.Len(),"Blogs-News","Contents","Cascade Length");
 	}
 	catch(exception& ex)
 	{
