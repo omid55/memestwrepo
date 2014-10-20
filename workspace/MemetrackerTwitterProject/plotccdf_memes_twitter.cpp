@@ -9,9 +9,8 @@
 
 #include "stdafx.h"
 
-TFltPrV mygetCCDFYAxis(double* arr1, int leng1)
+TFltPrV mygetCCDFYAxis(double* arr1, int leng1, int LEN)
 {
-	int LEN = 4;
 	int i;
 	double x,y;
 	TFltPrV points1;
@@ -27,11 +26,11 @@ TFltPrV mygetCCDFYAxis(double* arr1, int leng1)
 	return points1;
 }
 
-void myplotSimpleCCDF(double* arr1, int leng1, double* arr2, int leng2, char* legend1, char* legend2, char* xlabel)
+void myplotSimpleCCDF(double* arr1, int leng1, double* arr2, int leng2, char* legend1, char* legend2, char* xlabel, int LEN)
 {
 	TGnuPlot plot;
-	TFltPrV points1 = mygetCCDFYAxis(arr1, leng1);
-	TFltPrV points2 = mygetCCDFYAxis(arr2, leng2);
+	TFltPrV points1 = mygetCCDFYAxis(arr1, leng1, LEN);
+	TFltPrV points2 = mygetCCDFYAxis(arr2, leng2, LEN);
 
 	TStr name = TStr::Fmt("CCDF_%s_%s",legend1,legend2);
 	printf("%s Drawing:\n",name.CStr());
@@ -187,8 +186,9 @@ int main(int argc, char* argv[])
 
 		// CHANGE THE SCALE ...   << CHECK HERE >>
 
-		myplotSimpleCCDF(c1,quotesurl.Len(),c2,cascadesOnTwitterUrls.Len(),"Blogs-News","Urls","Cascade Length");
-		myplotSimpleCCDF(c3,quotescont.Len(),c4,cascadesOnTwitterContents.Len(),"Blogs-News","Contents","Cascade Length");
+		int LEN = atoi(argv[1]);
+		myplotSimpleCCDF(c1,quotesurl.Len(),c2,cascadesOnTwitterUrls.Len(),"Blogs-News","Urls","Cascade Length", LEN);
+		myplotSimpleCCDF(c3,quotescont.Len(),c4,cascadesOnTwitterContents.Len(),"Blogs-News","Contents","Cascade Length", LEN);
 	}
 	catch(exception& ex)
 	{
