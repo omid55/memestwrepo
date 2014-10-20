@@ -9,38 +9,6 @@
 
 #include "stdafx.h"
 
-TFltPrV mygetCCDFYAxis(double* arr1, int leng1, int LEN)
-{
-	int i;
-	double x,y;
-	TFltPrV points1;
-	sort(arr1,arr1+leng1);
-	for(i=LEN;i<leng1-LEN;i++)
-	{
-		x = arr1[i];
-		y = 1.0 - (1.0/leng1)*i;
-		points1.Add(TFltPr(x,y));
-	}
-	return points1;
-}
-
-void myplotSimpleCCDF(double* arr1, int leng1, double* arr2, int leng2, char* legend1, char* legend2, char* xlabel, int LEN)
-{
-	TGnuPlot plot;
-	TFltPrV points1 = mygetCCDFYAxis(arr1, leng1, LEN);
-	TFltPrV points2 = mygetCCDFYAxis(arr2, leng2, LEN);
-
-	TStr name = TStr::Fmt("CCDF_%s_%s",legend1,legend2);
-	printf("%s Drawing:\n",name.CStr());
-	plot.SetXYLabel(xlabel, "P(X>d)");
-	plot.AddPlot(points1,gpwLines,legend1);
-	plot.AddPlot(points2,gpwLines,TStr::Fmt("%s on Twitter",legend2));
-	plot.AddCmd("set terminal postscript enhanced eps 30 color");
-	plot.SetDataPlotFNm(TStr::Fmt("MyResults/%s.tab",name.CStr()), TStr::Fmt("MyResults/%s.plt",name.CStr()));
-	plot.SaveEps(TStr::Fmt("MyResults/%s.eps",name.CStr()));
-	printf("%s had been drawn successfully.\n\n",name.CStr());
-}
-
 int main(int argc, char* argv[])
 {
 	TExeTm ExeTm;
@@ -184,9 +152,8 @@ int main(int argc, char* argv[])
 
 		// CHANGE THE SCALE ...   << CHECK HERE >>
 
-		int LEN = atoi(argv[1]);
-		myplotSimpleCCDF(c1,quotesurl.Len(),c2,cascadesOnTwitterUrls.Len(),"Blogs-News","Urls","Cascade Length", LEN);
-		myplotSimpleCCDF(c3,quotescont.Len(),c4,cascadesOnTwitterContents.Len(),"Blogs-News","Contents","Cascade Length", LEN);
+		Tools::plotSimpleCCDF(c1,quotesurl.Len(),c2,cascadesOnTwitterUrls.Len(),"Blogs-News","Urls","Cascade Length");
+		Tools::plotSimpleCCDF(c3,quotescont.Len(),c4,cascadesOnTwitterContents.Len(),"Blogs-News","Contents","Cascade Length");
 	}
 	catch(exception& ex)
 	{
