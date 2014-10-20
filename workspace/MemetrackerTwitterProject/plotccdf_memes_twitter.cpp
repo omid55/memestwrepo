@@ -15,9 +15,7 @@ TFltPrV mygetCCDFYAxis(double* arr1, int leng1, int LEN)
 	double x,y;
 	TFltPrV points1;
 	sort(arr1,arr1+leng1);
-	double remove = ((LEN-1) * leng1) / (2 * LEN);
-	cout << "remove: " << remove << ", leng1: " << leng1 << endl;
-	for(i=remove;i<leng1-remove;i++)
+	for(i=LEN;i<leng1-LEN;i++)
 	{
 		x = arr1[i];
 		y = 1.0 - (1.0/leng1)*i;
