@@ -11,11 +11,13 @@
 
 TFltPrV mygetCCDFYAxis(double* arr1, int leng1)
 {
+	int LEN = 4;
 	int i;
 	double x,y;
 	TFltPrV points1;
 	sort(arr1,arr1+leng1);
-	for(i=0;i<leng1;i++)
+	int remove = ((1-LEN) * leng1) / (2 * LEN);
+	for(i=remove;i<leng1-remove;i++)
 	{
 		x = arr1[i];
 		y = 1.0 - (1.0/leng1)*i;
@@ -33,7 +35,7 @@ void myplotSimpleCCDF(double* arr1, int leng1, double* arr2, int leng2, char* le
 	TStr name = TStr::Fmt("CCDF_%s_%s",legend1,legend2);
 	printf("%s Drawing:\n",name.CStr());
 	plot.SetXYLabel(xlabel, "P(X>d)");
-//	plot.AddPlot(points1,gpwLines,legend1);
+	plot.AddPlot(points1,gpwLines,legend1);
 	plot.AddPlot(points2,gpwLines,TStr::Fmt("%s on Twitter",legend2));
 	plot.AddCmd("set terminal postscript enhanced eps 30 color");
 	plot.SetDataPlotFNm(TStr::Fmt("MyResults/%s.tab",name.CStr()), TStr::Fmt("MyResults/%s.plt",name.CStr()));
