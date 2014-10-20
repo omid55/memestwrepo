@@ -784,24 +784,14 @@ void Tools::myPrivatePlotCCDF_PrintPosNeg(double* arr, int leng, char* name, cha
 TFltPrV Tools::getCCDFYAxis(double* arr1, int leng1)
 {
 	int i;
-	bool firstFound = false;
-	double x1,y1,x2,y2,x,y;
+	double x,y;
 	TFltPrV points1;
 	sort(arr1,arr1+leng1);
 	for(i=0;i<leng1;i++)
 	{
 		x = arr1[i];
-
 		y = 1.0 - (1.0/leng1)*i;
 		points1.Add(TFltPr(x,y));
-		if(x > 0 && !firstFound)
-		{
-			firstFound = true;
-			x1 = arr1[i-1];
-			y1 =  1.0 - (1.0/leng1) * (i-1);
-			x2 = x;
-			y2 = y;
-		}
 	}
 	return points1;
 }
