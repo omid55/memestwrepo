@@ -128,13 +128,13 @@ int main(int argc, char* argv[])
 	TZipIn zin1(TStr::Fmt("/NS/twitter-5/work/oaskaris/FINALRAWS/TwitterRAWUrlz%d.rar",NUM).CStr());
 	TZipIn zin2(TStr::Fmt("/NS/twitter-5/work/oaskaris/FINALFULLS/FULLTwitterAllUrlsData%d.rar",NUM).CStr());
 	rawUrls.Load(zin1);
-	realUrls.Load(zin2);
-	cout << "RawLen: " << rawUrls.Len() << ", RealLen: " << realUrls.Len() << endl;
+	allUrls.Load(zin2);
+	cout << "RawLen: " << rawUrls.Len() << ", RealLen: " << allUrls.Len() << endl;
 	for(int ii=0;ii<LEN;ii++)
 	{
-		if(rawUrls[ii].time != realUrls[ii].time)
+		if(rawUrls[ii].time != allUrls[ii].time)
 		{
-			cout << "Raw["<< ii <<"]: " << rawUrls[ii].time.GetYmdTmStr().CStr()<<", Real["<< ii <<"]: " << realUrls[ii].time.GetYmdTmStr().CStr() << endl;
+			cout << "Raw["<< ii <<"]: " << rawUrls[ii].time.GetYmdTmStr().CStr()<<", Real["<< ii <<"]: " << allUrls[ii].time.GetYmdTmStr().CStr() << endl;
 		}
 	}
 	cout << "\n\n\nDone" << endl;
