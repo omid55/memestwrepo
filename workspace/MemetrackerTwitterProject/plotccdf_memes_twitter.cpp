@@ -37,9 +37,9 @@ void myplotSimpleCCDF(double* arr1, int leng1, double* arr2, int leng2, char* le
 	double min = max(arr1[0], arr2[0]);
 	double max = min(arr1[leng1-1], arr2[leng2-1]);
 
-	cout << "arr1[0]: " << arr1[0] << ", arr2[0]: " << arr2[0] << endl;
-	cout << "arr1[leng1-1]: " << arr1[leng1-1] << ", arr2[leng2-1]: " << arr2[leng2-1] << endl;
-	cout << "min: " << min << ", max: " << max << endl;
+//	cout << "arr1[0]: " << arr1[0] << ", arr2[0]: " << arr2[0] << endl;
+//	cout << "arr1[leng1-1]: " << arr1[leng1-1] << ", arr2[leng2-1]: " << arr2[leng2-1] << endl;
+//	cout << "min: " << min << ", max: " << max << endl;
 
 	TFltPrV points1 = mygetCCDFYAxis(arr1, leng1,min,max);
 	TFltPrV points2 = mygetCCDFYAxis(arr2, leng2,min,max);
@@ -196,7 +196,6 @@ int main(int argc, char* argv[])
 			c4[i] = cascadesOnTwitterContents[i].Len();
 		}
 
-		// CHANGE THE SCALE ...   << CHECK HERE >>
 
 		myplotSimpleCCDF(c1,quotesurl.Len(),c2,cascadesOnTwitterUrls.Len(),"Blogs-News","Urls","Cascade Length");
 		myplotSimpleCCDF(c3,quotescont.Len(),c4,cascadesOnTwitterContents.Len(),"Blogs-News","Contents","Cascade Length");

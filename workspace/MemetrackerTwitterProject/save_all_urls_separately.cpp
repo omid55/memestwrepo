@@ -17,7 +17,7 @@ TVec<TwitterUrl> rawUrls;    // for each id rawUrls which it contains
 TVec<TwitterUrl> allUrls;    // for each id allUrls which it contains
 
 // THE RESULT IS GOING TO BE:
-//RAWS-> Items: 390948593, Urls: 400674301
+//RAWS-> Items:  390948593, Urls: 400674301
 //REALS-> Items: 390948593, Urls: 638991861
 
 
@@ -121,19 +121,26 @@ int main(int argc, char* argv[])
 //	}
 //	return 0;
 
-//	TZipIn z1Dat("Pack1/AllUrls0_9.rar");
-//	allUrls.Load(z1Dat);
-//	printf("Leng: %d\n\n",allUrls.Len());
-//	for(int k=0;k<allUrls.Len();k++)
-//	{
-//		printf("%s:\n",allUrls[k].time.GetYmdTmStr().CStr());
-//		for(int o=0;o<allUrls[k].urlsV.Len();o++)
-//		{
-//			printf("%s\n",allUrls[k].urlsV[o].CStr());
-//		}
-//		printf("\n\n\n");
-//	}
-//	return 1;
+
+	// JUST FOR CHECKING
+	int NUM = atoi(argv[1]);
+	int LEN = atoi(argv[2]);
+	TZipIn zin1(TStr::Fmt("/NS/twitter-5/work/oaskaris/FINALRAWS/TwitterRAWUrlz%d.rar",NUM).CStr());
+	TZipIn zin2(TStr::Fmt("/NS/twitter-5/work/oaskaris/FINALFULLS/FULLTwitterAllUrlsData%d.rar",NUM).CStr());
+	rawUrls.Load(zin1);
+	realUrls.Load(zin2);
+	cout << "RawLen: " << rawUrls.Len() << ", RealLen: " << realUrls.Len() << endl;
+	for(int ii=0;ii<LEN;ii++)
+	{
+		if(rawUrls[ii].time != realUrls[ii].time)
+		{
+			cout << "Raw["<< ii <<"]: " << rawUrls[ii].time.GetYmdTmStr().CStr()<<", Real["<< ii <<"]: " << realUrls[ii].time.GetYmdTmStr().CStr() << endl;
+		}
+	}
+	cout << "\n\n\nDone" << endl;
+	return 0;
+	// JUST FOR CHECKING
+
 
 
 	TExeTm ExeTm;
